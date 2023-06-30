@@ -196,7 +196,7 @@
 </ul>
 <p>（详细安装过程：<a target="_blank" rel="noopener" href="https://blog.csdn.net/mukes/article/details/115693833">CSDN - Git 详细安装教程（详解 Git 安装过程的每一个步骤）</a>）</p>
 <p>接下来建议先建立一个文件夹存放你的网站，比如我就放在MyWeb/Blog里。接下来打开Blog文件夹，右键文件夹空白处，点击 git bash here。（win11需要点击显示更多项才会出现这个）</p>
-<p><img src="/.com//GitBashHere.jpg" alt="1"></p>
+<p><img src="http://example.com/2023/06/28/BulidPersonalWeb/GitBashHere.jpg" alt="1"></p>
 <pre><code>git config --global user.name &quot;用户名&quot;
 git config --global user.email &quot;邮箱&quot;
 </code></pre><p>在出现的命令行窗口中输入上述代码，用户名和邮箱都是你自己的GitHub账号。此操作将本地文件与你的GitHub账号绑定。</p>
@@ -214,7 +214,7 @@ git config --global user.email &quot;邮箱&quot;
 <pre><code>hexo init      # 初始化
 npm install    # 安装组件
 </code></pre><p>然后你的文件夹里应该会出现这些东西：</p>
-<p><img src="/.com//Hexo.png" alt="1-1"></p>
+<p><img src="http://example.com/2023/06/28/BulidPersonalWeb/Hexo.png" alt="1-1"></p>
 <p>我们只需要知道 _config.yml 是全局配置文件，用来设置网站的各种玩意， source 里存放我们上传的文章的内容， theme 里存放网站主题就行了。</p>
 <p>关于更细致的文件结构可以参照如下： <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/cfd05c35833c">简书-Hexo文件结构 https://www.jianshu.com/p/cfd05c35833c</a></p>
 <p>完成后依次输入下面命令，启动本地服务器进行预览：</p>
@@ -222,25 +222,25 @@ npm install    # 安装组件
 hexo g      # 生成页面
 hexo s      # 启动预览
 </code></pre><p>访问<a target="_blank" rel="noopener" href="http://localhost:4000">http://localhost:4000</a>，出现 Hexo 默认页面，本地博客安装成功！</p>
-<p><img src="/.com//4000.jpg" alt="1-2"></p>
+<p><img src="http://example.com/2023/06/28/BulidPersonalWeb/4000.jpg" alt="1-2"></p>
 <p>然后就可以在 Bash 关掉端口了。</p>
 <h3 id="2-创建-ssh-密匙："><a href="#2-创建-ssh-密匙：" class="headerlink" title="2. 创建 ssh 密匙："></a>2. 创建 ssh 密匙：</h3><p>我们只需要知道，SSH是一种网络协议，保护计算机信息交换隐私就行了。</p>
 <p>在刚刚打开的 git bash here 命令行里输入这串代码，一路回车就行。</p>
 <pre><code>ssh-keygen -t rsa -C &quot;邮箱&quot;
 </code></pre><p>再输入以下代码查看密钥</p>
 <pre><code>cat ~/.ssh/id_rsa.pub
-</code></pre><p><img src="/.com//ssh.png" alt="2-1"></p>
-<p><img src="/.com//ssh2.jpg" alt="2-2"></p>
+</code></pre><p><img src="http://example.com/2023/06/28/BulidPersonalWeb/ssh.png" alt="2-1"></p>
+<p><img src="http://example.com/2023/06/28/BulidPersonalWeb/ssh2.jpg" alt="2-2"></p>
 <p>将得到的 ssh 内容全部复制，注意复制是 Ctrl+ins 。可以新建一个笔记本把得到的 ssh 存起来。</p>
 <p>登录你的 GitHub 账号，找到 Settings ，选择 SSH and GPG keys，点击 New SSH key。Title 随便取个名字，然后将你刚复制的 ssh 粘贴到 Key 中，完成添加就好了。</p>
 <p>可以使用以下代码检查是否链接成功：</p>
 <pre><code>ssh -T git@github.com
-</code></pre><p><img src="/.com//ssh3.png" alt="2-3"></p>
+</code></pre><p><img src="http://example.com/2023/06/28/BulidPersonalWeb/ssh3.png" alt="2-3"></p>
 <p>出现 You’ve successfully authenticated 说明链接成功。</p>
 <p>有些人在连接时会出现错误，本人能力有限，无法解答，可以复制一下错误信息上网搜索一下。我当时使用手机热点连接就成功了，用 wifi 一直连不上。还有的是开启 22 端口，就交给读者自己去尝试了。</p>
 <h3 id="3-创建-GitHub-Pages-仓库"><a href="#3-创建-GitHub-Pages-仓库" class="headerlink" title="3. 创建 GitHub Pages 仓库"></a>3. 创建 GitHub Pages 仓库</h3><p>通过 Github Pages 服务，建立个人博客不再需要单独购买域名与服务器，GitHub 会提供域名。通过 jekyll， Pages 会对 markdown 文件进行渲染，从而大大提升写blog文章的简易度。</p>
 <p>在GitHub页面点击 New repository</p>
-<p><img src="/.com//github.jpg" alt="3-1"></p>
+<p><img src="http://example.com/2023/06/28/BulidPersonalWeb/github.jpg" alt="3-1"></p>
 <p>接下来j进行</p>
 <ul>
 <li>Repository name 中输入 用户名.github.io</li>
@@ -248,13 +248,13 @@ hexo s      # 启动预览
 <li>Description 选填</li>
 </ul>
 <p>填好后点击 Create repository 创建。</p>
-<p><img src="/.com//repository.png" alt="3-2"></p>
+<p><img src="http://example.com/2023/06/28/BulidPersonalWeb/repository.png" alt="3-2"></p>
 <h3 id="4-部署-Hexo-到-GitHub-Pages"><a href="#4-部署-Hexo-到-GitHub-Pages" class="headerlink" title="4. 部署 Hexo 到 GitHub Pages"></a>4. 部署 Hexo 到 GitHub Pages</h3><p>打开 _config.yml 文件，然后修改末尾的 Deployment 部分，修改成如下：</p>
 <pre><code>deploy:
 type: git
 repository: git@github.com:用户名/用户名.github.io.git
 branch: main
-</code></pre><p><img src="/.com//hexo2.jpg" alt="4-1"></p>
+</code></pre><p><img src="http://example.com/2023/06/28/BulidPersonalWeb/hexo2.jpg" alt="4-1"></p>
 <p>（有些攻略上 branch 写的是 master，但是在2020年 GitHub 已经将默认分支修改成了 main。原因是 Master 容易让人联想到奴隶制的术语。咳咳咳：あなたがわたしのマスターか）</p>
 <p>安装 hexo-deployer-git：</p>
 <p>Deployer （部署器）帮助开发者将网站快速部署到远程服务器上，避免了复杂的指令。Hexo 提供了快速方便的一键部署功能，只需一条命令就能将网站部署到服务器上。</p>
