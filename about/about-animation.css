@@ -1,0 +1,12 @@
+.slide-top {
+    animation: slide-top 1s 正常 没有;
+}
+
+@keyframes slide-top {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(-100px);
+    }
+}

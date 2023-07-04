@@ -1,0 +1,50 @@
+.author-card-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    max-width: 800px; /* 设置最大宽度 */
+    margin-left: auto; /* 将左侧外边距设为自动，使元素水平居中 */
+    margin-right: auto; /* 将右侧外边距设为自动，使元素水平居中 */
+}
+
+.author-card {
+    color: var(--text-highlight-color);
+    position: relative;
+    background: var(--card-bg);
+    border-radius: 1.5rem;
+    padding: 1rem 2.5rem;
+    border: var(--card-border);
+    border: var(--card-border);
+    -webkit-box-shadow: var(--box-shadow);
+    -moz-box-shadow: var(--box-shadow);
+    -ms-box-shadow: var(--box-shadow);
+    -o-box-shadow: var(--box-shadow);
+    box-shadow: var(--box-shadow);
+}
+
+.author-card-SelfInfo {
+    width: 57.5%;
+    background: linear-gradient(120deg, rgba(91, 39, 255, 1)    0%, rgba(0, 212, 255, 1) 100%);
+}
+
+.author-card-personalities{
+    width: 17.5%;
+    background-color: rgba(221, 246, 255, 0.5);
+}
+
+.author-card-introduction{
+    display: grid;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    grid-template-columns: repeat(3, 1fr); /* 将容器分为三列 */
+    gap: 10px; /* 设置列之间的间距 */
+}
+
+.author-card-personalities img {
+    position: absolute;
+    right: -20px;
+    bottom: 10px;
+    width: 150px;
+}

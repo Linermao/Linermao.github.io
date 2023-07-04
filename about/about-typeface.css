@@ -1,0 +1,37 @@
+.author-card-typeface-1 {
+    font-size: 16px;
+    opacity: .8;
+    color: rgb(255,255,255);
+}
+.author-card-typeface-2 {
+    font-size: 25px;
+    opacity: .9;
+    color: rgb(255,255,255);
+}
+.author-card-typeface-3 {
+    font-size: 14px;
+    opacity: .7;
+    color: rgb(0,0,0);
+}
+.author-card-typeface-4 {
+    font-size: 25px;
+    opacity: .9;
+    color: rgb(0,0,0);
+}
+.author-card-typeface-5 {
+    font-size: 18px;
+    color: rgb(0,0,0);
+}
+.author-card-typeface-6 {
+    font-size: 18px;
+    color:#43a6c6;
+    font-family:'Microsoft YaHei';
+}
+.author-card-typeface-7 {
+    font-size: 18px;
+    color:#c69043;
+}
+.author-card-typeface-8 {
+    font-size: 18px;
+    color:#b04fe6;
+}

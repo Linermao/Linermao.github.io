@@ -1,0 +1,19 @@
+.avatar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.avatar-circle {
+    width: 180px; /* 调整为合适的大小 */
+    height: 180px; /* 调整为合适的大小 */
+    margin-top: 20px;
+    margin-bottom: 4px;
+    border-radius: 50%; /* 将边框半径设置为50%以创建圆形 */
+}
+
+.avatar-circle img {
+    width: 100%;
+    height: auto;
+    border-radius: inherit; /* 继承父元素的边框半径属性 */
+}
