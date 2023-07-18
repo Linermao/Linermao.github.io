@@ -1,0 +1,354 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>深度学习篇 （零） | Linermao's Blogs</title><meta name="author" content="Linermao,86281366@qq.com"><meta name="copyright" content="Linermao"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="深度学习篇 （零）前言想要学习深度学习的知识，没有一个完善的开发环境怎么能行？本篇基于本人的使用习惯，分享使用 vscode + WSL 配置最基础的深度学习环境的方法。其中涉及到 CUDA，MiniConda，cuDNN， Pytorch 的安装。 WLS 配置WSL是 “Windows Subsystem for Linux” 的缩写，是 Windows 系统的 Linux 子系统。相比于在传">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深度学习篇 （零）">
+<meta property="og:url" content="http://example.com/2023/07/16/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AF%87%E9%9B%B6/index.html">
+<meta property="og:site_name" content="Linermao&#39;s Blogs">
+<meta property="og:description" content="深度学习篇 （零）前言想要学习深度学习的知识，没有一个完善的开发环境怎么能行？本篇基于本人的使用习惯，分享使用 vscode + WSL 配置最基础的深度学习环境的方法。其中涉及到 CUDA，MiniConda，cuDNN， Pytorch 的安装。 WLS 配置WSL是 “Windows Subsystem for Linux” 的缩写，是 Windows 系统的 Linux 子系统。相比于在传">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/Avatar.jpg">
+<meta property="article:published_time" content="2023-07-16T08:23:10.000Z">
+<meta property="article:modified_time" content="2023-07-18T05:37:18.059Z">
+<meta property="article:author" content="Linermao">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/Avatar.jpg"><link rel="shortcut icon" href="/images/favicon.jpg"><link rel="canonical" href="http://example.com/2023/07/16/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AF%87%E9%9B%B6/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":230},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '深度学习篇 （零）',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: undefined,
+  isToc: true,
+  postUpdate: '2023-07-18 13:37:18'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/images/Avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/images/index.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Linermao's Blogs"><span class="site-name">Linermao's Blogs</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">深度学习篇 （零）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-07-16T08:23:10.000Z" title="发表于 2023-07-16 16:23:10">2023-07-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-07-18T05:37:18.059Z" title="更新于 2023-07-18 13:37:18">2023-07-18</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="深度学习篇 （零）"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="深度学习篇-（零）"><a href="#深度学习篇-（零）" class="headerlink" title="深度学习篇 （零）"></a>深度学习篇 （零）</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>想要学习深度学习的知识，没有一个完善的开发环境怎么能行？本篇基于本人的使用习惯，分享使用 vscode + WSL 配置最基础的深度学习环境的方法。其中涉及到 CUDA，MiniConda，cuDNN， Pytorch 的安装。</p>
+<h3 id="WLS-配置"><a href="#WLS-配置" class="headerlink" title="WLS 配置"></a>WLS 配置</h3><p>WSL是 “Windows Subsystem for Linux” 的缩写，是 Windows 系统的 Linux 子系统。<br>相比于在传统的虚拟机上搭建 Linux 环境，WSL 有如下几点优势：</p>
+<ul>
+<li>与在虚拟机下使用 Linux 相比，WSL 更加流畅。</li>
+<li>WSL 可以对 Windows 文件系统下的文件直接进行读写，文件传输更方便。</li>
+<li>剪贴板互通，可以直接在 Windows 下其它地方复制文本内容，粘贴到 WSL。</li>
+</ul>
+<p>要想使用 WSL ，Windows 系统需要是 win10 或者 win11 。（本人系统为 win11 专业版）</p>
+<h4 id="开启-WSL-功能"><a href="#开启-WSL-功能" class="headerlink" title="开启 WSL 功能"></a>开启 WSL 功能</h4><p>在 windows 下使用 WSL 有两种方法：</p>
+<p>第一种：</p>
+<p>以管理员身份打开 Windows PowerShell ，输入下面的指令。指令执行完后，重启电脑。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux</span><br></pre></td></tr></table></figure>
+<p>第二种：</p>
+<p>打开控制面板找到图中功能，打开保存后重启电脑即可。</p>
+<p><img src="/2023/07/16/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AF%87%E9%9B%B6/1.jpg" alt="second ways"></p>
+<h4 id="开启-WSL2-功能"><a href="#开启-WSL2-功能" class="headerlink" title="*开启 WSL2 功能"></a>*开启 WSL2 功能</h4><p>“ WSL1 和 WSL2 之间的主要区别在于，在托管 VM 内使用实际的 Linux 内核、支持完整的系统调用兼容性以及跨 Linux 和 Windows 操作系统的性能。 WSL 2 是安装 Linux 发行版时的当前默认版本，它使用最新最好的虚拟化技术在轻量级实用工具虚拟机 (VM) 内运行 Linux 内核。”</p>
+<p>（描述来自官方文档）</p>
+<p>有些系统的版本太低，需要先更新 Windows 版本才能使用。</p>
+<p>安装 WSL2 之前，必须启用“虚拟机平台”可选功能。计算机需要虚拟化功能才能使用此功能。以管理员身份打开 PowerShell 并运行：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart</span><br></pre></td></tr></table></figure>
+<p>然后设定 WSL 默认版本为 2。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">wsl --set-default-version 2</span><br></pre></td></tr></table></figure>
+<h4 id="安装-Ubuntu-系统"><a href="#安装-Ubuntu-系统" class="headerlink" title="安装 Ubuntu 系统"></a>安装 Ubuntu 系统</h4><p>安装 ubuntu 源也有多种方法，可以通过 Microsoft Store 安装，也可以使用 PowerShell 使用指令安装。</p>
+<p>本文主要介绍第一种安装方法：</p>
+<p>请先确保 C盘 有16G 左右的运行空间！在后面我们会迁出数据到其他盘，但是开始时需要先安装在 C盘。</p>
+<p>打开 Microsoft Store ，搜索 Ubuntu ，建议选择下载 Ubuntu 20.04.6 LTS 版本，等待下载完成后直接打开就可以了。</p>
+<p>第一次需要你输入用户名和密码，注意，用户名的首字母不能大写！</p>
+<p>输入以下代码检查是否能出现 Ubuntu 配置即可。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">wsl -l -v</span><br></pre></td></tr></table></figure>
+<p><img src="/2023/07/16/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AF%87%E9%9B%B6/2.jpg" alt="check"></p>
+<p>之后就可以很方便的在 PowerShell 新建 Ubuntu 的控制界面了。</p>
+<p><img src="/2023/07/16/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AF%87%E9%9B%B6/3.jpg" alt="3"></p>
+<h4 id="数据迁出-C盘"><a href="#数据迁出-C盘" class="headerlink" title="数据迁出 C盘"></a>数据迁出 C盘</h4><p>如果你是通过指令安装的，则可以跳过这一步。</p>
+<p>由于 Linux 的内核默认装在 C盘，之后只会越来越臃肿，挤占系统盘空间，所以建议分到其他盘符去。</p>
+<p>打开命令行，依次输入：</p>
+<ol>
+<li>关闭 WSL 子系统：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">wsl --shutdown</span><br></pre></td></tr></table></figure>
+<ol>
+<li>导出 Ubuntu：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">wsl --export Ubuntu-xx.xx E:\Ubuntu\ubuntu.tar</span><br></pre></td></tr></table></figure>
+<p>xx.xx 为版本号，本人为 20.04。导出路径自己定义</p>
+<ol>
+<li>注销先前的系统：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">wsl --unregister Ubuntu-20.04   </span><br></pre></td></tr></table></figure>
+<ol>
+<li>导入备份好的包：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">wsl --import Ubuntu-xx.xx E:\Ubuntu\ E:\Ubuntu\ubuntu.tar --version 2</span><br></pre></td></tr></table></figure>
+<p>前一个路径为导出路径，后一个为备份所在路径。</p>
+<p>重启 WSL 即可。</p>
+<h4 id="linux-下载换源"><a href="#linux-下载换源" class="headerlink" title="*linux 下载换源"></a>*linux 下载换源</h4><p>大部分 linux 发行版的服务器都在国外所以下载速度都会很慢，使用国内的镜像下载速度就快很多。这一方面就不再多说，自己上网查询。</p>
+<p>指路：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/142014944">知乎：Ubuntu20.04软件源更换</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44624327/article/details/121468615">CSDN：Linux更换下载源</a></li>
+</ul>
+<h3 id="CUDA-安装"><a href="#CUDA-安装" class="headerlink" title="CUDA 安装"></a>CUDA 安装</h3><p>首先需要知道自己的电脑是否具有使用 CUDA 的条件。</p>
+<p>在命令行中输入：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nvidia-smi</span><br></pre></td></tr></table></figure>
+<p><img src="/2023/07/16/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AF%87%E9%9B%B6/4.jpg" alt="nvidia"></p>
+<p>红笔位置就是当前电脑支持的最高版本的 CUDA 。</p>
+<p>（截至 23/7/18 日，pytorch 最高只能支持 CUDA 11.8 版本，所以建议安装11.8 或者 11.7 版本。）</p>
+<ol>
+<li>一条一条输入，需要的时间可能比较长，中途可能还需要输入密码，在执行倒数第二步时可能出现失败的提示，输入它提供的指令或者倒数第一条指令就可以了。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">wget https://developer.download.nvidia.com/compute/cuda/repos/wsl-ubuntu/x86_64/cuda-wsl-ubuntu.pin</span><br><span class="line">sudo mv cuda-wsl-ubuntu.pin /etc/apt/preferences.d/cuda-repository-pin-600</span><br><span class="line">wget https://developer.download.nvidia.com/compute/cuda/11.8.0/local_installers/cuda-repo-wsl-ubuntu-11-8-local_11.8.0-1_amd64.deb</span><br><span class="line">sudo dpkg -i cuda-repo-wsl-ubuntu-11-8-local_11.8.0-1_amd64.deb</span><br><span class="line">sudo cp /var/cuda-repo-wsl-ubuntu-11-8-local/cuda-*-keyring.</span><br></pre></td></tr></table></figure>
+<ol>
+<li>进行安装。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get -y install cuda</span><br></pre></td></tr></table></figure>
+<ol>
+<li>设置环境变量，输入：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">vim ~/.bashrc</span><br></pre></td></tr></table></figure>
+<ol>
+<li>用上下左右键移动到最后一行，点击 i 键进入 Insert 模式，新建一行然后粘贴以下内容：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">export PATH=/usr/bin:$PATH</span><br><span class="line">export PATH=/usr/local/cuda-11.8/bin:$PATH</span><br><span class="line">export LD_LIBRARY_PATH=/usr/local/cuda-11.8/lib64:$LD_LIBRARY_PATH</span><br></pre></td></tr></table></figure>
+<p>（注意版本号要和自己下载的一致。按 ESC 退出，输入 :wq 回到控制窗口。）</p>
+<ol>
+<li>更新下 source：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">source ~/.bashrc</span><br></pre></td></tr></table></figure>
+<ol>
+<li>然后输入  nvcc -V 检查是否成功。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nvcc -V</span><br></pre></td></tr></table></figure>
+<p><img src="/2023/07/16/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AF%87%E9%9B%B6/5.jpg" alt="nvcc"></p>
+<p>出现版本号等信息即成功。</p>
+<h3 id="cuDNN-安装"><a href="#cuDNN-安装" class="headerlink" title="cuDNN 安装"></a>cuDNN 安装</h3><ol>
+<li>下载 cuDNN:</li>
+</ol>
+<p>需要注册一个 Navid 账号。</p>
+<p><a target="_blank" rel="noopener" href="https://developer.nvidia.com/rdp/cudnn-archive">https://developer.nvidia.com/rdp/cudnn-archive</a></p>
+<p>按照自己的 Ubuntu 和 CUDA 的版本选择对应的 deb 文件下载即可。</p>
+<ol>
+<li>安装：</li>
+</ol>
+<p>首先进入 Ubuntu 的控制界面，输入:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd /mnt/e</span><br></pre></td></tr></table></figure>
+<p>mnt/之后的为你下载的 deb 的文件所在路径。</p>
+<p>然后输入：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo dpkg -i YourDebName.deb</span><br></pre></td></tr></table></figure>
+<p>-i 后面为你下载的 deb 文件的名称。</p>
+<p>输入 cd~ 即可回到主目录。</p>
+<ol>
+<li>刷新数据：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">apt-cache search cudnn</span><br></pre></td></tr></table></figure>
+<ol>
+<li>安装 libcudnn8 运行库：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt -y install libcudnn8 libcudnn8-dev</span><br></pre></td></tr></table></figure>
+<h3 id="Miniconda-安装"><a href="#Miniconda-安装" class="headerlink" title="Miniconda 安装"></a>Miniconda 安装</h3><ol>
+<li>安装</li>
+</ol>
+<p>下载安装包：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">wget -c https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh</span><br><span class="line">chmod 777 Miniconda3-latest-Linux-x86_64.sh</span><br></pre></td></tr></table></figure>
+<p>安装conda：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">bash Miniconda3-latest-Linux-x86_64.sh</span><br></pre></td></tr></table></figure>
+<ol>
+<li>设置环境变量：</li>
+</ol>
+<p>方法同上，不再赘述。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">vim ~/.bashrc</span><br><span class="line"># 新建</span><br><span class="line">export PATH=~/miniconda3/bin:$PATH</span><br><span class="line"># 更新</span><br><span class="line">source ~/.bashrc</span><br></pre></td></tr></table></figure>
+<h3 id="创建虚拟环境"><a href="#创建虚拟环境" class="headerlink" title="创建虚拟环境"></a>创建虚拟环境</h3><ol>
+<li>输入下面指令新建环境，name 自取：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">conda create -n name python=3.8</span><br></pre></td></tr></table></figure>
+<ol>
+<li>输入下面指令后重启命令行：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">conda init</span><br></pre></td></tr></table></figure>
+<p>这个时候 root 前应该有（base）。</p>
+<ol>
+<li>激活虚拟环境：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">conda activate name</span><br></pre></td></tr></table></figure>
+<h3 id="Pytorch-安装"><a href="#Pytorch-安装" class="headerlink" title="Pytorch 安装"></a>Pytorch 安装</h3><p>进入官网： <a target="_blank" rel="noopener" href="https://pytorch.org/get-started/locally/">https://pytorch.org/get-started/locally/</a></p>
+<p><img src="/2023/07/16/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AF%87%E9%9B%B6/6.jpg" alt="pytorch"></p>
+<p>选择对应版本然后复制 Command 指令到 Ubuntu 安装即可。</p>
+<p>下载时间过长的话可以上网搜索一下换源方法。</p>
+<p>然后输入 python 进入 python 页面，输入：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import torch</span><br><span class="line">torch.cuda.is_available()</span><br></pre></td></tr></table></figure>
+<p>如果没有任何报错并且输出 True，说明配置成功。</p>
+<h3 id="Vscode-链接-WSL"><a href="#Vscode-链接-WSL" class="headerlink" title="Vscode 链接 WSL"></a>Vscode 链接 WSL</h3><p>打开 Vscode，一般会直接提示你检测到 WSL 环境，是否需要链接，按照提示就可以了，没有的话下载 WSL 插件，链接到对应的版本，然后就可以在 Vscode 里快乐的使用了。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>此篇完成了基础的深度学习环境的配置，更加细节上的东西需要读者自己完善。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Linermao</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/07/16/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AF%87%E9%9B%B6/">http://example.com/2023/07/16/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AF%87%E9%9B%B6/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Linermao's Blogs</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/images/Avatar.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/07/18/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AF%87%E4%B8%80/" title="深度学习篇 （一）（等待完工....）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">深度学习篇 （一）（等待完工....）</div></div></a></div><div class="next-post pull-right"><a href="/2023/07/03/%E6%9C%80%E8%BF%91%E7%9A%84%E6%80%9D%E8%80%83/" title="困顿"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">困顿</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/images/Avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Linermao</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Linermao"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Linermao" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:862813266@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is Linermao's Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AF%87-%EF%BC%88%E9%9B%B6%EF%BC%89"><span class="toc-number">1.</span> <span class="toc-text">深度学习篇 （零）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.1.</span> <span class="toc-text">前言</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#WLS-%E9%85%8D%E7%BD%AE"><span class="toc-number">1.1.1.</span> <span class="toc-text">WLS 配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%80%E5%90%AF-WSL-%E5%8A%9F%E8%83%BD"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">开启 WSL 功能</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%80%E5%90%AF-WSL2-%E5%8A%9F%E8%83%BD"><span class="toc-number">1.1.1.2.</span> <span class="toc-text">*开启 WSL2 功能</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Ubuntu-%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.1.1.3.</span> <span class="toc-text">安装 Ubuntu 系统</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E8%BF%81%E5%87%BA-C%E7%9B%98"><span class="toc-number">1.1.1.4.</span> <span class="toc-text">数据迁出 C盘</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#linux-%E4%B8%8B%E8%BD%BD%E6%8D%A2%E6%BA%90"><span class="toc-number">1.1.1.5.</span> <span class="toc-text">*linux 下载换源</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CUDA-%E5%AE%89%E8%A3%85"><span class="toc-number">1.1.2.</span> <span class="toc-text">CUDA 安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cuDNN-%E5%AE%89%E8%A3%85"><span class="toc-number">1.1.3.</span> <span class="toc-text">cuDNN 安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Miniconda-%E5%AE%89%E8%A3%85"><span class="toc-number">1.1.4.</span> <span class="toc-text">Miniconda 安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83"><span class="toc-number">1.1.5.</span> <span class="toc-text">创建虚拟环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pytorch-%E5%AE%89%E8%A3%85"><span class="toc-number">1.1.6.</span> <span class="toc-text">Pytorch 安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Vscode-%E9%93%BE%E6%8E%A5-WSL"><span class="toc-number">1.1.7.</span> <span class="toc-text">Vscode 链接 WSL</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-number">1.2.</span> <span class="toc-text">结语</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/07/18/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AF%87%E4%B8%80/" title="深度学习篇 （一）（等待完工....）">深度学习篇 （一）（等待完工....）</a><time datetime="2023-07-18T08:23:10.000Z" title="发表于 2023-07-18 16:23:10">2023-07-18</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/07/16/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AF%87%E9%9B%B6/" title="深度学习篇 （零）">深度学习篇 （零）</a><time datetime="2023-07-16T08:23:10.000Z" title="发表于 2023-07-16 16:23:10">2023-07-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/07/03/%E6%9C%80%E8%BF%91%E7%9A%84%E6%80%9D%E8%80%83/" title="困顿">困顿</a><time datetime="2023-07-03T15:00:00.000Z" title="发表于 2023-07-03 23:00:00">2023-07-03</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/06/29/WriteYourArticles/" title="如何写文章">如何写文章</a><time datetime="2023-06-29T13:01:03.000Z" title="发表于 2023-06-29 21:01:03">2023-06-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/06/29/EmbellishPersonalWeb/" title="如何美化个人博客">如何美化个人博客</a><time datetime="2023-06-29T11:07:21.000Z" title="发表于 2023-06-29 19:07:21">2023-06-29</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Linermao</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
