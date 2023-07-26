@@ -53,7 +53,7 @@
   isHome: true,
   isHighlightShrink: undefined,
   isToc: false,
-  postUpdate: '2023-07-25 09:27:46'
+  postUpdate: '2023-07-26 14:51:11'
 }</script><noscript><style type="text/css">
   #nav {
     opacity: 1
@@ -194,7 +194,33 @@ QQ：862813266
 林二毛 编辑于 2023/5/25
 未完待续….
 </div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/07/24/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%EF%BC%88%E5%9B%9B%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%AD%A3%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/" title="（四）深度学习之正反向传播（施工中。。。）">（四）深度学习之正反向传播（施工中。。。）</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-07-24T08:23:10.000Z" title="发表于 2023-07-24 16:23:10">2023-07-24</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a></span></div><div class="content">（四）深度学习之正反向传播我们使用网络结构来构建模型，使得模型能够拟合复杂的现实问题，但是也产生了权重偏置更新开销巨大的问题。下文介绍向前传播和反向传播的调参思想。
-向前传播反向传播BP神经网络</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/07/23/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%EF%BC%88%E4%B8%89%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%84%9F%E7%9F%A5%E6%9C%BA/" title="（三）深度学习之感知机">（三）深度学习之感知机</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-07-23T08:23:10.000Z" title="发表于 2023-07-23 16:23:10">2023-07-23</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a></span></div><div class="content">（三）深度学习之感知机网络结构为了更直观的表达输入数据，处理数据，输出数据这样的过程，我们习惯于使用一种网络结构图来表示。
+向前传播前向传播（Forward Propagation）是从输入层开始，经过隐藏层，计算每个隐藏层的结果并且传递到下一层直到输出层的过程。
+
+
+图1-1
+
+
+例如 图1-1 ，我们来详细观察隐藏层进行了什么步骤。
+
+将通过函数关系计算 $z$ 层的值:
+
+
+    \tag{1-1}
+    z_j = \mathbf{w_j} \cdot \mathbf{x} + \mathbf{b_j},j = 1,2,...,n$n$ 表示 $z$ 层神经元个数。
+
+通过激活函数来计算隐藏层 $h$ 的值:
+
+
+    \tag{1-2}
+    \mathbf{h} = \phi(\mathbf{z})
+将此隐藏层看作下一层的输入层，重复1，2操作，直到输出层。
+
+然后根据计算所得的输出值和样本值进行比对，计算出损失项：
+
+
+
+    \tag{1-3}
+    L = l(\hat{y},y)反向传播反向传播（backward ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/07/23/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%EF%BC%88%E4%B8%89%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%84%9F%E7%9F%A5%E6%9C%BA/" title="（三）深度学习之感知机">（三）深度学习之感知机</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-07-23T08:23:10.000Z" title="发表于 2023-07-23 16:23:10">2023-07-23</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a></span></div><div class="content">（三）深度学习之感知机网络结构为了更直观的表达输入数据，处理数据，输出数据这样的过程，我们习惯于使用一种网络结构图来表示。
 我们可以将篇二讲到的线性回归写成一种网络结构：
 
 
@@ -211,21 +237,16 @@ QQ：862813266
 感知机感知机（Perceptron）是一种线性分类模型，属于判别模型。
 我们定义，具有如下特征形式的式子叫做感知机：
 
-\tag{2-1}
-f(x) = sign(w \cdot x + b)$sign(x)$ 是函数符号：
+    \tag{2-1}
+    f(x) = sign(w \cdot x + b)$sign(x)$ 是函数符号：
 
-\tag{2-2}
-sign(x) = 
-\begin{cases}
-+1,x>0 \\
--1,x\leq0  
-\end{cases}单个感知器可以解决二分类问题。对于具有n个元素的向量，此点将存在于n维空间中，$x$ 是一个多维向量，感知机能够找到一种分类标准来区别不同种类的特征值。
-例如在纸上任意点几个点，画一条直线区分两组点，感知机能够学习到这条直线的位置，从而区分不同种类的点。
-
-
-图2-1
-
- ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/07/19/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%EF%BC%88%E4%BA%8C%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/" title="（二）深度学习之线性回归">（二）深度学习之线性回归</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-07-19T08:23:10.000Z" title="发表于 2023-07-19 16:23:10">2023-07-19</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a></span></div><div class="content">（二）深度学习之线性回归线性回归线性回归（linear regression）基于几个简单的假设：首先，假设自变量 $x$ 和因变量 $y$ 之间的关系是线性的，其次，假设任何噪声都比较正常，如噪声遵循正态分布。也就是说一条直线可以很好的拟合值的分布。
+    \tag{2-2}
+    sign(x) = 
+    \begin{cases}
+    +1,x>0 \\
+    -1,x\leq0  
+    \end{cases}单个感知器可以解决二分类问题。对于具有n个元素的向量，此点将存在于n维空间中，$x$ 是一个多维向量，感知机能够找到一种分类标准来区别不同种类的特征值。
+例如在纸上任意点几个点，画一条直线区分两组点，感知机能 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/07/19/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%EF%BC%88%E4%BA%8C%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/" title="（二）深度学习之线性回归">（二）深度学习之线性回归</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-07-19T08:23:10.000Z" title="发表于 2023-07-19 16:23:10">2023-07-19</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a></span></div><div class="content">（二）深度学习之线性回归线性回归线性回归（linear regression）基于几个简单的假设：首先，假设自变量 $x$ 和因变量 $y$ 之间的关系是线性的，其次，假设任何噪声都比较正常，如噪声遵循正态分布。也就是说一条直线可以很好的拟合值的分布。
 线性回归基础模型通常，模型表示为：
 
 \tag{1-1}
@@ -331,7 +352,7 @@ git config --global user.name &quot;用户名& ...</div></div></div><div class="
             </div>
             <ul class="card-category-list" id="aside-cat-list">
             <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AboutMe/"><span class="card-category-list-name">AboutMe</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"><span class="card-category-list-name">个人博客搭建</span><span class="card-category-list-count">3</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"><span class="card-category-list-name">深度学习</span><span class="card-category-list-count">6</span></a></li>
-            </ul></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/07/"><span class="card-archive-list-date">七月 2023</span><span class="card-archive-list-count">5</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/06/"><span class="card-archive-list-date">六月 2023</span><span class="card-archive-list-count">3</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/05/"><span class="card-archive-list-date">五月 2023</span><span class="card-archive-list-count">2</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">10</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2023-07-25T01:27:46.609Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Linermao</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script>function panguFn () {
+            </ul></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/07/"><span class="card-archive-list-date">七月 2023</span><span class="card-archive-list-count">5</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/06/"><span class="card-archive-list-date">六月 2023</span><span class="card-archive-list-count">3</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/05/"><span class="card-archive-list-date">五月 2023</span><span class="card-archive-list-count">2</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">10</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2023-07-26T06:51:11.312Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Linermao</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script>function panguFn () {
   if (typeof pangu === 'object') pangu.autoSpacingPage()
   else {
     getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
@@ -373,9 +394,9 @@ document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-
 }
 </script><script>function subtitleType () {
   if (true) {
-    typedJSFn.init(["Better an open enemy than a false friend."])
+    typedJSFn.init(["I want someone who's afraid of losing me."])
   } else {
-    document.getElementById("subtitle").textContent = "Better an open enemy than a false friend."
+    document.getElementById("subtitle").textContent = "I want someone who's afraid of losing me."
   }
 }
 typedJSFn.run(subtitleType)</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
