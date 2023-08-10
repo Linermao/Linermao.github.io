@@ -1,0 +1,489 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Kaggle Titanic | Linermao's kiosk</title><meta name="author" content="Linermao,86281366@qq.com"><meta name="copyright" content="Linermao"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Kaggle TitanicPrefaceI appreciate your understanding regarding any potential errors or omissions, as I’m still in the learning process. Feel free to engage in discussions – I’m here to help and discus">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kaggle Titanic">
+<meta property="og:url" content="http://example.com/2023/08/09/Kaggle/Kaggle_Titanic/index.html">
+<meta property="og:site_name" content="Linermao&#39;s kiosk">
+<meta property="og:description" content="Kaggle TitanicPrefaceI appreciate your understanding regarding any potential errors or omissions, as I’m still in the learning process. Feel free to engage in discussions – I’m here to help and discus">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/top-img/Kaggle_Titanic.png">
+<meta property="article:published_time" content="2023-08-09T08:23:10.000Z">
+<meta property="article:modified_time" content="2023-08-10T11:25:24.485Z">
+<meta property="article:author" content="Linermao">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/top-img/Kaggle_Titanic.png"><link rel="shortcut icon" href="/images/favicon.jpg"><link rel="canonical" href="http://example.com/2023/08/09/Kaggle/Kaggle_Titanic/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?d0547acfa82ccac854b804414ae584ec";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":230},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Kaggle Titanic',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: undefined,
+  isToc: true,
+  postUpdate: '2023-08-10 19:25:24'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (true) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/images/Avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/top-img/Kaggle_Titanic.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Linermao's kiosk"><span class="site-name">Linermao's kiosk</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Kaggle Titanic</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-08-09T08:23:10.000Z" title="发表于 2023-08-09 16:23:10">2023-08-09</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-08-10T11:25:24.485Z" title="更新于 2023-08-10 19:25:24">2023-08-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Kaggle%E5%AE%9E%E6%88%98/">Kaggle实战</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Kaggle Titanic"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Kaggle-Titanic"><a href="#Kaggle-Titanic" class="headerlink" title="Kaggle Titanic"></a>Kaggle Titanic</h1><h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>I appreciate your understanding regarding any potential errors or omissions, as I’m still in the learning process. Feel free to engage in discussions – I’m here to help and discuss any topics you’d like to explore. </p>
+<p>Learning is a continuous journey, and open discussions can lead to valuable insights and growth.</p>
+<p>This article begins by exploring the most straightforward approach to address the issue. If you are interested in exploring innovative ideas, you can directly jump to the “Improvements” section.</p>
+<p>If you wish to follow along with my code, please visit my GitHub repository using the following link:</p>
+<p>Linermao’s GitHub: <a target="_blank" rel="noopener" href="https://github.com/Linermao/Kaggle-Code">https://github.com/Linermao/Kaggle-Code</a></p>
+<h2 id="1-Competition-Overview"><a href="#1-Competition-Overview" class="headerlink" title="1. Competition Overview"></a>1. Competition Overview</h2><ul>
+<li><strong>Original competation link：</strong> <a target="_blank" rel="noopener" href="https://www.kaggle.com/competitions/titanic">Titanic - Machine Learning from Disaster</a></li>
+</ul>
+<blockquote>
+<p>The sinking of the Titanic is one of the most infamous shipwrecks in history.</p>
+<p>On April 15, 1912, during her maiden voyage, the widely considered “unsinkable” RMS Titanic sank after colliding with an iceberg. Unfortunately, there weren’t enough lifeboats for everyone onboard, resulting in the death of 1502 out of 2224 passengers and crew.</p>
+<p>While there was some element of luck involved in surviving, it seems some groups of people were more likely to survive than others.</p>
+<p>In this challenge, we ask you to build a predictive model that answers the question: “what sorts of people were more likely to survive?” using passenger data (ie name, age, gender, socio-economic class, etc).</p>
+</blockquote>
+<h2 id="2-Data"><a href="#2-Data" class="headerlink" title="2. Data"></a>2. Data</h2><h3 id="2-1-Download-Data"><a href="#2-1-Download-Data" class="headerlink" title="2.1 Download Data"></a>2.1 Download Data</h3><p>Firstly, you should install ‘Kaggle’. If you already done it, If you’ve already done this, please disregard this step.</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pip install kaggle</span><br></pre></td></tr></table></figure>
+<p>Then, you can utilize this code to download data from the Titanic competition. </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">kaggle competitions download -c titanic</span><br></pre></td></tr></table></figure>
+<p>Alternatively, you can log in to Kaggle to download the data.</p>
+<ul>
+<li><strong>click hear:</strong> <a target="_blank" rel="noopener" href="https://www.kaggle.com/competitions/titanic/data">https://www.kaggle.com/competitions/titanic/data</a></li>
+</ul>
+<p>Careful! There are three .csv files. But the files we only need are train.csv and test.csv .</p>
+<h3 id="2-2-Data-Extraction"><a href="#2-2-Data-Extraction" class="headerlink" title="2.2 Data Extraction"></a>2.2 Data Extraction</h3><p>To start, It is imperative to ascertain the available data and its significance.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">path_traindata = <span class="string">&quot;/deeplearning/KaggleProjects/titanic/train.csv&quot;</span></span><br><span class="line">path_testdata = <span class="string">&quot;/deeplearning/KaggleProjects/titanic/test.csv&quot;</span></span><br><span class="line">traindata = pd.read_csv(path_traindata)</span><br><span class="line">testdata = pd.read_csv(path_testdata)</span><br><span class="line"></span><br><span class="line">data_all = pd.concat([traindata,testdata], ignore_index = <span class="literal">True</span>)</span><br><span class="line"><span class="comment"># Simultaneously Handling Data</span></span><br><span class="line"><span class="built_in">print</span>(data_all.info())</span><br><span class="line"><span class="built_in">print</span>(data_all.describe())</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Data columns (total 12 columns):</span><br><span class="line"> #   Column       Non-Null Count  Dtype  </span><br><span class="line">---  ------       --------------  -----  </span><br><span class="line"> 0   PassengerId  1309 non-null   int64  </span><br><span class="line"> 1   Survived     891 non-null    float64</span><br><span class="line"> 2   Pclass       1309 non-null   int64  </span><br><span class="line"> 3   Name         1309 non-null   object </span><br><span class="line"> 4   Sex          1309 non-null   object </span><br><span class="line"> 5   Age          1046 non-null   float64</span><br><span class="line"> 6   SibSp        1309 non-null   int64  </span><br><span class="line"> 7   Parch        1309 non-null   int64  </span><br><span class="line"> 8   Ticket       1309 non-null   object </span><br><span class="line"> 9   Fare         1308 non-null   float64</span><br><span class="line"> 10  Cabin        295 non-null    object </span><br><span class="line"> 11  Embarked     1307 non-null   object </span><br><span class="line"></span><br><span class="line">None</span><br><span class="line">       PassengerId    Survived       Pclass          Age        SibSp        Parch         Fare</span><br><span class="line">count  1309.000000  891.000000  1309.000000  1046.000000  1309.000000  1309.000000  1308.000000</span><br><span class="line">mean    655.000000    0.383838     2.294882    29.881138     0.498854     0.385027    33.295479</span><br><span class="line">std     378.020061    0.486592     0.837836    14.413493     1.041658     0.865560    51.758668</span><br><span class="line">min       1.000000    0.000000     1.000000     0.170000     0.000000     0.000000     0.000000</span><br><span class="line">25%     328.000000    0.000000     2.000000    21.000000     0.000000     0.000000     7.895800</span><br><span class="line">50%     655.000000    0.000000     3.000000    28.000000     0.000000     0.000000    14.454200</span><br><span class="line">75%     982.000000    1.000000     3.000000    39.000000     1.000000     0.000000    31.275000</span><br><span class="line">max    1309.000000    1.000000     3.000000    80.000000     8.000000     9.000000   512.329200</span><br></pre></td></tr></table></figure>
+<p>From the Competition, we know:</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Variable</th>
+<th>Definition</th>
+<th style="text-align:left">Key</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Survival</td>
+<td>Survival</td>
+<td style="text-align:left">0 = No, 1 = Yes</td>
+</tr>
+<tr>
+<td style="text-align:left">Pclass</td>
+<td>Ticket class</td>
+<td style="text-align:left">1 = 1st, 2 = 2nd, 3 = 3rd</td>
+</tr>
+<tr>
+<td style="text-align:left">Sex</td>
+<td>Sex    </td>
+</tr>
+<tr>
+<td style="text-align:left">Age</td>
+<td>Age in years    </td>
+</tr>
+<tr>
+<td style="text-align:left">Sibsp</td>
+<td># of siblings / spouses aboard the Titanic    </td>
+</tr>
+<tr>
+<td style="text-align:left">Parch</td>
+<td># of parents / children aboard the Titanic    </td>
+</tr>
+<tr>
+<td style="text-align:left">Ticket</td>
+<td>Ticket number    </td>
+</tr>
+<tr>
+<td style="text-align:left">Fare</td>
+<td>Passenger fare    </td>
+</tr>
+<tr>
+<td style="text-align:left">Cabin</td>
+<td>Cabin number    </td>
+</tr>
+<tr>
+<td style="text-align:left">Embarked</td>
+<td>Port of Embarkation</td>
+<td style="text-align:left">C = Cherbourg, Q = Queenstown, S = Southampton</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="2-3-Data-Cleaning"><a href="#2-3-Data-Cleaning" class="headerlink" title="2.3 Data Cleaning"></a>2.3 Data Cleaning</h3><h4 id="2-3-1-Imputing-Missing-Values"><a href="#2-3-1-Imputing-Missing-Values" class="headerlink" title="2.3.1 Imputing Missing Values"></a>2.3.1 Imputing Missing Values</h4><p>We observe that ‘Age’, ‘Fare’, ‘Cabin’, and ‘Embarked’ contain missing values, with ‘Cabin’ being particularly notable with a loss of nearly 70% of its values.</p>
+<p><em>The missing values in ‘Survived’ arise from the fact that they need to be predicted based on the model we establish for the test set. Therefore, they can be disregarded for now.</em></p>
+<p>Let’s focus on ‘Age’ as a starting point for analysis.</p>
+<p>In handling missing values, the most commonly employed method is to replace them with the mean value.</p>
+<p>Thus, we can employ the following code to address the ‘Age’ variable :</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data_all[<span class="string">&#x27;Age&#x27;</span>].fillna(data_all[<span class="string">&#x27;Age&#x27;</span>].mean(), inplace = <span class="literal">True</span>)</span><br><span class="line"><span class="comment"># test whether there are any remaining missing values</span></span><br><span class="line"><span class="comment"># print(data_all[&#x27;Age&#x27;].isnull().any())</span></span><br><span class="line"><span class="comment"># if false, it indicates the absence of any missing values.</span></span><br></pre></td></tr></table></figure>
+<p><strong>It’s worth mentioning that using the mean to fill in missing values is an extremely rudimentary and hasty approach. Therefore, we will further optimize our missing value imputation method in subsequent steps.</strong></p>
+<p>For ‘Fare’, which has only one missing value, we can replace it with the mean value as well.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data_all[<span class="string">&#x27;Fare&#x27;</span>].fillna(data_all[<span class="string">&#x27;Fare&#x27;</span>].mean, inplace = <span class="literal">True</span>)</span><br><span class="line"><span class="comment"># print(data_all[&#x27;Fare&#x27;].isnull().any())</span></span><br></pre></td></tr></table></figure>
+<p>Regarding ‘Embarked’, we could analyze its distribution pattern as a reference for our next steps.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(data_all[<span class="string">&#x27;Embarked&#x27;</span>].value_counts())</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Embarked</span><br><span class="line">S    914</span><br><span class="line">C    270</span><br><span class="line">Q    123</span><br></pre></td></tr></table></figure>
+<p>We can visually observe that the majority of values are distributed around ‘S’, indicating that we can utilize ‘S’ to impute the missing values.</p>
+<p>Interestingly, you can print the names of the missing individuals and conduct online searches to confirm that they indeed boarded at the ‘Southampton’ port.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(data_all[data_all[[<span class="string">&#x27;Embarked&#x27;</span>]].isnull().<span class="built_in">any</span>(axis=<span class="number">1</span>)])</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">     PassengerId  Survived  Pclass                                       Name     Sex   Age  SibSp  Parch  Ticket  Fare Cabin Embarked</span><br><span class="line">61            62       1.0       1                        Icard, Miss. Amelie  female  38.0      0      0  113572  80.0   B28      NaN</span><br><span class="line">829          830       1.0       1  Stone, Mrs. George Nelson (Martha Evelyn)  female  62.0      0      0  113572  80.0   B28      NaN</span><br></pre></td></tr></table></figure>
+<p>Impute the missing values.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data_all[<span class="string">&#x27;Embarked&#x27;</span>].fillna(<span class="string">&#x27;S&#x27;</span>,inplace=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># print(data_all[&#x27;Embarked&#x27;].isnull().any())</span></span><br></pre></td></tr></table></figure>
+<p>Now, let’s shift our focus to ‘Cabin’. Due to the excessive number of missing values, it might be advisable to remove them for now. However, we will certainly revisit this issue and discuss it separately in the future.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data_all.drop(<span class="string">&#x27;Cabin&#x27;</span>,axis=<span class="number">1</span>,inplace=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<p>Lastly, after imputing all the missing values, let’s perform a final check.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(data_all.isnull().<span class="built_in">any</span>())</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">False</span><br></pre></td></tr></table></figure>
+<h4 id="2-3-2-Outlier-Handling"><a href="#2-3-2-Outlier-Handling" class="headerlink" title="2.3.2 Outlier Handling"></a>2.3.2 Outlier Handling</h4><h3 id="2-4-Feature-Engineering"><a href="#2-4-Feature-Engineering" class="headerlink" title="2.4 Feature Engineering"></a>2.4 Feature Engineering</h3><p>Firstly, we observe that the ‘Ticket’ column contains a mix of characters and numbers, which could introduce unnecessary complexity for our initial model. This equally applies to the ‘Name’ column as well. Therefore, we can choose to disregard them for now and revisit the topic later.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data_all.drop(<span class="string">&#x27;Ticket&#x27;</span>,axis=<span class="number">1</span>,inplace=<span class="literal">True</span>)</span><br><span class="line">data_all.drop(<span class="string">&#x27;Name&#x27;</span>,axis=<span class="number">1</span>,inplace=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<p>Subsequently, we discover that ‘SibSp’ and ‘Parch’ can be combined to create new variables, I will refer to this new variable as “FamilySize,” which represents the sum of a passenger’s siblings and spouse count plus parent and children count and then adding 1 to account for the passenger themselves.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data_all[<span class="string">&#x27;FamilySize&#x27;</span>] = data_all[<span class="string">&#x27;SibSp&#x27;</span>] + data_all[<span class="string">&#x27;Parch&#x27;</span>] + <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>Next, we will group the data by ‘Age’ separately. Grouping can assist us in extracting deeper insights from the data.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data_all[<span class="string">&#x27;Age&#x27;</span>] = pd.cut(data_all[<span class="string">&#x27;Age&#x27;</span>], <span class="number">5</span>)</span><br><span class="line"><span class="comment"># cut divides the data into a specified number of equi-width intervals</span></span><br><span class="line"><span class="built_in">print</span>(data_all[<span class="string">&#x27;Age&#x27;</span>].value_counts())</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Age</span><br><span class="line">(16.136, 32.102]    787</span><br><span class="line">(32.102, 48.068]    269</span><br><span class="line">(0.0902, 16.136]    134</span><br><span class="line">(48.068, 64.034]    106</span><br><span class="line">(64.034, 80.0]       13</span><br></pre></td></tr></table></figure>
+<p>For ‘Fare’, we can apply similar grouping methods. However, there are some additional aspects to consider.</p>
+<p>To begin, we can display the value counts for ‘Fare’.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(data_all[<span class="string">&#x27;Fare&#x27;</span>].describe())</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">count    1309.000000</span><br><span class="line">mean       33.295479</span><br><span class="line">std        51.738879</span><br><span class="line">min         0.000000</span><br><span class="line">25%         7.895800</span><br><span class="line">50%        14.454200</span><br><span class="line">75%        31.275000</span><br><span class="line">max       512.329200</span><br></pre></td></tr></table></figure>
+<p>We observe that while the maximum value is quite high, the mean and median values are comparatively smaller. This suggests that a small portion of individuals purchased expensive tickets, prompting the need to classify this subgroup separately. </p>
+<p>The presence of a minimum value of 0 indicates that some individuals boarded for free, possibly indicating workers. We will delve into this matter in more detail later.</p>
+<p>We can establish our own classification ranges to roughly categorize different fare tiers. The following is an good example of this.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(data_all[<span class="string">&#x27;Fare&#x27;</span>].describe(percentiles = [<span class="number">0.6</span>,<span class="number">0.9</span>,<span class="number">0.98</span>]))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">count    1309.000000</span><br><span class="line">mean       33.295479</span><br><span class="line">std        51.738879</span><br><span class="line">min         0.000000</span><br><span class="line">50%        14.454200</span><br><span class="line">60%        21.679200</span><br><span class="line">90%        78.019980</span><br><span class="line">98%       221.779200</span><br><span class="line">max       512.329200</span><br></pre></td></tr></table></figure>
+<p>Actually, we can observe that only four individuals purchased the highest tickets. </p>
+<p><em>The joy of the affluent is beyond comprehension.</em></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(data_all[<span class="string">&#x27;Fare&#x27;</span>][data_all[<span class="string">&#x27;Fare&#x27;</span>] &gt; <span class="number">300</span>])</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">258     512.3292</span><br><span class="line">679     512.3292</span><br><span class="line">737     512.3292</span><br><span class="line">1234    512.3292</span><br></pre></td></tr></table></figure>
+<p>Hence, we can proceed with our categorization.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">bins = [<span class="number">0</span>, <span class="number">14</span>, <span class="number">78</span>, <span class="number">220</span>, <span class="number">500</span>, <span class="number">600</span>]</span><br><span class="line">labels = [<span class="string">&#x27;VeryLow&#x27;</span>,<span class="string">&#x27;Low&#x27;</span>, <span class="string">&#x27;Middle&#x27;</span>, <span class="string">&#x27;High&#x27;</span>, <span class="string">&#x27;VeryHigh&#x27;</span>]</span><br><span class="line">data_all[<span class="string">&#x27;Fare&#x27;</span>] = pd.cut(data_all[<span class="string">&#x27;Fare&#x27;</span>], bins=bins, labels=labels, right=<span class="literal">False</span>)</span><br><span class="line"><span class="built_in">print</span>(data_all[<span class="string">&#x27;Fare&#x27;</span>].value_counts())</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Fare</span><br><span class="line">VeryLow     641</span><br><span class="line">Low         537</span><br><span class="line">Middle      102</span><br><span class="line">High         25</span><br><span class="line">VeryHigh      4</span><br></pre></td></tr></table></figure>
+<h3 id="2-5-One-Hot-Encoding"><a href="#2-5-One-Hot-Encoding" class="headerlink" title="2.5 One Hot Encoding"></a>2.5 One Hot Encoding</h3><p>Up to this point, we have conducted a preliminary “less refined” selection and transformation of the data. However, the obtained values are not yet in integer or floating-point format, so they cannot be directly fed into the model for training. Another transformation is required.</p>
+<p>Allow me to provide you with an easy example:</p>
+<blockquote>
+<p>In the ‘Sex’ column, where the values are either ‘male’ or ‘female’, we should convert these to 1 or 0 respectively, making them compatible for modeling purposes.</p>
+</blockquote>
+<p>We can employ the ‘LabelEncoder’ function from the ‘sklearn.preprocessing’ module for this purpose.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> LabelEncoder</span><br><span class="line">map_features = [<span class="string">&#x27;Sex&#x27;</span>, <span class="string">&#x27;Pclass&#x27;</span>, <span class="string">&#x27;Age&#x27;</span>, <span class="string">&#x27;Fare&#x27;</span>]</span><br><span class="line"><span class="keyword">for</span> feature <span class="keyword">in</span> map_features:</span><br><span class="line">    data_all[feature] = LabelEncoder().fit_transform(data_all[feature])</span><br><span class="line"><span class="built_in">print</span>(data_all.info())</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Data columns (total 10 columns):</span><br><span class="line"> #   Column       Non-Null Count  Dtype  </span><br><span class="line">---  ------       --------------  -----  </span><br><span class="line"> 0   PassengerId  1309 non-null   int64  </span><br><span class="line"> 1   Survived     891 non-null    float64</span><br><span class="line"> 2   Pclass       1309 non-null   int64  </span><br><span class="line"> 3   Sex          1309 non-null   int64  </span><br><span class="line"> 4   Age          1309 non-null   int64  </span><br><span class="line"> 5   SibSp        1309 non-null   int64  </span><br><span class="line"> 6   Parch        1309 non-null   int64  </span><br><span class="line"> 7   Fare         1309 non-null   int64  </span><br><span class="line"> 8   Embarked     1309 non-null   int64  </span><br><span class="line"> 9   FamilySize   1309 non-null   int64 </span><br></pre></td></tr></table></figure>
+<p>We can observe that, except for ‘Survived’, all other columns have been converted to integer type.</p>
+<p>Then we can proceed to utilize the One-Hot Encoding technique.</p>
+<blockquote>
+<p>Many algorithms assume that there is a logical sequence within a column. However, this is not always expressed by the numerical ratio. Therefore it is needed to one hot encoding the variables afterwards.</p>
+</blockquote>
+<p>Take an example:</p>
+<blockquote>
+<p>We will transform the ‘Sex’ column into two columns, ‘Sex_1’ and ‘Sex_2’. If ‘Sex’ is 1, then ‘Sex_1’ is set to 1 and ‘Sex_2’ is set to 0, and vice versa.</p>
+</blockquote>
+<p>We employ the ‘get_dummies’ function from the ‘pandas’ module for this purpose.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">map_features_2 = [<span class="string">&#x27;Pclass&#x27;</span>,<span class="string">&#x27;Sex&#x27;</span>,<span class="string">&#x27;Embarked&#x27;</span>,<span class="string">&#x27;FamilySize&#x27;</span>,<span class="string">&#x27;Fare&#x27;</span>,<span class="string">&#x27;Age&#x27;</span>]</span><br><span class="line"><span class="comment"># 对指定特征进行独热编码，并将编码后的结果合并到原始 DataFrame</span></span><br><span class="line">encoded_features = pd.get_dummies(data_all[map_features_2], columns=map_features_2)</span><br><span class="line"><span class="built_in">print</span>(encoded_features.info())</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"> #   Column         Non-Null Count  Dtype</span><br><span class="line">---  ------         --------------  -----</span><br><span class="line"> 0   Pclass_0       1309 non-null   bool </span><br><span class="line"> 1   Pclass_1       1309 non-null   bool </span><br><span class="line"> 2   Pclass_2       1309 non-null   bool </span><br><span class="line"> 3   Sex_0          1309 non-null   bool </span><br><span class="line"> 4   Sex_1          1309 non-null   bool </span><br><span class="line"> 5   Embarked_0     1309 non-null   bool </span><br><span class="line"> 6   Embarked_1     1309 non-null   bool </span><br><span class="line"> 7   Embarked_2     1309 non-null   bool </span><br><span class="line"> 8   FamilySize_1   1309 non-null   bool </span><br><span class="line"> 9   FamilySize_2   1309 non-null   bool </span><br><span class="line"> 10  FamilySize_3   1309 non-null   bool </span><br><span class="line"> 11  FamilySize_4   1309 non-null   bool </span><br><span class="line"> 12  FamilySize_5   1309 non-null   bool </span><br><span class="line"> 13  FamilySize_6   1309 non-null   bool </span><br><span class="line"> 14  FamilySize_7   1309 non-null   bool </span><br><span class="line"> 15  FamilySize_8   1309 non-null   bool </span><br><span class="line"> 16  FamilySize_11  1309 non-null   bool </span><br><span class="line"> 17  Fare_0         1309 non-null   bool </span><br><span class="line"> 18  Fare_1         1309 non-null   bool </span><br><span class="line"> 19  Fare_2         1309 non-null   bool </span><br><span class="line"> 20  Fare_3         1309 non-null   bool </span><br><span class="line"> 21  Fare_4         1309 non-null   bool </span><br><span class="line"> 22  Age_0          1309 non-null   bool </span><br><span class="line"> 23  Age_1          1309 non-null   bool </span><br><span class="line"> 24  Age_2          1309 non-null   bool </span><br><span class="line"> 25  Age_3          1309 non-null   bool </span><br><span class="line"> 26  Age_4          1309 non-null   bool </span><br></pre></td></tr></table></figure>
+<p>Next, we can proceed to separate the original dataset into training and testing sets, preparing for the model training.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">train_x = encoded_features.iloc[:traindata.shape[<span class="number">0</span>]]</span><br><span class="line">test_x = encoded_features.iloc[traindata.shape[<span class="number">0</span>]:]</span><br><span class="line"></span><br><span class="line">train_y = data_all[<span class="string">&#x27;Survived&#x27;</span>].iloc[:traindata.shape[<span class="number">0</span>]]</span><br><span class="line">test_y = data_all[<span class="string">&#x27;Survived&#x27;</span>].iloc[traindata.shape[<span class="number">0</span>]:]</span><br></pre></td></tr></table></figure>
+<h2 id="3-Model"><a href="#3-Model" class="headerlink" title="3. Model"></a>3. Model</h2><p>In this phase, we need to choose an appropriate model to fit the data and select the best-performing model.</p>
+<h3 id="3-1-Linear-Regression"><a href="#3-1-Linear-Regression" class="headerlink" title="3.1 Linear Regression"></a>3.1 Linear Regression</h3><p>For a binary classification problem, we can start by attempting the simplest linear regression model.</p>
+<p>What we need to do is quite straightforward. We just need to invoke the ‘LinearRegression’ from the ‘sklearn’ package.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LinearRegression</span><br><span class="line">model_LinearRegression = LinearRegression()</span><br><span class="line">model_LinearRegression.fit(train_x, train_y)</span><br><span class="line">test_y = model_LinearRegression.predict(test_x)</span><br><span class="line">threshold = <span class="number">0.5</span></span><br><span class="line">test_y = (test_y &gt; threshold).astype(<span class="built_in">int</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Predicted y:&quot;</span>, test_y)</span><br></pre></td></tr></table></figure>
+<h3 id="3-2-Logistic-Regression"><a href="#3-2-Logistic-Regression" class="headerlink" title="3.2 Logistic Regression"></a>3.2 Logistic Regression</h3><p>Logistic regression is also one of the commonly used methods for binary classification problems.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</span><br><span class="line">model_LogisticRegression = LogisticRegression()</span><br><span class="line">model_LogisticRegression.fit(train_x, train_y)</span><br><span class="line">test_y = model_LogisticRegression.predict(test_x).astype(<span class="built_in">int</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Predicted y:&quot;</span>, test_y)</span><br></pre></td></tr></table></figure>
+<h3 id="3-3-Random-Forest"><a href="#3-3-Random-Forest" class="headerlink" title="3.3 Random Forest"></a>3.3 Random Forest</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier</span><br><span class="line">model_RandomForestClassifier = RandomForestClassifier(n_estimators=<span class="number">100</span>, random_state=<span class="number">42</span>)</span><br><span class="line">model_RandomForestClassifier.fit(train_x, train_y)</span><br><span class="line">test_y = model_RandomForestClassifier.predict(test_x).astype(<span class="built_in">int</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Predicted y:&quot;</span>, test_y)</span><br></pre></td></tr></table></figure>
+<h3 id="3-4-Output-Results"><a href="#3-4-Output-Results" class="headerlink" title="3.4 Output Results"></a>3.4 Output Results</h3><p><strong>Please pay attention to the required output format as specified in the prompt.</strong></p>
+<blockquote>
+<p>Submission File Format:<br>You should submit a csv file with exactly 418 entries plus a header row. Your submission will show an error if you have extra columns (beyond PassengerId and Survived) or rows.</p>
+<p>The file should have exactly 2 columns:</p>
+<ul>
+<li>PassengerId (sorted in any order)</li>
+<li>Survived (contains your binary predictions: 1 for survived, 0 for deceased)</li>
+</ul>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">predictions_df = pd.DataFrame(&#123;<span class="string">&#x27;PassengerId&#x27;</span>: testdata[<span class="string">&#x27;PassengerId&#x27;</span>], <span class="string">&#x27;Survived&#x27;</span>: test_y&#125;)</span><br><span class="line">output_file = <span class="string">&quot;/deeplearning/KaggleProjects/titanic/Output/Predictions.csv&quot;</span></span><br><span class="line"><span class="comment"># Rename the file.</span></span><br><span class="line">predictions_df.to_csv(output_file, index=<span class="literal">False</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Predictions saved to:&quot;</span>, output_file)</span><br></pre></td></tr></table></figure>
+<p>Then you can proceed to submit your base model to Kaggle. By following my code, you might achieve a score similar to the following:</p>
+<div align="center">
+<img weith="400" height="200" src="/2023/08/09/Kaggle/Kaggle_Titanic/Score.jpg">
+<p style="font-size:14px;">Figure-1 Score</p></div>
+
+
+<p><strong>Is it over at this point? No, not by a long shot. What we’ve done so far is just completing a basic model. Let’s not forget that we’ve discarded a significant amount of data and made several simplifications along the way.</strong></p>
+<h2 id="4-Improvements"><a href="#4-Improvements" class="headerlink" title="4. Improvements"></a>4. Improvements</h2><h3 id="4-1-Exploratory-Data-Analysis-EDA"><a href="#4-1-Exploratory-Data-Analysis-EDA" class="headerlink" title="4.1 Exploratory Data Analysis (EDA)"></a>4.1 Exploratory Data Analysis (EDA)</h3></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Linermao</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/08/09/Kaggle/Kaggle_Titanic/">http://example.com/2023/08/09/Kaggle/Kaggle_Titanic/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Linermao's kiosk</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/top-img/Kaggle_Titanic.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/08/08/Kaggle/Kaggle_Introduce/" title="KaggleIntroduce"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">KaggleIntroduce</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/images/Avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Linermao</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Linermao"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Linermao" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:862813266@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is Linermao's Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Kaggle-Titanic"><span class="toc-text">Kaggle Titanic</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Preface"><span class="toc-text">Preface</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Competition-Overview"><span class="toc-text">1. Competition Overview</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Data"><span class="toc-text">2. Data</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-Download-Data"><span class="toc-text">2.1 Download Data</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-Data-Extraction"><span class="toc-text">2.2 Data Extraction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-Data-Cleaning"><span class="toc-text">2.3 Data Cleaning</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-1-Imputing-Missing-Values"><span class="toc-text">2.3.1 Imputing Missing Values</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-2-Outlier-Handling"><span class="toc-text">2.3.2 Outlier Handling</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-Feature-Engineering"><span class="toc-text">2.4 Feature Engineering</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-One-Hot-Encoding"><span class="toc-text">2.5 One Hot Encoding</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Model"><span class="toc-text">3. Model</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-Linear-Regression"><span class="toc-text">3.1 Linear Regression</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-Logistic-Regression"><span class="toc-text">3.2 Logistic Regression</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-Random-Forest"><span class="toc-text">3.3 Random Forest</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-Output-Results"><span class="toc-text">3.4 Output Results</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Improvements"><span class="toc-text">4. Improvements</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-Exploratory-Data-Analysis-EDA"><span class="toc-text">4.1 Exploratory Data Analysis (EDA)</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/08/09/Kaggle/Kaggle_Titanic/" title="Kaggle Titanic"><img src="/img/top-img/Kaggle_Titanic.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Kaggle Titanic"/></a><div class="content"><a class="title" href="/2023/08/09/Kaggle/Kaggle_Titanic/" title="Kaggle Titanic">Kaggle Titanic</a><time datetime="2023-08-09T08:23:10.000Z" title="发表于 2023-08-09 16:23:10">2023-08-09</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/08/08/Kaggle/Kaggle_Introduce/" title="KaggleIntroduce">KaggleIntroduce</a><time datetime="2023-08-08T08:23:10.000Z" title="发表于 2023-08-08 16:23:10">2023-08-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/08/03/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%EF%BC%88%E4%B8%83%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%AE%AD%E7%BB%83%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" title="（七）深度学习之训练卷积神经网络（施工中...）">（七）深度学习之训练卷积神经网络（施工中...）</a><time datetime="2023-08-03T08:23:10.000Z" title="发表于 2023-08-03 16:23:10">2023-08-03</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/07/31/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%EF%BC%88%E5%85%AD%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" title="（六）深度学习之卷积神经网络">（六）深度学习之卷积神经网络</a><time datetime="2023-07-31T08:23:10.000Z" title="发表于 2023-07-31 16:23:10">2023-07-31</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/07/28/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%EF%BC%88%E4%BA%94%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%A8%A1%E5%9E%8B%E5%88%9D%E5%A7%8B%E5%8C%96/" title="（五）深度学习之模型初始化">（五）深度学习之模型初始化</a><time datetime="2023-07-28T08:23:10.000Z" title="发表于 2023-07-28 16:23:10">2023-07-28</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Linermao</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a><br>
+<a href="https://beian.miit.gov.cn/" target="_blank">浙ICP备2023022422号-1</a>
+<br>
+<img src = '/img/gongan.png'></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
