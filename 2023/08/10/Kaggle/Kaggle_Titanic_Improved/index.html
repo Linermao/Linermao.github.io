@@ -1,0 +1,345 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Kaggle Titanic Improved | Linermao's kiosk</title><meta name="author" content="Linermao,86281366@qq.com"><meta name="copyright" content="Linermao"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Kaggle Titanic ImprovedPrefaceBefore you begin reading this article, I have a tragic thing to tell you. Despite my belief that the data analysis presented in this article is more systematic and rigoro">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kaggle Titanic Improved">
+<meta property="og:url" content="http://example.com/2023/08/10/Kaggle/Kaggle_Titanic_Improved/index.html">
+<meta property="og:site_name" content="Linermao&#39;s kiosk">
+<meta property="og:description" content="Kaggle Titanic ImprovedPrefaceBefore you begin reading this article, I have a tragic thing to tell you. Despite my belief that the data analysis presented in this article is more systematic and rigoro">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/top-img/Kaggle_Titanic_Improved.png">
+<meta property="article:published_time" content="2023-08-10T08:23:10.000Z">
+<meta property="article:modified_time" content="2023-08-11T10:02:09.699Z">
+<meta property="article:author" content="Linermao">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/top-img/Kaggle_Titanic_Improved.png"><link rel="shortcut icon" href="/images/favicon.jpg"><link rel="canonical" href="http://example.com/2023/08/10/Kaggle/Kaggle_Titanic_Improved/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?d0547acfa82ccac854b804414ae584ec";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":230},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Kaggle Titanic Improved',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: undefined,
+  isToc: true,
+  postUpdate: '2023-08-11 18:02:09'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (true) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/images/Avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">17</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/top-img/Kaggle_Titanic_Improved.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Linermao's kiosk"><span class="site-name">Linermao's kiosk</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Kaggle Titanic Improved</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-08-10T08:23:10.000Z" title="发表于 2023-08-10 16:23:10">2023-08-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-08-11T10:02:09.699Z" title="更新于 2023-08-11 18:02:09">2023-08-11</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Kaggle/">Kaggle</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Kaggle Titanic Improved"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Kaggle-Titanic-Improved"><a href="#Kaggle-Titanic-Improved" class="headerlink" title="Kaggle Titanic Improved"></a>Kaggle Titanic Improved</h1><h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p><strong>Before you begin reading this article, I have a tragic thing to tell you. Despite my belief that the data analysis presented in this article is more systematic and rigorous, the final scores obtained from the data results may not be as ideal. Nevertheless, I still wish to showcase my thought process. After all, the data analysis in the “Base Model” article left much to be desired.</strong></p>
+<h2 id="1-Improvements"><a href="#1-Improvements" class="headerlink" title="1. Improvements"></a>1. Improvements</h2><h3 id="1-1-Exploratory-Data-Analysis-EDA"><a href="#1-1-Exploratory-Data-Analysis-EDA" class="headerlink" title="1.1 Exploratory Data Analysis (EDA)"></a>1.1 Exploratory Data Analysis (EDA)</h3><p>Firstly, we have a simple idea: could gender be related to survival rate? Because of “Ladies first”.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">sns.countplot(x=<span class="string">&#x27;Sex&#x27;</span>, data=traindata)</span><br><span class="line">plt.title(<span class="string">&#x27;Distribution of Sex&#x27;</span>)</span><br><span class="line">plt.savefig(<span class="string">&#x27;/deeplearning/KaggleProjects/titanic/Photoes/Sex_Numbers.png&#x27;</span>)</span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line">sns.barplot(x = <span class="string">&#x27;Sex&#x27;</span>, y=<span class="string">&#x27;Survived&#x27;</span>, data = traindata)</span><br><span class="line">plt.title(<span class="string">&#x27;Sex_Survived&#x27;</span>)</span><br><span class="line">plt.savefig(<span class="string">&#x27;/deeplearning/KaggleProjects/titanic/Photoes/Sex_Survived.png&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<div align="center">
+<img weith="500" height="400" src="/2023/08/10/Kaggle/Kaggle_Titanic_Improved/Sex_Numbers.png">
+<p style="font-size:14px;">Figure-1 Sex_Numbers</p></div>
+
+
+<div align="center">
+<img weith="500" height="400" src="/2023/08/10/Kaggle/Kaggle_Titanic_Improved/Sex_Survived.png">
+<p style="font-size:14px;">Figure-2 Sex_Survived</p></div>
+
+
+<p>We hypothesize that social status could be correlated with survival rate, as depicted in movies where lower-class workers often had fewer opportunities to escape.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">plt.hist([data_all[data_all[<span class="string">&#x27;Survived&#x27;</span>]==<span class="number">1</span>][<span class="string">&#x27;Pclass&#x27;</span>],data_all[data_all[<span class="string">&#x27;Survived&#x27;</span>]==<span class="number">0</span>][<span class="string">&#x27;Pclass&#x27;</span>]], color = [<span class="string">&#x27;g&#x27;</span>,<span class="string">&#x27;r&#x27;</span>], label = [<span class="string">&#x27;Survived&#x27;</span>,<span class="string">&#x27;Dead&#x27;</span>])</span><br><span class="line">plt.title(<span class="string">&#x27;Pclass_Survived&#x27;</span>)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;Pclass&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;Numbers&#x27;</span>)</span><br><span class="line">plt.legend()</span><br><span class="line">plt.savefig(<span class="string">&#x27;/deeplearning/KaggleProjects/titanic/Photoes/Pclass_Survived.png&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<div align="center">
+<img weith="500" height="400" src="/2023/08/10/Kaggle/Kaggle_Titanic_Improved/Pclass_Survived.png">
+<p style="font-size:14px;">Figure-3 Pclass_Survived</p></div>
+
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">plt.hist([data_all[data_all[<span class="string">&#x27;Survived&#x27;</span>]==<span class="number">1</span>][<span class="string">&#x27;Fare&#x27;</span>],data_all[data_all[<span class="string">&#x27;Survived&#x27;</span>]==<span class="number">0</span>][<span class="string">&#x27;Fare&#x27;</span>]],color = [<span class="string">&#x27;g&#x27;</span>,<span class="string">&#x27;r&#x27;</span>], bins = <span class="number">50</span>, label = [<span class="string">&#x27;Survived&#x27;</span>,<span class="string">&#x27;Dead&#x27;</span>])</span><br><span class="line">plt.title(<span class="string">&#x27;Fare_Survived&#x27;</span>)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;Fare&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;Numbers&#x27;</span>)</span><br><span class="line">plt.legend()</span><br><span class="line">plt.savefig(<span class="string">&#x27;/deeplearning/KaggleProjects/titanic/Photoes/Fare_Survived.png&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<div align="center">
+<img weith="500" height="400" src="/2023/08/10/Kaggle/Kaggle_Titanic_Improved/Fare_Survived.png">
+<p style="font-size:14px;">Figure-4 Fare_Survived</p></div>
+
+
+<p>Indeed, as it turns out, a higher ticket class is associated with a higher probability of survival.</p>
+<p>In other words, higher social status increases the rate of survival.</p>
+<h3 id="1-2-Feature-Engineering"><a href="#1-2-Feature-Engineering" class="headerlink" title="1.2 Feature Engineering"></a>1.2 Feature Engineering</h3><h4 id="1-2-1-Cabin"><a href="#1-2-1-Cabin" class="headerlink" title="1.2.1 Cabin"></a>1.2.1 Cabin</h4><p>Let’s shift our focus back to the data we previously discarded. We’ll start by analyzing the ‘Cabin’ column.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(data_all[<span class="string">&#x27;Cabin&#x27;</span>].unique())</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[nan &#x27;C85&#x27; &#x27;C123&#x27; &#x27;E46&#x27; &#x27;G6&#x27; &#x27;C103&#x27; &#x27;D56&#x27; &#x27;A6&#x27; &#x27;C23 C25 C27&#x27; &#x27;B78&#x27; &#x27;D33&#x27;</span><br><span class="line"> &#x27;B30&#x27; &#x27;C52&#x27; &#x27;B28&#x27; &#x27;C83&#x27; &#x27;F33&#x27; &#x27;F G73&#x27; &#x27;E31&#x27; &#x27;A5&#x27; &#x27;D10 D12&#x27; &#x27;D26&#x27; &#x27;C110&#x27;</span><br><span class="line"> &#x27;B58 B60&#x27; &#x27;E101&#x27; &#x27;F E69&#x27; &#x27;D47&#x27; &#x27;B86&#x27; &#x27;F2&#x27; &#x27;C2&#x27; &#x27;E33&#x27; &#x27;B19&#x27; &#x27;A7&#x27; &#x27;C49&#x27;</span><br><span class="line"> &#x27;F4&#x27; &#x27;A32&#x27; &#x27;B4&#x27; &#x27;B80&#x27; &#x27;A31&#x27; &#x27;D36&#x27; &#x27;D15&#x27; &#x27;C93&#x27; &#x27;C78&#x27; &#x27;D35&#x27; &#x27;C87&#x27; &#x27;B77&#x27;</span><br><span class="line"> &#x27;E67&#x27; &#x27;B94&#x27; &#x27;C125&#x27; &#x27;C99&#x27; &#x27;C118&#x27; &#x27;D7&#x27; &#x27;A19&#x27; &#x27;B49&#x27; &#x27;D&#x27; &#x27;C22 C26&#x27; &#x27;C106&#x27;</span><br><span class="line"> &#x27;C65&#x27; &#x27;E36&#x27; &#x27;C54&#x27; &#x27;B57 B59 B63 B66&#x27; &#x27;C7&#x27; &#x27;E34&#x27; &#x27;C32&#x27; &#x27;B18&#x27; &#x27;C124&#x27; &#x27;C91&#x27;</span><br><span class="line"> &#x27;E40&#x27; &#x27;T&#x27; &#x27;C128&#x27; &#x27;D37&#x27; &#x27;B35&#x27; &#x27;E50&#x27; &#x27;C82&#x27; &#x27;B96 B98&#x27; &#x27;E10&#x27; &#x27;E44&#x27; &#x27;A34&#x27;</span><br><span class="line"> &#x27;C104&#x27; &#x27;C111&#x27; &#x27;C92&#x27; &#x27;E38&#x27; &#x27;D21&#x27; &#x27;E12&#x27; &#x27;E63&#x27; &#x27;A14&#x27; &#x27;B37&#x27; &#x27;C30&#x27; &#x27;D20&#x27; &#x27;B79&#x27;</span><br><span class="line"> &#x27;E25&#x27; &#x27;D46&#x27; &#x27;B73&#x27; &#x27;C95&#x27; &#x27;B38&#x27; &#x27;B39&#x27; &#x27;B22&#x27; &#x27;C86&#x27; &#x27;C70&#x27; &#x27;A16&#x27; &#x27;C101&#x27; &#x27;C68&#x27;</span><br><span class="line"> &#x27;A10&#x27; &#x27;E68&#x27; &#x27;B41&#x27; &#x27;A20&#x27; &#x27;D19&#x27; &#x27;D50&#x27; &#x27;D9&#x27; &#x27;A23&#x27; &#x27;B50&#x27; &#x27;A26&#x27; &#x27;D48&#x27; &#x27;E58&#x27;</span><br><span class="line"> &#x27;C126&#x27; &#x27;B71&#x27; &#x27;B51 B53 B55&#x27; &#x27;D49&#x27; &#x27;B5&#x27; &#x27;B20&#x27; &#x27;F G63&#x27; &#x27;C62 C64&#x27; &#x27;E24&#x27; &#x27;C90&#x27;</span><br><span class="line"> &#x27;C45&#x27; &#x27;E8&#x27; &#x27;B101&#x27; &#x27;D45&#x27; &#x27;C46&#x27; &#x27;D30&#x27; &#x27;E121&#x27; &#x27;D11&#x27; &#x27;E77&#x27; &#x27;F38&#x27; &#x27;B3&#x27; &#x27;D6&#x27;</span><br><span class="line"> &#x27;B82 B84&#x27; &#x27;D17&#x27; &#x27;A36&#x27; &#x27;B102&#x27; &#x27;B69&#x27; &#x27;E49&#x27; &#x27;C47&#x27; &#x27;D28&#x27; &#x27;E17&#x27; &#x27;A24&#x27; &#x27;C50&#x27;</span><br><span class="line"> &#x27;B42&#x27; &#x27;C148&#x27; &#x27;B45&#x27; &#x27;B36&#x27; &#x27;A21&#x27; &#x27;D34&#x27; &#x27;A9&#x27; &#x27;C31&#x27; &#x27;B61&#x27; &#x27;C53&#x27; &#x27;D43&#x27; &#x27;C130&#x27;</span><br><span class="line"> &#x27;C132&#x27; &#x27;C55 C57&#x27; &#x27;C116&#x27; &#x27;F&#x27; &#x27;A29&#x27; &#x27;C6&#x27; &#x27;C28&#x27; &#x27;C51&#x27; &#x27;C97&#x27; &#x27;D22&#x27; &#x27;B10&#x27;</span><br><span class="line"> &#x27;E45&#x27; &#x27;E52&#x27; &#x27;A11&#x27; &#x27;B11&#x27; &#x27;C80&#x27; &#x27;C89&#x27; &#x27;F E46&#x27; &#x27;B26&#x27; &#x27;F E57&#x27; &#x27;A18&#x27; &#x27;E60&#x27;</span><br><span class="line"> &#x27;E39 E41&#x27; &#x27;B52 B54 B56&#x27; &#x27;C39&#x27; &#x27;B24&#x27; &#x27;D40&#x27; &#x27;D38&#x27; &#x27;C105&#x27;]</span><br></pre></td></tr></table></figure>
+<p>We notice that ‘Cabin’ is composed of letters and numbers, with the first letter representing the deck number of the cabin and the second letter denoting the room number. Clearly, the deck number holds more meaningful information for our analysis. </p>
+<div align="center">
+<img weith="400" height="600" src="/2023/08/10/Kaggle/Kaggle_Titanic_Improved/Cabin.jpg">
+<p style="font-size:14px;">Figure-5 Cabin</p></div>
+
+
+<p>Certainly, survival chances were higher for passengers on higher decks. From the chart, we can observe the distribution characteristics of the ‘Cabin’ feature.</p>
+<p>Before extracting, I used ‘U’ (unknown) to fill in the missing values as a preliminary step. Then, we will extract the first letter.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data_all[<span class="string">&#x27;Cabin&#x27;</span>].fillna(<span class="string">&#x27;U&#x27;</span>,inplace=<span class="literal">True</span>)</span><br><span class="line">data_all[<span class="string">&#x27;Cabin&#x27;</span>] = data_all[<span class="string">&#x27;Cabin&#x27;</span>].<span class="built_in">map</span>(<span class="keyword">lambda</span> s: s[<span class="number">0</span>])</span><br><span class="line"><span class="built_in">print</span>(data_all[<span class="string">&#x27;Cabin&#x27;</span>].value_counts())</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Cabin</span><br><span class="line">U    1014</span><br><span class="line">C      94</span><br><span class="line">B      65</span><br><span class="line">D      46</span><br><span class="line">E      41</span><br><span class="line">A      22</span><br><span class="line">F      21</span><br><span class="line">G       5</span><br><span class="line">T       1</span><br></pre></td></tr></table></figure>
+<p>Interestingly, there is no information about the ‘T’ cabin here. (Could it be that someone slept on the mast?) Nonetheless, it’s not an issue. Since there is only one ‘T’ cabin data, we can manually assign it to another cabin.</p>
+<p><strong>Please note that this is the traindata!</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data_all.loc[(data_all[<span class="string">&#x27;Cabin&#x27;</span>] == <span class="string">&#x27;T&#x27;</span>), <span class="string">&#x27;Cabin&#x27;</span>] = <span class="string">&#x27;F&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>Next, it naturally comes to mind to allocate the ‘U’ data to other categories based on fare levels.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(data_all.groupby(<span class="string">&quot;Cabin&quot;</span>)[<span class="string">&#x27;Fare&#x27;</span>].<span class="built_in">max</span>().sort_values())</span><br><span class="line"><span class="built_in">print</span>(data_all.groupby(<span class="string">&quot;Cabin&quot;</span>)[<span class="string">&#x27;Fare&#x27;</span>].<span class="built_in">min</span>().sort_values())</span><br><span class="line"><span class="built_in">print</span>(data_all.groupby(<span class="string">&quot;Cabin&quot;</span>)[<span class="string">&#x27;Fare&#x27;</span>].mean().sort_values())</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Cabin</span><br><span class="line">G     16.7000</span><br><span class="line">F     39.0000</span><br><span class="line">A     81.8583</span><br><span class="line">D    113.2750</span><br><span class="line">E    134.5000</span><br><span class="line">C    263.0000</span><br><span class="line">B    512.3292</span><br><span class="line">U    512.3292</span><br><span class="line">Cabin</span><br><span class="line">A     0.0000</span><br><span class="line">B     0.0000</span><br><span class="line">U     0.0000</span><br><span class="line">F     7.2292</span><br><span class="line">E     8.0500</span><br><span class="line">G    10.4625</span><br><span class="line">D    12.8750</span><br><span class="line">C    25.7000</span><br><span class="line">Cabin</span><br><span class="line">G     14.205000</span><br><span class="line">F     18.079367</span><br><span class="line">U     19.132707</span><br><span class="line">A     41.244314</span><br><span class="line">D     53.007339</span><br><span class="line">E     54.564634</span><br><span class="line">C    107.926598</span><br><span class="line">B    122.383078</span><br></pre></td></tr></table></figure>
+<p>However, during the grouping process, we discovered that there were passengers in the ‘A’ ‘B’ cabin who boarded for free! They might have been invited as aristocrats.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(data_all[data_all[<span class="string">&#x27;Fare&#x27;</span>] == <span class="number">0</span>])</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">     PassengerId  Survived  Pclass                                   Name   Sex   Age  SibSp  Parch  Ticket  Fare Cabin Embarked</span><br><span class="line">179           180       0.0       3                    Leonard, Mr. Lionel  male  36.0      0      0    LINE   0.0     U        S</span><br><span class="line">263           264       0.0       1                  Harrison, Mr. William  male  40.0      0      0  112059   0.0     B        S</span><br><span class="line">271           272       1.0       3           Tornquist, Mr. William Henry  male  25.0      0      0    LINE   0.0     U        S</span><br><span class="line">277           278       0.0       2            Parkes, Mr. Francis &quot;Frank&quot;  male   NaN      0      0  239853   0.0     U        S</span><br><span class="line">302           303       0.0       3        Johnson, Mr. William Cahoone Jr  male  19.0      0      0    LINE   0.0     U        S</span><br><span class="line">413           414       0.0       2         Cunningham, Mr. Alfred Fleming  male   NaN      0      0  239853   0.0     U        S</span><br><span class="line">466           467       0.0       2                  Campbell, Mr. William  male   NaN      0      0  239853   0.0     U        S</span><br><span class="line">481           482       0.0       2       Frost, Mr. Anthony Wood &quot;Archie&quot;  male   NaN      0      0  239854   0.0     U        S</span><br><span class="line">597           598       0.0       3                    Johnson, Mr. Alfred  male  49.0      0      0    LINE   0.0     U        S</span><br><span class="line">633           634       0.0       1          Parr, Mr. William Henry Marsh  male   NaN      0      0  112052   0.0     U        S</span><br><span class="line">674           675       0.0       2             Watson, Mr. Ennis Hastings  male   NaN      0      0  239856   0.0     U        S</span><br><span class="line">732           733       0.0       2                   Knight, Mr. Robert J  male   NaN      0      0  239855   0.0     U        S</span><br><span class="line">806           807       0.0       1                 Andrews, Mr. Thomas Jr  male  39.0      0      0  112050   0.0     A        S</span><br><span class="line">815           816       0.0       1                       Fry, Mr. Richard  male   NaN      0      0  112058   0.0     B        S</span><br><span class="line">822           823       0.0       1        Reuchlin, Jonkheer. John George  male  38.0      0      0   19972   0.0     U        S</span><br><span class="line">1157         1158       NaN       1  Chisholm, Mr. Roderick Robert Crispin  male   NaN      0      0  112051   0.0     U        S</span><br><span class="line">1263         1264       NaN       1                Ismay, Mr. Joseph Bruce  male  49.0      0      0  112058   0.0     B        S</span><br></pre></td></tr></table></figure>
+<p>After careful consideration, I’ve decided to assign passengers with ticket class 1 to the ‘B’ cabin.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data_all.loc[(data_all[<span class="string">&#x27;Fare&#x27;</span>] == <span class="number">0</span>) &amp; (data_all[<span class="string">&#x27;Pclass&#x27;</span>] == <span class="number">1</span>) &amp;(data_all[<span class="string">&#x27;Cabin&#x27;</span>] == <span class="string">&#x27;U&#x27;</span>), <span class="string">&#x27;Cabin&#x27;</span>] = <span class="string">&#x27;B&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>Next, we can proceed to group the ‘U’ cabin based on the fare corresponding to each cabin.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">cabin_estimator</span>(<span class="params">i</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;Grouping cabin feature by the first letter&quot;&quot;&quot;</span></span><br><span class="line">    a = <span class="number">0</span></span><br><span class="line">    <span class="keyword">if</span> i&lt;<span class="number">16</span>:</span><br><span class="line">        a = <span class="string">&quot;G&quot;</span></span><br><span class="line">    <span class="keyword">elif</span> i&gt;=<span class="number">16</span> <span class="keyword">and</span> i&lt;<span class="number">27</span>:</span><br><span class="line">        a = <span class="string">&quot;F&quot;</span></span><br><span class="line">    <span class="keyword">elif</span> i&gt;=<span class="number">27</span> <span class="keyword">and</span> i&lt;<span class="number">47</span>:</span><br><span class="line">        a = <span class="string">&quot;A&quot;</span></span><br><span class="line">    <span class="keyword">elif</span> i&gt;= <span class="number">47</span> <span class="keyword">and</span> i&lt;<span class="number">53</span>:</span><br><span class="line">        a = <span class="string">&quot;E&quot;</span></span><br><span class="line">    <span class="keyword">elif</span> i&gt;= <span class="number">53</span> <span class="keyword">and</span> i&lt;<span class="number">54</span>:</span><br><span class="line">        a = <span class="string">&quot;D&quot;</span></span><br><span class="line">    <span class="keyword">elif</span> i&gt;=<span class="number">54</span> <span class="keyword">and</span> i&lt;<span class="number">116</span>:</span><br><span class="line">        a = <span class="string">&#x27;C&#x27;</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        a = <span class="string">&quot;B&quot;</span></span><br><span class="line">    <span class="keyword">return</span> a</span><br><span class="line">data_all.loc[data_all[<span class="string">&#x27;Cabin&#x27;</span>] == <span class="string">&#x27;U&#x27;</span>,<span class="string">&#x27;Cabin&#x27;</span>] = data_all[data_all[<span class="string">&#x27;Cabin&#x27;</span>] == <span class="string">&#x27;U&#x27;</span>][<span class="string">&#x27;Fare&#x27;</span>].apply(<span class="keyword">lambda</span> x: cabin_estimator(x))</span><br></pre></td></tr></table></figure>
+<p>Afterward, I performed another round of subdivision. This can help reduce the number of training parameters and mitigate the potential for overfitting.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data_all[<span class="string">&#x27;Cabin&#x27;</span>] = data_all[<span class="string">&#x27;Cabin&#x27;</span>].replace([<span class="string">&#x27;A&#x27;</span>,<span class="string">&#x27;B&#x27;</span>], <span class="string">&#x27;AB&#x27;</span>)</span><br><span class="line">data_all[<span class="string">&#x27;Cabin&#x27;</span>] = data_all[<span class="string">&#x27;Cabin&#x27;</span>].replace([<span class="string">&#x27;C&#x27;</span>,<span class="string">&#x27;D&#x27;</span>,<span class="string">&#x27;E&#x27;</span>], <span class="string">&quot;CDE&quot;</span>)</span><br><span class="line">data_all[<span class="string">&#x27;Cabin&#x27;</span>] = data_all[<span class="string">&#x27;Cabin&#x27;</span>].replace([<span class="string">&#x27;F&#x27;</span>,<span class="string">&#x27;G&#x27;</span>], <span class="string">&#x27;FG&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="1-2-2-Name"><a href="#1-2-2-Name" class="headerlink" title="1.2.2 Name"></a>1.2.2 Name</h4><p>Passenger names are also valuable data. Titles can provide insights into their social status, and first name can indicate whether they have family members onboard. Here, we will extract only the title data.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data_all[<span class="string">&#x27;Title&#x27;</span>] = data_all[<span class="string">&#x27;Name&#x27;</span>].<span class="built_in">map</span>(<span class="keyword">lambda</span> name:name.split(<span class="string">&#x27;,&#x27;</span>)[<span class="number">1</span>].split(<span class="string">&#x27;.&#x27;</span>)[<span class="number">0</span>].strip())</span><br><span class="line"><span class="built_in">print</span>(data_all[<span class="string">&#x27;Title&#x27;</span>].unique())</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[&#x27;Mr&#x27; &#x27;Mrs&#x27; &#x27;Miss&#x27; &#x27;Master&#x27; &#x27;Don&#x27; &#x27;Rev&#x27; &#x27;Dr&#x27; &#x27;Mme&#x27; &#x27;Ms&#x27; &#x27;Major&#x27; &#x27;Lady&#x27;</span><br><span class="line"> &#x27;Sir&#x27; &#x27;Mlle&#x27; &#x27;Col&#x27; &#x27;Capt&#x27; &#x27;the Countess&#x27; &#x27;Jonkheer&#x27; &#x27;Dona&#x27;]</span><br></pre></td></tr></table></figure>
+<p>We can also group the titles. The grouping order is not explained here, and I will provide it directly.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data_all[<span class="string">&#x27;Title&#x27;</span>].replace([<span class="string">&#x27;Mlle&#x27;</span>,<span class="string">&#x27;Mme&#x27;</span>,<span class="string">&#x27;Ms&#x27;</span>,<span class="string">&#x27;Dr&#x27;</span>,<span class="string">&#x27;Major&#x27;</span>,<span class="string">&#x27;Lady&#x27;</span>,<span class="string">&#x27;the Countess&#x27;</span>,<span class="string">&#x27;Jonkheer&#x27;</span>,<span class="string">&#x27;Col&#x27;</span>,<span class="string">&#x27;Rev&#x27;</span>,<span class="string">&#x27;Capt&#x27;</span>,<span class="string">&#x27;Sir&#x27;</span>,<span class="string">&#x27;Don&#x27;</span>,<span class="string">&#x27;Dona&#x27;</span>],</span><br><span class="line">                        [<span class="string">&#x27;Miss&#x27;</span>,<span class="string">&#x27;Miss&#x27;</span>,<span class="string">&#x27;Miss&#x27;</span>,<span class="string">&#x27;Mr&#x27;</span>,<span class="string">&#x27;Mr&#x27;</span>,<span class="string">&#x27;Mrs&#x27;</span>,<span class="string">&#x27;Mrs&#x27;</span>,<span class="string">&#x27;Other&#x27;</span>,<span class="string">&#x27;Other&#x27;</span>,<span class="string">&#x27;Other&#x27;</span>,<span class="string">&#x27;Mr&#x27;</span>,<span class="string">&#x27;Mr&#x27;</span>,<span class="string">&#x27;Mr&#x27;</span>,<span class="string">&#x27;Mrs&#x27;</span>],inplace=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="1-2-3-Age"><a href="#1-2-3-Age" class="headerlink" title="1.2.3 Age"></a>1.2.3 Age</h4><p>One’s title can also reflect his age, so we can impute missing values based on the average age associated with each title.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(data_all.groupby(<span class="string">&quot;Title&quot;</span>)[<span class="string">&#x27;Age&#x27;</span>].mean().sort_values())</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Title</span><br><span class="line">Master     5.482642</span><br><span class="line">Miss      21.834533</span><br><span class="line">Mr        32.524493</span><br><span class="line">Mrs       37.046243</span><br><span class="line">Other     44.923077</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data_all.loc[(data_all[<span class="string">&#x27;Age&#x27;</span>].isnull())&amp;(data_all[<span class="string">&#x27;Title&#x27;</span>]==<span class="string">&#x27;Mr&#x27;</span>),<span class="string">&#x27;Age&#x27;</span>]=<span class="number">33</span></span><br><span class="line">data_all.loc[(data_all[<span class="string">&#x27;Age&#x27;</span>].isnull())&amp;(data_all[<span class="string">&#x27;Title&#x27;</span>]==<span class="string">&#x27;Mrs&#x27;</span>),<span class="string">&#x27;Age&#x27;</span>]=<span class="number">37</span></span><br><span class="line">data_all.loc[(data_all[<span class="string">&#x27;Age&#x27;</span>].isnull())&amp;(data_all[<span class="string">&#x27;Title&#x27;</span>]==<span class="string">&#x27;Master&#x27;</span>),<span class="string">&#x27;Age&#x27;</span>]=<span class="number">5</span></span><br><span class="line">data_all.loc[(data_all[<span class="string">&#x27;Age&#x27;</span>].isnull())&amp;(data_all[<span class="string">&#x27;Title&#x27;</span>]==<span class="string">&#x27;Miss&#x27;</span>),<span class="string">&#x27;Age&#x27;</span>]=<span class="number">22</span></span><br><span class="line">data_all.loc[(data_all[<span class="string">&#x27;Age&#x27;</span>].isnull())&amp;(data_all[<span class="string">&#x27;Title&#x27;</span>]==<span class="string">&#x27;Other&#x27;</span>),<span class="string">&#x27;Age&#x27;</span>]=<span class="number">45</span></span><br></pre></td></tr></table></figure>
+<p><strong>With these processing steps completed, the data has been effectively restored, and we are ready to proceed to the next testing phase.</strong></p>
+<h3 id="1-3-Other-tips"><a href="#1-3-Other-tips" class="headerlink" title="1.3 Other tips"></a>1.3 Other tips</h3></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Linermao</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/08/10/Kaggle/Kaggle_Titanic_Improved/">http://example.com/2023/08/10/Kaggle/Kaggle_Titanic_Improved/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Linermao's kiosk</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/top-img/Kaggle_Titanic_Improved.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/08/09/Kaggle/Kaggle_Titanic/" title="Kaggle Titanic"><img class="cover" src="/img/top-img/Kaggle_Titanic.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Kaggle Titanic</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/images/Avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Linermao</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">17</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Linermao"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Linermao" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:862813266@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is Linermao's Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Kaggle-Titanic-Improved"><span class="toc-text">Kaggle Titanic Improved</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Preface"><span class="toc-text">Preface</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Improvements"><span class="toc-text">1. Improvements</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-Exploratory-Data-Analysis-EDA"><span class="toc-text">1.1 Exploratory Data Analysis (EDA)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-Feature-Engineering"><span class="toc-text">1.2 Feature Engineering</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-1-Cabin"><span class="toc-text">1.2.1 Cabin</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-2-Name"><span class="toc-text">1.2.2 Name</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-3-Age"><span class="toc-text">1.2.3 Age</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-Other-tips"><span class="toc-text">1.3 Other tips</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/08/10/Kaggle/Kaggle_Titanic_Improved/" title="Kaggle Titanic Improved"><img src="/img/top-img/Kaggle_Titanic_Improved.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Kaggle Titanic Improved"/></a><div class="content"><a class="title" href="/2023/08/10/Kaggle/Kaggle_Titanic_Improved/" title="Kaggle Titanic Improved">Kaggle Titanic Improved</a><time datetime="2023-08-10T08:23:10.000Z" title="发表于 2023-08-10 16:23:10">2023-08-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/09/Kaggle/Kaggle_Titanic/" title="Kaggle Titanic"><img src="/img/top-img/Kaggle_Titanic.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Kaggle Titanic"/></a><div class="content"><a class="title" href="/2023/08/09/Kaggle/Kaggle_Titanic/" title="Kaggle Titanic">Kaggle Titanic</a><time datetime="2023-08-09T08:23:10.000Z" title="发表于 2023-08-09 16:23:10">2023-08-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/08/Kaggle/Kaggle_Introduce/" title="Kaggle Introduce"><img src="/img/top-img/Kaggle_Introduce.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Kaggle Introduce"/></a><div class="content"><a class="title" href="/2023/08/08/Kaggle/Kaggle_Introduce/" title="Kaggle Introduce">Kaggle Introduce</a><time datetime="2023-08-08T08:23:10.000Z" title="发表于 2023-08-08 16:23:10">2023-08-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/08/03/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%EF%BC%88%E4%B8%83%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%AE%AD%E7%BB%83%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" title="（七）深度学习之训练卷积神经网络（施工中...）">（七）深度学习之训练卷积神经网络（施工中...）</a><time datetime="2023-08-03T08:23:10.000Z" title="发表于 2023-08-03 16:23:10">2023-08-03</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/07/31/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%EF%BC%88%E5%85%AD%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" title="（六）深度学习之卷积神经网络">（六）深度学习之卷积神经网络</a><time datetime="2023-07-31T08:23:10.000Z" title="发表于 2023-07-31 16:23:10">2023-07-31</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Linermao</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a><br>
+<a href="https://beian.miit.gov.cn/" target="_blank">浙ICP备2023022422号-1</a>
+<br>
+<img src = '/img/gongan.png'></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
