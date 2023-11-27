@@ -1,0 +1,379 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>如何安装Ubuntu双系统 | Linermao's kiosk</title><meta name="author" content="Linermao,86281366@qq.com"><meta name="copyright" content="Linermao"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="如何安装Ubuntu双系统前言由于 WSL 上一些操作还是不方便，本人果断抛弃 WSL 投入 Linux 的怀抱。 本文为本人在 Windows11 系统上安装 Ubuntu22.04 并且配置深度学习环境的过程，可供参考。 首先你需要大约 100G 的空余内存，一块拥有 8G 以上内存的 U盘。 Windows系统：Windows 11Ubuntu系统：Ubuntu22.04 注意！本文 BIO">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何安装Ubuntu双系统">
+<meta property="og:url" content="http://example.com/2023/11/05/Windows%E4%B8%8EUbuntu%E5%8F%8C%E7%B3%BB%E7%BB%9F/%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85Ubuntu%E5%8F%8C%E7%B3%BB%E7%BB%9F/index.html">
+<meta property="og:site_name" content="Linermao&#39;s kiosk">
+<meta property="og:description" content="如何安装Ubuntu双系统前言由于 WSL 上一些操作还是不方便，本人果断抛弃 WSL 投入 Linux 的怀抱。 本文为本人在 Windows11 系统上安装 Ubuntu22.04 并且配置深度学习环境的过程，可供参考。 首先你需要大约 100G 的空余内存，一块拥有 8G 以上内存的 U盘。 Windows系统：Windows 11Ubuntu系统：Ubuntu22.04 注意！本文 BIO">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/Avatar.jpg">
+<meta property="article:published_time" content="2023-11-05T08:23:10.000Z">
+<meta property="article:modified_time" content="2023-11-22T14:37:36.950Z">
+<meta property="article:author" content="Linermao">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/Avatar.jpg"><link rel="shortcut icon" href="/images/favicon.jpg"><link rel="canonical" href="http://example.com/2023/11/05/Windows%E4%B8%8EUbuntu%E5%8F%8C%E7%B3%BB%E7%BB%9F/%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85Ubuntu%E5%8F%8C%E7%B3%BB%E7%BB%9F/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?d0547acfa82ccac854b804414ae584ec";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":230},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '如何安装Ubuntu双系统',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: undefined,
+  isToc: true,
+  postUpdate: '2023-11-22 22:37:36'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (true) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/images/Avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">30</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/images/index.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Linermao's kiosk"><span class="site-name">Linermao's kiosk</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">如何安装Ubuntu双系统</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-11-05T08:23:10.000Z" title="发表于 2023-11-05 16:23:10">2023-11-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-11-22T14:37:36.950Z" title="更新于 2023-11-22 22:37:36">2023-11-22</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Windows%E4%B8%8EUbuntu%E5%8F%8C%E7%B3%BB%E7%BB%9F/">Windows与Ubuntu双系统</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="如何安装Ubuntu双系统"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="如何安装Ubuntu双系统"><a href="#如何安装Ubuntu双系统" class="headerlink" title="如何安装Ubuntu双系统"></a>如何安装Ubuntu双系统</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>由于 WSL 上一些操作还是不方便，本人果断抛弃 WSL 投入 Linux 的怀抱。</p>
+<p>本文为本人在 Windows11 系统上安装 Ubuntu22.04 并且配置深度学习环境的过程，可供参考。</p>
+<p>首先你需要大约 100G 的空余内存，一块拥有 8G 以上内存的 U盘。</p>
+<p><strong>Windows系统</strong>：Windows 11<br><strong>Ubuntu系统</strong>：Ubuntu22.04</p>
+<p>注意！本文 BIOS 为 <strong>UEFI</strong> 类型，所以挂载 efi 分区。</p>
+<p>参考文章：<a target="_blank" rel="noopener" href="https://blog.csdn.net/codeHonghu/article/details/111940656">https://blog.csdn.net/codeHonghu/article/details/111940656</a></p>
+<h2 id="1-划分磁盘"><a href="#1-划分磁盘" class="headerlink" title="1. 划分磁盘"></a>1. 划分磁盘</h2><blockquote>
+<p>此步也可以使用 <strong>DiskGenius</strong>，知道如何使用的人自用。</p>
+</blockquote>
+<p>首先进入计算机管理，找到磁盘管理，在这里可以看到自己电脑的磁盘状态。</p>
+<p>我们要做的就是从仍有空间的磁盘中划分出要分给 Ubuntu 系统的空间。</p>
+<p>最为重要的是划分出 <strong>EFI 分区</strong>。</p>
+<ul>
+<li>什么是EFI系统分区：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/262069479">https://zhuanlan.zhihu.com/p/262069479</a></li>
+</ul>
+<blockquote>
+<p>EFI启动是指使用 <strong>EFI或UEFI</strong> 来启动电脑的一种方式。EFI或UEFI是一种新的固件标准，可以替代传统的BIOS，提供更多的功能和安全性。EFI启动可以从网卡启动，也可以从硬盘或U盘启动。从网卡启动可以实现批量安装系统的功能，称为网刻。</p>
+</blockquote>
+<p>首先我们找到 Windows 的系统盘，如果你没有操作过，那么默认就是 <strong>C盘</strong>。</p>
+<p>右键 C盘，从 C盘 中划分出大约 200MB 的空间，用于 EFI分区。</p>
+<p>接下来按照相似操作，从其他盘或者 C盘再划分出约 100G 的空间。（依照你自己想要分配的空间大小分配，给 1T 也是可以的，本人分了256G）</p>
+<h2 id="2-制作-iso-U盘镜像文件"><a href="#2-制作-iso-U盘镜像文件" class="headerlink" title="2. 制作 iso U盘镜像文件"></a>2. 制作 iso U盘镜像文件</h2><h3 id="2-1-下载-Ubuntu22-04-iso-镜像文件"><a href="#2-1-下载-Ubuntu22-04-iso-镜像文件" class="headerlink" title="2.1 下载 Ubuntu22.04 iso 镜像文件"></a>2.1 下载 Ubuntu22.04 iso 镜像文件</h3><p>进入 Ubuntu 官网： <a target="_blank" rel="noopener" href="https://ubuntu.com/download/desktop">https://ubuntu.com/download/desktop</a></p>
+<p>找到对应安装版本，后缀为 <strong>.iso</strong></p>
+<p>等待下载完成即可。</p>
+<p>如果下载速度过慢，可以去清华大学镜像网下载：</p>
+<p>清华大学镜像网: <a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/ubuntu-releases/">https://mirrors.tuna.tsinghua.edu.cn/ubuntu-releases/</a></p>
+<h3 id="2-2-安装-Rufus"><a href="#2-2-安装-Rufus" class="headerlink" title="2.2 安装 Rufus"></a>2.2 安装 Rufus</h3><p>我们使用 Rufus 制作 U盘镜像文件。</p>
+<blockquote>
+<p>Rufus 是一款格式化和创建 USB 启动盘的辅助工具。<br>本软件适用于以下场景：<br>需要将可引导 ISO (Windows、Linux、UEFI 等) 刻录到 USB 安装媒介的情况<br>需要处理未安装操作系统的设备的情况<br>需要在 DOS 环境下刷写 BIOS 或其他固件的情况<br>需要运行低级工具的情况<br>Rufus 麻雀虽小，但五脏俱全！</p>
+</blockquote>
+<p>官方网站： <a target="_blank" rel="noopener" href="https://rufus.ie/zh/">https://rufus.ie/zh/</a></p>
+<p>根据自己的 Windows 系统架构安装对应版本。</p>
+<h3 id="2-3-制作-U盘镜像"><a href="#2-3-制作-U盘镜像" class="headerlink" title="2.3 制作 U盘镜像"></a>2.3 制作 U盘镜像</h3><p>插入 U盘，打开 Rufus，在此界面，设备选项应该会读取到插入的 U盘，检查一下名称，确认无误。</p>
+<div align="center">
+<img src="/2023/11/05/Windows%E4%B8%8EUbuntu%E5%8F%8C%E7%B3%BB%E7%BB%9F/%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85Ubuntu%E5%8F%8C%E7%B3%BB%E7%BB%9F/Rufus.jpg" height="500px">
+<p>图 2.1</p>
+</div>
+
+<p><strong>注意</strong> 进行镜像文件创造会格式化 U盘！</p>
+<p>引导文件选择刚刚下载的 Ubuntu22.04 iso 文件，其他默认，点击开始即可等待镜像文件创建。</p>
+<h2 id="3-安装-Ubuntu22-04-系统"><a href="#3-安装-Ubuntu22-04-系统" class="headerlink" title="3. 安装 Ubuntu22.04 系统"></a>3. 安装 Ubuntu22.04 系统</h2><p>重启电脑，保证 U盘插上，进入 bios 界面，将启动选项第一项改为从 U盘启动。</p>
+<p>进入 bios 界面修改启动项：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/73403185">https://zhuanlan.zhihu.com/p/73403185</a></p>
+<p>然后电脑会自动重启，会出现一个带字的黑框，用方向键操控，选择 “Try to install ubuntu”，回车确认，就进入了 Ubuntu 安装界面。</p>
+<p>前面语言随便默认即可，当进入如图界面时，选择 <strong>其他选项</strong>：</p>
+<div align="center">
+<img src="/2023/11/05/Windows%E4%B8%8EUbuntu%E5%8F%8C%E7%B3%BB%E7%BB%9F/%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85Ubuntu%E5%8F%8C%E7%B3%BB%E7%BB%9F/OtherChoice.png" height="400px">
+<p>图 3.1</p>
+</div>
+
+<p>进入到这样的界面：</p>
+<div align="center">
+<img src="/2023/11/05/Windows%E4%B8%8EUbuntu%E5%8F%8C%E7%B3%BB%E7%BB%9F/%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85Ubuntu%E5%8F%8C%E7%B3%BB%E7%BB%9F/Distribute.jpeg" height="400px">
+<p>图 3.1</p>
+</div>
+
+<p>点击空闲的区域就会弹出如下界面：</p>
+<div align="center">
+<img src="/2023/11/05/Windows%E4%B8%8EUbuntu%E5%8F%8C%E7%B3%BB%E7%BB%9F/%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85Ubuntu%E5%8F%8C%E7%B3%BB%E7%BB%9F/choice.png" height="250px">
+<p>图 3.2</p>
+</div>
+
+<p>接下来按照给出的信息找到自己分出的空余空间，进行 Ubuntu 系统的分盘：</p>
+<h4 id="3-1-EFI分区"><a href="#3-1-EFI分区" class="headerlink" title="3.1 EFI分区"></a>3.1 EFI分区</h4><p><strong>EFI 分区需要选取之前在 Window C盘中分出的 300MB 的空余分区！</strong></p>
+<ul>
+<li>大小：300 MB</li>
+<li>分区类型：逻辑分区</li>
+<li>新分区位置：空间起始位置</li>
+<li>用于：EFI 系统文件</li>
+</ul>
+<h4 id="3-2-swap-交换分区"><a href="#3-2-swap-交换分区" class="headerlink" title="3.2 swap 交换分区"></a>3.2 swap 交换分区</h4><p>这是 Linux 也就是 Ubuntu 的交换区目录，大小一般为内存的 2 倍，在电脑内存不足时，系统调用这片区域，来运行程序。可以将其分为8～16G。</p>
+<ul>
+<li>大小：8～16G</li>
+<li>分区类型：逻辑分区</li>
+<li>新分区位置：空间起始位置</li>
+<li>用于：交换分区</li>
+</ul>
+<h4 id="3-3-根目录"><a href="#3-3-根目录" class="headerlink" title="3.3 / 根目录"></a>3.3 / 根目录</h4><p>这是 Linux 也就是 Ubuntu 的根目录，就是一个反斜杠 /，相当于Windows的C盘，ubuntu装软件，默认装在这里。</p>
+<ul>
+<li>大小：40G起步，空间大的可以多给一些（本人给了100G）</li>
+<li>分区类型：逻辑分区</li>
+<li>新分区位置：空间起始位置</li>
+<li>用于： ext4</li>
+<li>挂载点：/</li>
+</ul>
+<h4 id="3-4-home-分区"><a href="#3-4-home-分区" class="headerlink" title="3.4 /home 分区"></a>3.4 /home 分区</h4><p>这是 ubuntu 的主分区，相当于windows的其他盘。</p>
+<ul>
+<li>大小：剩下的空间全给他</li>
+<li>分区类型：<strong>主分区</strong></li>
+<li>新分区位置：空间起始位置</li>
+<li>用于： ext4</li>
+<li>挂载点：/home</li>
+</ul>
+<p>至此，ubuntu 系统的分区任务以及完成，后面一直默认点下去等待安装就可以了。</p>
+<p>第一次安装完毕可能关不了机，可以强制重启，记得拔下 U盘，进入这个界面并且顺利进入 Ubuntu 说明安装成功～</p>
+<div align="center">
+<img src="/2023/11/05/Windows%E4%B8%8EUbuntu%E5%8F%8C%E7%B3%BB%E7%BB%9F/%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85Ubuntu%E5%8F%8C%E7%B3%BB%E7%BB%9F/Open.jpg" height="150px">
+<p>图 3.3</p>
+</div>
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Linermao</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/11/05/Windows%E4%B8%8EUbuntu%E5%8F%8C%E7%B3%BB%E7%BB%9F/%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85Ubuntu%E5%8F%8C%E7%B3%BB%E7%BB%9F/">http://example.com/2023/11/05/Windows%E4%B8%8EUbuntu%E5%8F%8C%E7%B3%BB%E7%BB%9F/%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85Ubuntu%E5%8F%8C%E7%B3%BB%E7%BB%9F/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Linermao's kiosk</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/images/Avatar.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/11/15/Advanced_model/Transformer/" title="Transformer"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Transformer</div></div></a></div><div class="next-post pull-right"><a href="/2023/11/05/Windows%E4%B8%8EUbuntu%E5%8F%8C%E7%B3%BB%E7%BB%9F/Ubuntu%E7%B3%BB%E7%BB%9F%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" title="Ubuntu系统深度学习环境搭建"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Ubuntu系统深度学习环境搭建</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/images/Avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Linermao</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">30</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Linermao"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Linermao" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:862813266@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is Linermao's Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85Ubuntu%E5%8F%8C%E7%B3%BB%E7%BB%9F"><span class="toc-text">如何安装Ubuntu双系统</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%88%92%E5%88%86%E7%A3%81%E7%9B%98"><span class="toc-text">1. 划分磁盘</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%88%B6%E4%BD%9C-iso-U%E7%9B%98%E9%95%9C%E5%83%8F%E6%96%87%E4%BB%B6"><span class="toc-text">2. 制作 iso U盘镜像文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E4%B8%8B%E8%BD%BD-Ubuntu22-04-iso-%E9%95%9C%E5%83%8F%E6%96%87%E4%BB%B6"><span class="toc-text">2.1 下载 Ubuntu22.04 iso 镜像文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E5%AE%89%E8%A3%85-Rufus"><span class="toc-text">2.2 安装 Rufus</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E5%88%B6%E4%BD%9C-U%E7%9B%98%E9%95%9C%E5%83%8F"><span class="toc-text">2.3 制作 U盘镜像</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%AE%89%E8%A3%85-Ubuntu22-04-%E7%B3%BB%E7%BB%9F"><span class="toc-text">3. 安装 Ubuntu22.04 系统</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-EFI%E5%88%86%E5%8C%BA"><span class="toc-text">3.1 EFI分区</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-swap-%E4%BA%A4%E6%8D%A2%E5%88%86%E5%8C%BA"><span class="toc-text">3.2 swap 交换分区</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-%E6%A0%B9%E7%9B%AE%E5%BD%95"><span class="toc-text">3.3 &#x2F; 根目录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-home-%E5%88%86%E5%8C%BA"><span class="toc-text">3.4 &#x2F;home 分区</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/11/22/HexoBuilding/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE/" title="云服务器配置">云服务器配置</a><time datetime="2023-11-22T13:01:03.000Z" title="发表于 2023-11-22 21:01:03">2023-11-22</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/11/15/Advanced_model/Transformer/" title="Transformer">Transformer</a><time datetime="2023-11-15T08:23:10.000Z" title="发表于 2023-11-15 16:23:10">2023-11-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/11/05/Windows%E4%B8%8EUbuntu%E5%8F%8C%E7%B3%BB%E7%BB%9F/%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85Ubuntu%E5%8F%8C%E7%B3%BB%E7%BB%9F/" title="如何安装Ubuntu双系统">如何安装Ubuntu双系统</a><time datetime="2023-11-05T08:23:10.000Z" title="发表于 2023-11-05 16:23:10">2023-11-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/11/05/Windows%E4%B8%8EUbuntu%E5%8F%8C%E7%B3%BB%E7%BB%9F/Ubuntu%E7%B3%BB%E7%BB%9F%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" title="Ubuntu系统深度学习环境搭建">Ubuntu系统深度学习环境搭建</a><time datetime="2023-11-05T08:23:10.000Z" title="发表于 2023-11-05 16:23:10">2023-11-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/10/11/CLIP/CLIP_PaperRead/" title="CLIP Paper read (Waiting for perfection)">CLIP Paper read (Waiting for perfection)</a><time datetime="2023-10-10T16:01:00.000Z" title="发表于 2023-10-11 00:01:00">2023-10-11</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Linermao</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a><br>
+<a href="https://beian.miit.gov.cn/" target="_blank">浙ICP备2023022422号-1</a>
+<br>
+<img src = '/img/gongan.png'>
+<a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33030302001279" target="_blank">浙公网安备 33030302001279号</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
