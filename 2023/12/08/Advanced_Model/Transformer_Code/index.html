@@ -1,0 +1,395 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Transformer_Code | Linermao's kiosk</title><meta name="author" content="Linermao,86281366@qq.com"><meta name="copyright" content="Linermao"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Transformer Code (Pytorch)PrefaceThis article is written to guide you to build your own transformer model with pytorch. python&#x3D;3.8 Import package import torchimport torch.nn as nnimport math This piec">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Transformer_Code">
+<meta property="og:url" content="http://example.com/2023/12/08/Advanced_Model/Transformer_Code/index.html">
+<meta property="og:site_name" content="Linermao&#39;s kiosk">
+<meta property="og:description" content="Transformer Code (Pytorch)PrefaceThis article is written to guide you to build your own transformer model with pytorch. python&#x3D;3.8 Import package import torchimport torch.nn as nnimport math This piec">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/top-img/Advanced_Model/Transformer_Code.jpeg">
+<meta property="article:published_time" content="2023-12-08T08:23:10.000Z">
+<meta property="article:modified_time" content="2023-12-11T14:08:00.933Z">
+<meta property="article:author" content="Linermao">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/top-img/Advanced_Model/Transformer_Code.jpeg"><link rel="shortcut icon" href="/images/favicon.jpg"><link rel="canonical" href="http://example.com/2023/12/08/Advanced_Model/Transformer_Code/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?d0547acfa82ccac854b804414ae584ec";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":100,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":230},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Transformer_Code',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: undefined,
+  isToc: true,
+  postUpdate: '2023-12-11 22:08:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (true) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/images/Avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">33</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/top-img/Advanced_Model/Transformer_Code.jpeg')"><nav id="nav"><span id="blog-info"><a href="/" title="Linermao's kiosk"><span class="site-name">Linermao's kiosk</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Transformer_Code</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-12-08T08:23:10.000Z" title="发表于 2023-12-08 16:23:10">2023-12-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-12-11T14:08:00.933Z" title="更新于 2023-12-11 22:08:00">2023-12-11</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Advanced-model/">Advanced_model</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Transformer_Code"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Transformer-Code-Pytorch"><a href="#Transformer-Code-Pytorch" class="headerlink" title="Transformer Code (Pytorch)"></a>Transformer Code (Pytorch)</h1><h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>This article is written to guide you to build your own transformer model with pytorch.</p>
+<p>python=3.8</p>
+<p>Import package</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">import</span> math</span><br></pre></td></tr></table></figure>
+<p>This piece references the following articles：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.datacamp.com/tutorial/building-a-transformer-with-py-torch">https://www.datacamp.com/tutorial/building-a-transformer-with-py-torch</a></li>
+</ul>
+<p>Since I am also still learning, each subsection also explains the usage and role of some functions.</p>
+<h2 id="1-Multi-Head-Attention-Layer"><a href="#1-Multi-Head-Attention-Layer" class="headerlink" title="1. Multi-Head Attention Layer"></a>1. Multi-Head Attention Layer</h2><div align="center">
+<img height="300" src="/2023/12/08/Advanced_Model/Transformer_Code/MultiHead.jpg">
+<p style="font-size:14px;">Figure-1 Multi Head (source: from paper)</p></div>
+
+
+<p>Firstly, let us focus on implementing “single-attention”.</p>
+<p>The formula is:</p>
+<script type="math/tex; mode=display">
+Attention(Q,K,V) = softmax(\frac{QK^T}{\sqrt{d_k}}V)</script><h4 id="Full-Code"><a href="#Full-Code" class="headerlink" title="Full Code"></a>Full Code</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MultiHeadAttention</span>(nn.Module):</span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">    scaled_dot_product_attention(self, Q, K, V, mask=None): Calculate self-attention value</span></span><br><span class="line"><span class="string">    split_heads(self, x): Reshape the input to have num_heads for multi-head attention</span></span><br><span class="line"><span class="string">    combine_heads(self, x): Combine the multiple heads back to original shape</span></span><br><span class="line"><span class="string">    forward(self, Q, K, V, mask=None)</span></span><br><span class="line"><span class="string">    &#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, d_model, num_heads</span>):</span><br><span class="line">        <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">        d_model: Dimensionality of the input</span></span><br><span class="line"><span class="string">        num_heads: Number of attention heads</span></span><br><span class="line"><span class="string">        d_k: Dimension of each head&#x27;s key, query, and value</span></span><br><span class="line"><span class="string">        &#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line">        <span class="built_in">super</span>(MultiHeadAttention, self).__init__()</span><br><span class="line">        <span class="comment"># Ensure that the model dimension (d_model) is divisible by the number of heads</span></span><br><span class="line">        <span class="keyword">assert</span> d_model % num_heads == <span class="number">0</span>, <span class="string">&quot;d_model must be divisible by num_heads&quot;</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Initialize dimensions</span></span><br><span class="line">        self.d_model = d_model</span><br><span class="line">        self.num_heads = num_heads</span><br><span class="line">        self.d_k = d_model // num_heads</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Linear layers for transforming inputs</span></span><br><span class="line">        self.W_q = nn.Linear(d_model, d_model)</span><br><span class="line">        self.W_k = nn.Linear(d_model, d_model)</span><br><span class="line">        self.W_v = nn.Linear(d_model, d_model)</span><br><span class="line">        self.W_o = nn.Linear(d_model, d_model)</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">scaled_dot_product_attention</span>(<span class="params">self, Q, K, V, mask=<span class="literal">None</span></span>):</span><br><span class="line">        <span class="comment"># Calculate self-attention scores</span></span><br><span class="line">        attn_scores = torch.matmul(Q, K.transpose(-<span class="number">2</span>, -<span class="number">1</span>)) / math.sqrt(self.d_k)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Apply mask if provided (useful for preventing attention to certain parts like padding)</span></span><br><span class="line">        <span class="keyword">if</span> mask <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            attn_scores = attn_scores.masked_fill(mask == <span class="number">0</span>, -<span class="number">1e9</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Softmax is applied to obtain attention probabilities</span></span><br><span class="line">        attn_probs = torch.softmax(attn_scores, dim=-<span class="number">1</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Multiply by values to obtain the final output</span></span><br><span class="line">        output = torch.matmul(attn_probs, V)</span><br><span class="line">        <span class="keyword">return</span> output</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">split_heads</span>(<span class="params">self, x</span>):</span><br><span class="line">        <span class="comment"># Reshape the input to have num_heads for multi-head attention</span></span><br><span class="line">        batch_size, seq_length, d_model = x.size()</span><br><span class="line">        <span class="keyword">return</span> x.view(batch_size, seq_length, self.num_heads, self.d_k).transpose(<span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">combine_heads</span>(<span class="params">self, x</span>):</span><br><span class="line">        <span class="comment"># Combine the multiple heads back to original shape</span></span><br><span class="line">        batch_size, _, seq_length, d_k = x.size()</span><br><span class="line">        <span class="keyword">return</span> x.transpose(<span class="number">1</span>, <span class="number">2</span>).contiguous().view(batch_size, seq_length, self.d_model)</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, Q, K, V, mask=<span class="literal">None</span></span>):</span><br><span class="line">        <span class="comment"># Apply linear transformations and split heads</span></span><br><span class="line">        <span class="comment"># Q -&gt; W_q Q + b</span></span><br><span class="line">        Q = self.split_heads(self.W_q(Q))</span><br><span class="line">        K = self.split_heads(self.W_k(K))</span><br><span class="line">        V = self.split_heads(self.W_v(V))</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Perform scaled dot-product attention</span></span><br><span class="line">        attn_output = self.scaled_dot_product_attention(Q, K, V, mask)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Combine heads and apply output transformation</span></span><br><span class="line">        output = self.W_o(self.combine_heads(attn_output))</span><br><span class="line">        <span class="keyword">return</span> output</span><br></pre></td></tr></table></figure>
+<h4 id="Class-Definition-and-Initialization"><a href="#Class-Definition-and-Initialization" class="headerlink" title="Class Definition and Initialization"></a>Class Definition and Initialization</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MultiHeadAttention</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, d_model, num_heads</span>):</span><br></pre></td></tr></table></figure>
+<p>The class is defined as a subclass of PyTorch’s nn.Module.</p>
+<ol>
+<li>d_model: Dimensionality of the input</li>
+<li>num_heads: Number of attention heads</li>
+<li>d_k: Dimension of each head’s key, query, and value</li>
+</ol>
+<p>The initialization checks if d_model is divisible by num_heads, and then defines the transformation weights for query, key, value, and output.</p>
+<h4 id="Scaled-Dot-Product-Attention"><a href="#Scaled-Dot-Product-Attention" class="headerlink" title="Scaled Dot-Product Attention"></a>Scaled Dot-Product Attention</h4><p>Simply, we can write the code for this equation. Note that here we need to pay attention to whether or not there is a mask.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">scaled_dot_product_attention</span>(<span class="params">self, Q, K, V, mask=<span class="literal">None</span></span>):</span><br></pre></td></tr></table></figure>
+<ol>
+<li>Calculating Attention Scores. The inputs are queries(Q), keys(K), value(V), and then scaling by the square root of the key dimension (d_k).</li>
+<li>Applying Mask: If a mask is provided, it is applied to the attention scores to mask out specific values.</li>
+<li>Calculating Attention Weights: The attention scores are passed through a softmax function.</li>
+<li>Calculating Output: The final output of the attention is calculated by multiplying the attention weights by the values (V).</li>
+</ol>
+<h4 id="Splitting-amp-Combine-Heads"><a href="#Splitting-amp-Combine-Heads" class="headerlink" title="Splitting &amp; Combine Heads"></a>Splitting &amp; Combine Heads</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">split_heads</span>(<span class="params">self, x</span>):</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">combine_heads</span>(<span class="params">self, x</span>):</span><br></pre></td></tr></table></figure>
+<p>split_heads() function reshapes the input x into the shape (batch_size, num_heads, seq_length, d_k). It enables the model to process multiple attention heads concurrently, allowing for parallel computation.</p>
+<p>combine_heads() function combines the results back into a single tensor of shape (batch_size, seq_length, d_model). This prepares the result for further processing.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, Q, K, V, mask=<span class="literal">None</span></span>)</span><br></pre></td></tr></table></figure>
+<h4 id="Forward-Method"><a href="#Forward-Method" class="headerlink" title="Forward Method"></a>Forward Method</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, Q, K, V, mask=<span class="literal">None</span></span>):</span><br></pre></td></tr></table></figure>
+<p>In the Forward layer, the input Q, K, V is first split into multiple layers, then passed through the linear layer, then into the scaled_dot_product_attention layer, and finally combined with the output.</p>
+<h3 id="2-Position-Wise-Feed-Forward-Layer"><a href="#2-Position-Wise-Feed-Forward-Layer" class="headerlink" title="2. Position Wise Feed Forward Layer"></a>2. Position Wise Feed Forward Layer</h3><div align="center">
+<img height="150" src="/2023/12/08/Advanced_Model/Transformer_Code/FeedForward.png">
+<p style="font-size:14px;">Figure-2 Feed Forward Layer (source: from paper)</p>
+</div>
+
+<p>Easily we write the corresponding code with reference to the formula:</p>
+<script type="math/tex; mode=display">
+\tag{2-1}
+out(x) = Linear(ReLU(Linear(x)))</script><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">PositionWiseFeedForward</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, d_model, d_ff</span>):</span><br><span class="line">        <span class="built_in">super</span>(PositionWiseFeedForward, self).__init__()</span><br><span class="line">        self.fc1 = nn.Linear(d_model, d_ff)</span><br><span class="line">        self.fc2 = nn.Linear(d_ff, d_model)</span><br><span class="line">        self.relu = nn.ReLU()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        <span class="keyword">return</span> self.fc2(self.relu(self.fc1(x)))</span><br></pre></td></tr></table></figure>
+<h3 id="3-Encoder-Block"><a href="#3-Encoder-Block" class="headerlink" title="3. Encoder Block"></a>3. Encoder Block</h3><div align="center">
+<img height="300" src="/2023/12/08/Advanced_Model/Transformer_Code/EncoderBlock.png">
+<p style="font-size:14px;">Figure-3 Encoder Block (source: from paper)</p>
+</div>
+
+<p>Combining the <strong>Multi-Head Attention Layer</strong> and <strong>Position Wise Feed Forward Layer.</strong> The only we need to pay attention to is that <strong>residuals</strong> and <strong>normlize.</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">EncoderLayer</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, d_model, num_heads, d_ff, dropout</span>):</span><br><span class="line">        <span class="built_in">super</span>(EncoderLayer, self).__init__()</span><br><span class="line">        self.self_attn = MultiHeadAttention(d_model, num_heads)</span><br><span class="line">        self.feed_forward = PositionWiseFeedForward(d_model, d_ff)</span><br><span class="line">        self.norm1 = nn.LayerNorm(d_model)</span><br><span class="line">        self.norm2 = nn.LayerNorm(d_model)</span><br><span class="line">        self.dropout = nn.Dropout(dropout)</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x, mask</span>):</span><br><span class="line">        attn_output = self.self_attn(x, x, x, mask)</span><br><span class="line">        x = self.norm1(x + self.dropout(attn_output))</span><br><span class="line">        ff_output = self.feed_forward(x)</span><br><span class="line">        x = self.norm2(x + self.dropout(ff_output))</span><br><span class="line">        <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
+<h3 id="4-Decoder-Block"><a href="#4-Decoder-Block" class="headerlink" title="4. Decoder Block"></a>4. Decoder Block</h3><div align="center">
+<img height="300" src="/2023/12/08/Advanced_Model/Transformer_Code/DecoderBlock.png">
+<p style="font-size:14px;">Figure-4 Decoder Block (source: from paper)</p>
+</div>
+
+<p>Simply, write the code following the structure of the Figure-4.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">DecoderLayer</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, d_model, num_heads, d_ff, dropout</span>):</span><br><span class="line">        <span class="built_in">super</span>(DecoderLayer, self).__init__()</span><br><span class="line">        self.self_attn = MultiHeadAttention(d_model, num_heads)</span><br><span class="line">        self.cross_attn = MultiHeadAttention(d_model, num_heads)</span><br><span class="line">        self.feed_forward = PositionWiseFeedForward(d_model, d_ff)</span><br><span class="line">        self.norm1 = nn.LayerNorm(d_model)</span><br><span class="line">        self.norm2 = nn.LayerNorm(d_model)</span><br><span class="line">        self.norm3 = nn.LayerNorm(d_model)</span><br><span class="line">        self.dropout = nn.Dropout(dropout)</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x, enc_output, src_mask, tgt_mask</span>):</span><br><span class="line">        attn_output = self.self_attn(x, x, x, tgt_mask)</span><br><span class="line">        x = self.norm1(x + self.dropout(attn_output))</span><br><span class="line">        attn_output = self.cross_attn(x, enc_output, enc_output, src_mask)</span><br><span class="line">        x = self.norm2(x + self.dropout(attn_output))</span><br><span class="line">        ff_output = self.feed_forward(x)</span><br><span class="line">        x = self.norm3(x + self.dropout(ff_output))</span><br><span class="line">        <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
+<p><strong>nn.dropout()</strong> function help to prevent overfitting.</p>
+<h3 id="5-Positional-Encoder"><a href="#5-Positional-Encoder" class="headerlink" title="5. Positional Encoder"></a>5. Positional Encoder</h3><p>Just write the code corresponding to the formula.</p>
+<p>See my earlier post for a more specific explanation.</p>
+<script type="math/tex; mode=display">
+\tag{5-1}
+PE_{(pos,2i)} = sin(pos/n^{2i/d_{model}})
+\\
+PE_{(pos,2i+1)} = cos(pos/n^{2i/d_{model}})
+\\
+where\ n = 10000</script><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">PositionalEncoding</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, d_model, max_seq_length</span>):</span><br><span class="line">        <span class="built_in">super</span>(PositionalEncoding, self).__init__()</span><br><span class="line">        </span><br><span class="line">        pe = torch.zeros(max_seq_length, d_model)</span><br><span class="line">        position = torch.arange(<span class="number">0</span>, max_seq_length, dtype=torch.<span class="built_in">float</span>).unsqueeze(<span class="number">1</span>)</span><br><span class="line">        div_term = torch.exp(torch.arange(<span class="number">0</span>, d_model, <span class="number">2</span>).<span class="built_in">float</span>() * -(math.log(<span class="number">10000.0</span>) / d_model))</span><br><span class="line">        </span><br><span class="line">        pe[:, <span class="number">0</span>::<span class="number">2</span>] = torch.sin(position * div_term)</span><br><span class="line">        pe[:, <span class="number">1</span>::<span class="number">2</span>] = torch.cos(position * div_term)</span><br><span class="line">        </span><br><span class="line">        self.register_buffer(<span class="string">&#x27;pe&#x27;</span>, pe.unsqueeze(<span class="number">0</span>))</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        <span class="keyword">return</span> x + self.pe[:, :x.size(<span class="number">1</span>)]</span><br></pre></td></tr></table></figure>
+<h3 id="6-Transformer"><a href="#6-Transformer" class="headerlink" title="6. Transformer"></a>6. Transformer</h3><div align="center">
+<img height="500" src="/2023/12/08/Advanced_Model/Transformer_Code/Structure.jpg">
+<p style="font-size:14px;">Figure-5 Decoder Block (source: from paper)</p>
+</div>
+
+<p>Against this complete structure picture, we can give the code for the Transformer.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Transformer</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, src_vocab_size, tgt_vocab_size, d_model, num_heads, num_layers, d_ff, max_seq_length, dropout</span>):</span><br><span class="line">        <span class="built_in">super</span>(Transformer, self).__init__()</span><br><span class="line">        self.encoder_embedding = nn.Embedding(src_vocab_size, d_model)</span><br><span class="line">        self.decoder_embedding = nn.Embedding(tgt_vocab_size, d_model)</span><br><span class="line">        self.positional_encoding = PositionalEncoding(d_model, max_seq_length)</span><br><span class="line"></span><br><span class="line">        self.encoder_layers = nn.ModuleList([EncoderLayer(d_model, num_heads, d_ff, dropout) <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(num_layers)])</span><br><span class="line">        self.decoder_layers = nn.ModuleList([DecoderLayer(d_model, num_heads, d_ff, dropout) <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(num_layers)])</span><br><span class="line"></span><br><span class="line">        self.fc = nn.Linear(d_model, tgt_vocab_size)</span><br><span class="line">        self.dropout = nn.Dropout(dropout)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">generate_mask</span>(<span class="params">self, src, tgt</span>):</span><br><span class="line">        src_mask = (src != <span class="number">0</span>).unsqueeze(<span class="number">1</span>).unsqueeze(<span class="number">2</span>)</span><br><span class="line">        tgt_mask = (tgt != <span class="number">0</span>).unsqueeze(<span class="number">1</span>).unsqueeze(<span class="number">3</span>)</span><br><span class="line">        seq_length = tgt.size(<span class="number">1</span>)</span><br><span class="line">        nopeak_mask = (<span class="number">1</span> - torch.triu(torch.ones(<span class="number">1</span>, seq_length, seq_length), diagonal=<span class="number">1</span>)).<span class="built_in">bool</span>()</span><br><span class="line">        tgt_mask = tgt_mask &amp; nopeak_mask</span><br><span class="line">        <span class="keyword">return</span> src_mask, tgt_mask</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, src, tgt</span>):</span><br><span class="line">        src_mask, tgt_mask = self.generate_mask(src, tgt)</span><br><span class="line">        src_embedded = self.dropout(self.positional_encoding(self.encoder_embedding(src)))</span><br><span class="line">        tgt_embedded = self.dropout(self.positional_encoding(self.decoder_embedding(tgt)))</span><br><span class="line"></span><br><span class="line">        enc_output = src_embedded</span><br><span class="line">        <span class="keyword">for</span> enc_layer <span class="keyword">in</span> self.encoder_layers:</span><br><span class="line">            enc_output = enc_layer(enc_output, src_mask)</span><br><span class="line"></span><br><span class="line">        dec_output = tgt_embedded</span><br><span class="line">        <span class="keyword">for</span> dec_layer <span class="keyword">in</span> self.decoder_layers:</span><br><span class="line">            dec_output = dec_layer(dec_output, enc_output, src_mask, tgt_mask)</span><br><span class="line"></span><br><span class="line">        output = self.fc(dec_output)</span><br><span class="line">        <span class="keyword">return</span> output</span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Linermao</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/12/08/Advanced_Model/Transformer_Code/">http://example.com/2023/12/08/Advanced_Model/Transformer_Code/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Linermao's kiosk</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/top-img/Advanced_Model/Transformer_Code.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/12/07/Advanced_Model/Transformer_PaperRead/" title="Transformer_PaperRead"><img class="cover" src="/img/top-img/Advanced_Model/Transformer_PaperRead.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Transformer_PaperRead</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/images/Avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Linermao</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">33</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Linermao"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Linermao" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:862813266@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is Linermao's Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Transformer-Code-Pytorch"><span class="toc-text">Transformer Code (Pytorch)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Preface"><span class="toc-text">Preface</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Multi-Head-Attention-Layer"><span class="toc-text">1. Multi-Head Attention Layer</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Full-Code"><span class="toc-text">Full Code</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Class-Definition-and-Initialization"><span class="toc-text">Class Definition and Initialization</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Scaled-Dot-Product-Attention"><span class="toc-text">Scaled Dot-Product Attention</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Splitting-amp-Combine-Heads"><span class="toc-text">Splitting &amp; Combine Heads</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Forward-Method"><span class="toc-text">Forward Method</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Position-Wise-Feed-Forward-Layer"><span class="toc-text">2. Position Wise Feed Forward Layer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Encoder-Block"><span class="toc-text">3. Encoder Block</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Decoder-Block"><span class="toc-text">4. Decoder Block</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-Positional-Encoder"><span class="toc-text">5. Positional Encoder</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-Transformer"><span class="toc-text">6. Transformer</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/12/08/Advanced_Model/Transformer_Code/" title="Transformer_Code"><img src="/img/top-img/Advanced_Model/Transformer_Code.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Transformer_Code"/></a><div class="content"><a class="title" href="/2023/12/08/Advanced_Model/Transformer_Code/" title="Transformer_Code">Transformer_Code</a><time datetime="2023-12-08T08:23:10.000Z" title="发表于 2023-12-08 16:23:10">2023-12-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/12/07/Advanced_Model/Transformer_PaperRead/" title="Transformer_PaperRead"><img src="/img/top-img/Advanced_Model/Transformer_PaperRead.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Transformer_PaperRead"/></a><div class="content"><a class="title" href="/2023/12/07/Advanced_Model/Transformer_PaperRead/" title="Transformer_PaperRead">Transformer_PaperRead</a><time datetime="2023-12-07T08:23:10.000Z" title="发表于 2023-12-07 16:23:10">2023-12-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/05/Habitat-lab/Build_Habitat-lab/" title="Build_Habitat-lab (waiting...)">Build_Habitat-lab (waiting...)</a><time datetime="2023-12-05T13:01:03.000Z" title="发表于 2023-12-05 21:01:03">2023-12-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/11/26/Windows%E4%B8%8EUbuntu%E5%8F%8C%E7%B3%BB%E7%BB%9F/Ubuntu%E7%B3%BB%E7%BB%9F%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" title="Ubuntu系统深度学习环境搭建(等待完善)">Ubuntu系统深度学习环境搭建(等待完善)</a><time datetime="2023-11-26T08:23:10.000Z" title="发表于 2023-11-26 16:23:10">2023-11-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/11/26/Windows%E4%B8%8EUbuntu%E5%8F%8C%E7%B3%BB%E7%BB%9F/%E5%A6%82%E4%BD%95%E5%AE%8C%E5%85%A8%E5%88%A0%E9%99%A4Ubuntu%E7%B3%BB%E7%BB%9F/" title="如何完全删除Ubuntu系统">如何完全删除Ubuntu系统</a><time datetime="2023-11-26T08:23:10.000Z" title="发表于 2023-11-26 16:23:10">2023-11-26</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Linermao</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a><br>
+<a href="https://beian.miit.gov.cn/" target="_blank">浙ICP备2023022422号-1</a>
+<br>
+<img src = '/img/gongan.png'>
+<a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33030302001279" target="_blank">浙公网安备 33030302001279号</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
