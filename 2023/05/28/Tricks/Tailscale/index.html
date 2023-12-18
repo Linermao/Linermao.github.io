@@ -1,0 +1,355 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Use Tailscale to control remote device（Somethings wrong, waiting...） | Linermao's kiosk</title><meta name="author" content="Linermao,86281366@qq.com"><meta name="copyright" content="Linermao"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Use Tailscale to control remote devicePrefaceSometimes we may need to use another computer, either at home or in the company. Using some common software may result in charging issues and lagging probl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Use Tailscale to control remote device（Somethings wrong, waiting...）">
+<meta property="og:url" content="http://example.com/2023/05/28/Tricks/Tailscale/index.html">
+<meta property="og:site_name" content="Linermao&#39;s kiosk">
+<meta property="og:description" content="Use Tailscale to control remote devicePrefaceSometimes we may need to use another computer, either at home or in the company. Using some common software may result in charging issues and lagging probl">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/top-img/Tricks/Tailscale.jpg">
+<meta property="article:published_time" content="2023-05-28T08:23:10.000Z">
+<meta property="article:modified_time" content="2023-12-18T11:37:05.917Z">
+<meta property="article:author" content="Linermao">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/top-img/Tricks/Tailscale.jpg"><link rel="shortcut icon" href="/images/favicon.jpg"><link rel="canonical" href="http://example.com/2023/05/28/Tricks/Tailscale/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?d0547acfa82ccac854b804414ae584ec";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":100,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":230},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Use Tailscale to control remote device（Somethings wrong, waiting...）',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: undefined,
+  isToc: true,
+  postUpdate: '2023-12-18 19:37:05'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (true) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/images/Avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">33</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/top-img/Tricks/Tailscale.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Linermao's kiosk"><span class="site-name">Linermao's kiosk</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Use Tailscale to control remote device（Somethings wrong, waiting...）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-05-28T08:23:10.000Z" title="发表于 2023-05-28 16:23:10">2023-05-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-12-18T11:37:05.917Z" title="更新于 2023-12-18 19:37:05">2023-12-18</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Tricks/">Tricks</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Use Tailscale to control remote device（Somethings wrong, waiting...）"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Use-Tailscale-to-control-remote-device"><a href="#Use-Tailscale-to-control-remote-device" class="headerlink" title="Use Tailscale to control remote device"></a>Use Tailscale to control remote device</h1><h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>Sometimes we may need to use another computer, either at home or in the company. Using some common software may result in charging issues and lagging problems.</p>
+<p>Instead of relying on <strong>intranet penetration</strong> or other hard skills, this article will tell you a free and easy way to do that.</p>
+<p>What you need:</p>
+<ol>
+<li>Install <strong>Tailscale</strong> both your computers.</li>
+<li>Install <strong>Microsoft Remote Desktop</strong> in your main computer.</li>
+</ol>
+<p>My config：</p>
+<ol>
+<li>Controlled computer: Linux-Zorin16.3 same as Ubuntu22.04.</li>
+<li>Main computer: Macbook air m1.</li>
+</ol>
+<p>Refer:</p>
+<ul>
+<li>How to Remotely Access Your PC from Anywhere Using Tailscale and Microsoft Remote Desktop: <a target="_blank" rel="noopener" href="https://najad.dev/blog/how-to-remotely-access-your-pc-from-anywhere-using-tailscale-and-microsoft-remote-desktop/">https://najad.dev/blog/how-to-remotely-access-your-pc-from-anywhere-using-tailscale-and-microsoft-remote-desktop/</a></li>
+<li>How To Enable Remote Desktop Protocol Using xrdp on Ubuntu 22.04: <a target="_blank" rel="noopener" href="https://www.digitalocean.com/community/tutorials/how-to-enable-remote-desktop-protocol-using-xrdp-on-ubuntu-22-04">https://www.digitalocean.com/community/tutorials/how-to-enable-remote-desktop-protocol-using-xrdp-on-ubuntu-22-04</a></li>
+</ul>
+<h3 id="1-Tailscale"><a href="#1-Tailscale" class="headerlink" title="1. Tailscale"></a>1. Tailscale</h3><ul>
+<li>Tailscale home page: <a target="_blank" rel="noopener" href="https://login.tailscale.com/">https://login.tailscale.com/</a></li>
+</ul>
+<h4 id="1-1-What-is-Tailscale"><a href="#1-1-What-is-Tailscale" class="headerlink" title="1.1 What is Tailscale?"></a>1.1 What is Tailscale?</h4><blockquote>
+<p>Tailscale is a VPN service that enables encrypted point-to-point connections using the open source WireGuard protocol. It makes the devices and applications you own accessible anywhere in the world, securely and effortlessly Tailscale is a zero-config VPN, where an agent is installed on every device you want on a VPN mesh. This agent sets up a new network endpoint/card on that device and assigns a Tailscale managed IP unique to your login which is static to each device running the agent.</p>
+</blockquote>
+<p>Simply put, tailscale combines all of your computers into a single LAN.</p>
+<h4 id="1-2-How-to-install-Tailscale"><a href="#1-2-How-to-install-Tailscale" class="headerlink" title="1.2 How to install Tailscale?"></a>1.2 How to install Tailscale?</h4><p>The only thing you need is to create an account and install Tailscale on both of your computers.</p>
+<p>You can follow this page to do it.</p>
+<ul>
+<li><p>Install: <a target="_blank" rel="noopener" href="https://tailscale.com/download">https://tailscale.com/download</a></p>
+</li>
+<li><p>Helper: <a target="_blank" rel="noopener" href="https://tailscale.com/kb/1017/install#need-some-inspiration">https://tailscale.com/kb/1017/install#need-some-inspiration</a></p>
+</li>
+</ul>
+<p><strong>Tips:</strong></p>
+<p>For Mac, I am sorry to say that Tailscale can’t be found in China’s AppStore.</p>
+<p>After adding your device, you can find its address on this page.</p>
+<div align="center">
+<img height="250" src="/2023/05/28/Tricks/Tailscale/tailscale.jpg">
+<p style="font-size:14px;">Figure-1</p>
+</div>
+
+<h4 id="1-3-How-to-configure"><a href="#1-3-How-to-configure" class="headerlink" title="1.3  How to configure"></a>1.3  How to configure</h4><p>Make sure your linux device have allowed SSH connections. Some systems don’t come with OpenSSH installed, so you need to run <strong>“apt install openssh-server”</strong> first. Then allow ssh use port 22.</p>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">sudo vim /etc/ssh/sshd_config</span><br><span class="line"># <span class="built_in">find</span> port <span class="number">22</span>, activate it.</span><br><span class="line"># restart sshd service</span><br><span class="line">sudo service sshd restart</span><br></pre></td></tr></table></figure>
+<p>Now, you can use your main computer to establish an SSH connection with your remote computer for testing purposes:</p>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">ssh your_ip_address</span><br></pre></td></tr></table></figure>
+<h3 id="2-XRDP"><a href="#2-XRDP" class="headerlink" title="2. XRDP"></a>2. XRDP</h3><h4 id="2-1-What-is-xrdp"><a href="#2-1-What-is-xrdp" class="headerlink" title="2.1 What is xrdp"></a>2.1 What is xrdp</h4><blockquote>
+<p>xrdp is a free and open-source implementation of Microsoft RDP (Remote Desktop Protocol) server that enables operating systems other than Microsoft Windows (such as Linux and BSD-style operating systems) to provide a fully functional RDP-compatible remote desktop experience.<br>From Wiki</p>
+</blockquote>
+<h4 id="2-2-How-to-install-xrdp"><a href="#2-2-How-to-install-xrdp" class="headerlink" title="2.2 How to install xrdp"></a>2.2 How to install xrdp</h4><ol>
+<li>Install a Desktop Environment:</li>
+</ol>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install xfce4 xfce4-goodies -y</span><br></pre></td></tr></table></figure>
+<ol>
+<li>Install xrdp:</li>
+</ol>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">sudo apt install xrdp -y</span><br><span class="line">sudo systemctl status xrdp</span><br></pre></td></tr></table></figure>
+<p>If it goes well, you will see ‘Active: active (running)’ on output.</p>
+<p>If not, try this:</p>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">sudo systemctl <span class="built_in">start</span> xrdp</span><br></pre></td></tr></table></figure>
+<ol>
+<li>Configure xrdp</li>
+</ol>
+<p>Allow the session manager to use upon login:</p>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~</span><br><span class="line"><span class="built_in">echo</span> &quot;xfce4-session&quot; | tee .xsession</span><br><span class="line">sudo systemctl restart xrdp</span><br></pre></td></tr></table></figure>
+<h3 id="3-Microsoft-Remote-Desktop"><a href="#3-Microsoft-Remote-Desktop" class="headerlink" title="3. Microsoft Remote Desktop"></a>3. Microsoft Remote Desktop</h3><blockquote>
+<p>Remote Desktop allows users to take control of another device from a distance by using RDP.</p>
+</blockquote>
+<p>For windows, you can easily open it:</p>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"># win + r, input mstsc</span><br></pre></td></tr></table></figure>
+<p>For Mac, we should install Microsoft Remote Desktop on AppStore.</p>
+<p>Open it, click add new PC, input the ip address in tailscale, and follow the guide, you can connect to your computer.</p>
+<div align="center">
+<img height="300" src="/2023/05/28/Tricks/Tailscale/Remote.jpg">
+<p style="font-size:14px;">Figure-2</p>
+</div>
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Linermao</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/05/28/Tricks/Tailscale/">http://example.com/2023/05/28/Tricks/Tailscale/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Linermao's kiosk</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/top-img/Tricks/Tailscale.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/2023/05/28/AboutMe/AboutMe/" title="关于我"><img class="cover" src="/img/top-img/AboutMe/AboutMe.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">关于我</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/images/Avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Linermao</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">33</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Linermao"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Linermao" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:862813266@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is Linermao's Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Use-Tailscale-to-control-remote-device"><span class="toc-text">Use Tailscale to control remote device</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Preface"><span class="toc-text">Preface</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Tailscale"><span class="toc-text">1. Tailscale</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-What-is-Tailscale"><span class="toc-text">1.1 What is Tailscale?</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-How-to-install-Tailscale"><span class="toc-text">1.2 How to install Tailscale?</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-How-to-configure"><span class="toc-text">1.3  How to configure</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-XRDP"><span class="toc-text">2. XRDP</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-What-is-xrdp"><span class="toc-text">2.1 What is xrdp</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-How-to-install-xrdp"><span class="toc-text">2.2 How to install xrdp</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Microsoft-Remote-Desktop"><span class="toc-text">3. Microsoft Remote Desktop</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/12/11/Advanced_Model/ViT_PaperRead/" title="ViT_PaperRead"><img src="/img/top-img/Advanced_Model/ViT_PaperRead.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ViT_PaperRead"/></a><div class="content"><a class="title" href="/2023/12/11/Advanced_Model/ViT_PaperRead/" title="ViT_PaperRead">ViT_PaperRead</a><time datetime="2023-12-11T08:23:10.000Z" title="发表于 2023-12-11 16:23:10">2023-12-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/12/11/Advanced_Model/CLIP_PaperRead/" title="CLIP Paper read (Waiting for perfection)"><img src="/img/top-img/Advanced_Model/CLIP_PaperRead.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CLIP Paper read (Waiting for perfection)"/></a><div class="content"><a class="title" href="/2023/12/11/Advanced_Model/CLIP_PaperRead/" title="CLIP Paper read (Waiting for perfection)">CLIP Paper read (Waiting for perfection)</a><time datetime="2023-12-10T16:01:00.000Z" title="发表于 2023-12-11 00:01:00">2023-12-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/12/08/Advanced_Model/Transformer_Code/" title="Transformer_Code"><img src="/img/top-img/Advanced_Model/Transformer_Code.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Transformer_Code"/></a><div class="content"><a class="title" href="/2023/12/08/Advanced_Model/Transformer_Code/" title="Transformer_Code">Transformer_Code</a><time datetime="2023-12-08T08:23:10.000Z" title="发表于 2023-12-08 16:23:10">2023-12-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/12/07/Advanced_Model/Transformer_PaperRead/" title="Transformer_PaperRead"><img src="/img/top-img/Advanced_Model/Transformer_PaperRead.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Transformer_PaperRead"/></a><div class="content"><a class="title" href="/2023/12/07/Advanced_Model/Transformer_PaperRead/" title="Transformer_PaperRead">Transformer_PaperRead</a><time datetime="2023-12-07T08:23:10.000Z" title="发表于 2023-12-07 16:23:10">2023-12-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/26/Windows%E4%B8%8EUbuntu%E5%8F%8C%E7%B3%BB%E7%BB%9F/%E5%A6%82%E4%BD%95%E5%AE%8C%E5%85%A8%E5%88%A0%E9%99%A4Ubuntu%E7%B3%BB%E7%BB%9F/" title="如何完全删除Ubuntu系统"><img src="/img/top-img/Windows%E4%B8%8EUbuntu%E5%8F%8C%E7%B3%BB%E7%BB%9F/Delete_Ubuntu.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="如何完全删除Ubuntu系统"/></a><div class="content"><a class="title" href="/2023/11/26/Windows%E4%B8%8EUbuntu%E5%8F%8C%E7%B3%BB%E7%BB%9F/%E5%A6%82%E4%BD%95%E5%AE%8C%E5%85%A8%E5%88%A0%E9%99%A4Ubuntu%E7%B3%BB%E7%BB%9F/" title="如何完全删除Ubuntu系统">如何完全删除Ubuntu系统</a><time datetime="2023-11-26T08:23:10.000Z" title="发表于 2023-11-26 16:23:10">2023-11-26</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Linermao</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a><br>
+<a href="https://beian.miit.gov.cn/" target="_blank">浙ICP备2023022422号-1</a>
+<br>
+<img src = '/img/gongan.png'>
+<a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33030302001279" target="_blank">浙公网安备 33030302001279号</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
