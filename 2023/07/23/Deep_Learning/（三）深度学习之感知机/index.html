@@ -1,0 +1,527 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>（三）深度学习之感知机 | Linermao's kiosk</title><meta name="author" content="Linermao,86281366@qq.com"><meta name="copyright" content="Linermao"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="（三）深度学习之感知机1. 网络结构为了更直观的表达输入数据，处理数据，输出数据这样的过程，我们习惯于使用一种网络结构图来表示。 我们可以将篇二讲到的线性回归写成一种网络结构：   图1-1   其中，我们分为了输入层和输出层，中间连线表示 $w \cdot x +b$ 这一过程。 2. 感知机感知机（Perceptron）是一种线性分类模型，属于判别模型。 我们定义，具有如下特征形式的式子叫做感">
+<meta property="og:type" content="article">
+<meta property="og:title" content="（三）深度学习之感知机">
+<meta property="og:url" content="http://example.com/2023/07/23/Deep_Learning/%EF%BC%88%E4%B8%89%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%84%9F%E7%9F%A5%E6%9C%BA/index.html">
+<meta property="og:site_name" content="Linermao&#39;s kiosk">
+<meta property="og:description" content="（三）深度学习之感知机1. 网络结构为了更直观的表达输入数据，处理数据，输出数据这样的过程，我们习惯于使用一种网络结构图来表示。 我们可以将篇二讲到的线性回归写成一种网络结构：   图1-1   其中，我们分为了输入层和输出层，中间连线表示 $w \cdot x +b$ 这一过程。 2. 感知机感知机（Perceptron）是一种线性分类模型，属于判别模型。 我们定义，具有如下特征形式的式子叫做感">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/Avatar.jpg">
+<meta property="article:published_time" content="2023-07-23T08:23:10.000Z">
+<meta property="article:modified_time" content="2024-05-04T11:34:05.055Z">
+<meta property="article:author" content="Linermao">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/Avatar.jpg"><link rel="shortcut icon" href="/images/favicon.jpg"><link rel="canonical" href="http://example.com/2023/07/23/Deep_Learning/%EF%BC%88%E4%B8%89%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%84%9F%E7%9F%A5%E6%9C%BA/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?d0547acfa82ccac854b804414ae584ec";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":100,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":230},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '（三）深度学习之感知机',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: undefined,
+  isToc: true,
+  postUpdate: '2024-05-04 19:34:05'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (true) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/images/Avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">39</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/images/index.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Linermao's kiosk"><span class="site-name">Linermao's kiosk</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">（三）深度学习之感知机</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-07-23T08:23:10.000Z" title="发表于 2023-07-23 16:23:10">2023-07-23</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-05-04T11:34:05.055Z" title="更新于 2024-05-04 19:34:05">2024-05-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="（三）深度学习之感知机"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="（三）深度学习之感知机"><a href="#（三）深度学习之感知机" class="headerlink" title="（三）深度学习之感知机"></a>（三）深度学习之感知机</h1><h2 id="1-网络结构"><a href="#1-网络结构" class="headerlink" title="1. 网络结构"></a>1. 网络结构</h2><p>为了更直观的表达输入数据，处理数据，输出数据这样的过程，我们习惯于使用一种网络结构图来表示。</p>
+<p>我们可以将篇二讲到的线性回归写成一种网络结构：</p>
+<div align="center">
+<img alt="class" src="/2023/07/23/Deep_Learning/%EF%BC%88%E4%B8%89%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%84%9F%E7%9F%A5%E6%9C%BA/SNN.png" width="300" height="400">
+<p style="font-size:14px;">图1-1</p></div>
+
+
+<p>其中，我们分为了输入层和输出层，中间连线表示 $w \cdot x +b$ 这一过程。</p>
+<h2 id="2-感知机"><a href="#2-感知机" class="headerlink" title="2. 感知机"></a>2. 感知机</h2><p><strong>感知机</strong>（Perceptron）是一种线性分类模型，属于判别模型。</p>
+<p>我们定义，具有如下特征形式的式子叫做感知机：</p>
+<script type="math/tex; mode=display">
+    \tag{2-1}
+    f(x) = sign(w \cdot x + b)</script><p>$sign(x)$ 是函数符号：</p>
+<script type="math/tex; mode=display">
+    \tag{2-2}
+    sign(x) = 
+    \begin{cases}
+    +1,x>0 \\
+    -1,x\leq0  
+    \end{cases}</script><p>单个感知器可以解决二分类问题。对于具有n个元素的向量，此点将存在于n维空间中，$x$ 是一个多维向量，感知机能够找到一种分类标准来区别不同种类的特征值。</p>
+<p>例如在纸上任意点几个点，画一条直线区分两组点，感知机能够学习到这条直线的位置，从而区分不同种类的点。</p>
+<div align="center">
+<img alt="class" src="/2023/07/23/Deep_Learning/%EF%BC%88%E4%B8%89%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%84%9F%E7%9F%A5%E6%9C%BA/class.jpg">
+<p style="font-size:14px;">图2-1</p></div>
+
+
+<p>感知机的结构与 图1-1 类似，不过此时的 $y$ 取值仅有 $1$ 或者 $-1$ 。</p>
+<p>对于每一组 $x$ 输入，经过 $ w \cdot x + b$ 后交给 $sign(x)$ 函数判断赋值，从而实现二分类的效果。</p>
+<h2 id="3-Softmax-函数"><a href="#3-Softmax-函数" class="headerlink" title="3. Softmax 函数"></a>3. Softmax 函数</h2><p>如果我们更改 $sign(x)$ 函数为其他函数，就可以实现多种问题的解决。</p>
+<p>为了能够解决更加复杂的多分类问题，我们引入了 <strong>Softmax 函数</strong> ：</p>
+<script type="math/tex; mode=display">
+    \tag{3-1}
+    Softmax(x) = \frac{e^x}{\sum_{i=1}^n e^{x_i}}</script><p>Softmax 的含义就在于不再唯一的确定某一个最大值，而是为每个输出分类的结果都赋予一个概率值，表示属于每个类别的可能性。通过 Softmax 函数就可以将多分类的输出值转换为范围在 $[0, 1]$ 的概率分布，并且所有概率值相加得到的结果等于 $1$。</p>
+<p>我们可以将 Softmax 应用到感知机上去，得到了可以预测多种分类结果的感知机。</p>
+<div align="center">
+<img alt="Softmax" src="/2023/07/23/Deep_Learning/%EF%BC%88%E4%B8%89%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%84%9F%E7%9F%A5%E6%9C%BA/Softmax.png
+" width="500" height="500">
+<p style="font-size:14px;">图3-1</p></div>
+
+
+<p>由于我们使用了概率作为最后输出层的值，所以普通损失函数的方法已经不再适用，接下来介绍交叉熵损失函数。</p>
+<h2 id="4-熵，相对熵，交叉熵"><a href="#4-熵，相对熵，交叉熵" class="headerlink" title="4. 熵，相对熵，交叉熵"></a>4. 熵，相对熵，交叉熵</h2><h3 id="4-1-自信息"><a href="#4-1-自信息" class="headerlink" title="4.1 自信息"></a>4.1 自信息</h3><p><strong>自信息</strong>（self-information）表示一个随机事件所包含的信息量。一个随机事件发生的概率越高，其自信息越低。如果一个事件必然发生，其自信息为 $0$ 。</p>
+<p>设 $X$ 是一个有限个值的离散随机变量，概率分布为 $p(x)$，我们定义自信息为：</p>
+<script type="math/tex; mode=display">
+    \tag{4-1}
+    I(x) = -ln(p(x))</script><h3 id="4-2-熵"><a href="#4-2-熵" class="headerlink" title="4.2 熵"></a>4.2 熵</h3><p><strong>香农熵</strong>（Entropy）是一个离散随机变量，其自信息的数学期望量化整个概率分布中的不确定性总量。</p>
+<p>设 $X$ 是一个有限个值的离散随机变量，其概率分布为：</p>
+<script type="math/tex; mode=display">
+    \tag{4-2}
+    P(x_i \in X) = p_i, i=1,2,...,n</script><p>那么熵就是：</p>
+<script type="math/tex; mode=display">
+    \tag{4-3}
+    H(X) = -\sum_{i=1}^n p_i ln(p_i)</script><p>香农熵只依赖于 $X$ 的分布，而与 $X$ 的取值无关，所以香农熵也记作 $H(P)$ 。</p>
+<p>说的简单点，香农熵代表了事件发生的不确定性，不确定性越大，香农熵越大，不确定性越小，香农熵越小。</p>
+<h3 id="4-3-KL散度-相对熵"><a href="#4-3-KL散度-相对熵" class="headerlink" title="4.3 KL散度(相对熵)"></a>4.3 KL散度(相对熵)</h3><p><strong>KL散度</strong>(Kullback-Leibler divergence)，也叫做 <strong>相对熵</strong>(relative entropy)。</p>
+<p>若随机变量 $X$ 有两个单独的概率分布 $P(X)$ 和 $Q(X)$ ，可以用相对熵来衡量这两个分布的差异，相对熵的定义如下：</p>
+<script type="math/tex; mode=display">
+    \tag{4-4}
+    D_{KL}(P||Q) = \sum_{i=1}^n P(x_i) ln(\frac{P(x_i)}{Q(x_i)})</script><h3 id="4-4-交叉熵"><a href="#4-4-交叉熵" class="headerlink" title="4.4 交叉熵"></a>4.4 交叉熵</h3><p>定义完相对熵以后，我们发现，可以使用最小化相对熵的方法使分布 $Q$ 逼近分布 $P$ 。 </p>
+<p>我们对相对熵的结构进行变形：</p>
+<script type="math/tex; mode=display">
+    D_{KL}(P||Q) = \sum_{i=1}^n P(x_i) ln(\frac{P(x_i)}{Q (x_i)}) = \sum_{i=1}^n P(x_i) ln(P(x_i)) - \sum_{i=1}^n  P(x_i) ln(Q(x_i))</script><script type="math/tex; mode=display">
+    \tag{4-5}
+    D_{KL}(P||Q) = -H(P) + H(P,Q)</script><p>其中的 $H(P,Q)$ 就是 <strong>交叉熵</strong> （Cross-Entropy）。</p>
+<p>表达式就是：</p>
+<script type="math/tex; mode=display">
+    \tag{4-6}
+    H(P,Q) = - \sum_{i=1}^n P(x_i) ln(Q(x_i))</script><p>对于一个随机离散变量 $X$ 来说，他的香农熵 $H(P)$ 是一个常数，所以想要最小化相对熵，只需要通过最小化交叉熵，就可以得到分布 $P$ 的近似分布，这也是为什么可以用交叉熵作为网络的损失函数。</p>
+<h2 id="5-Softmax-函数和交叉熵损失函数的联合使用"><a href="#5-Softmax-函数和交叉熵损失函数的联合使用" class="headerlink" title="5. Softmax 函数和交叉熵损失函数的联合使用"></a>5. Softmax 函数和交叉熵损失函数的联合使用</h2><p>当我们要进行分类时，首先需要对训练集数据进行编码，例如有猫，狗，猪三种分类，对于不同的数据的数据，我们进行下式的编码：</p>
+<script type="math/tex; mode=display">
+    y_{cat} = 
+    \begin{bmatrix}
+    1 \\
+    0 \\
+    0
+    \end{bmatrix}
+    ,
+    y_{dog} = 
+    \begin{bmatrix}
+    0 \\
+    1 \\
+    0
+    \end{bmatrix}
+    ,
+    y_{pig} = 
+    \begin{bmatrix}
+    0 \\
+    0 \\
+    1
+    \end{bmatrix}</script><p>我们就可以定义 $y$ 表示：</p>
+<script type="math/tex; mode=display">
+    \tag{5-1}
+    y = 
+    \begin{bmatrix}
+    y_1 \\
+    y_2 \\
+    :   \\
+    y_n
+    \end{bmatrix}
+    , \ y_i = 
+    \begin{cases}
+    1, & if \  y_i \  is \  tag \\
+    0, & else
+    \end{cases}</script><p>所以，带入交叉熵函数我们就可以得到交叉熵损失函数（CrossEntropyLoss）的定义，如下：</p>
+<script type="math/tex; mode=display">
+    \tag{5-2}
+    L(y,\hat{y}) = -y \cdot ln(\hat{y})</script><p>$\hat{y}$ 就是经过 Softmax 得到的输出值。</p>
+<h2 id="6-多层感知机（MLP）"><a href="#6-多层感知机（MLP）" class="headerlink" title="6. 多层感知机（MLP）"></a>6. 多层感知机（MLP）</h2><p>当遇到复杂的实际问题时，我们就会力不从心，因为感知机的本质还是一个线性预测，输入与输出之间具有一定的线性关系，而实际问题并不是可以简单拟合的，那么接下来我们就应该跳出线性的局限，进入非线性预测模型的怀抱中去。</p>
+<p><strong>多层感知器</strong> (Multi-Layer Perceptron,MLP)，也叫 <strong>人工神经网络</strong> (Artificial Neural Network,ANN)，是最简单的神经网络实现。</p>
+<p>神经网络的名称和结构均受到人脑的启发，通过模仿生物神经元相互传递信号的方式进行学习。</p>
+<div align="center">
+<img width="850" height="120" alt="对比表" src="/2023/07/23/Deep_Learning/%EF%BC%88%E4%B8%89%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%84%9F%E7%9F%A5%E6%9C%BA/对比表.png">
+<p style="font-size:14px">图6-1</p></div>
+
+
+<div align="center">
+<img width="300" height="150" alt="生物神经元" src="/2023/07/23/Deep_Learning/%EF%BC%88%E4%B8%89%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%84%9F%E7%9F%A5%E6%9C%BA/生物神经元.jpg">
+<p style="font-size:14px;">图6-2</p></div>
+
+
+<div align="center">
+<img width="300" height="150" alt="人工神经网络" src="/2023/07/23/Deep_Learning/%EF%BC%88%E4%B8%89%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%84%9F%E7%9F%A5%E6%9C%BA/人工神经网络.jpg">
+<p style="font-size:14px;">图6-3</p></div>
+
+
+<p>我们通过在单个感知机网络中加入一个或多个 <strong>隐藏层</strong> 来克服线性模型的限制，使其能处理更普遍的函数关系类型。要做到这一点，最简单的方法是将许多全连接层堆叠在一起。每一层都输出到上面的层，直到生成最后的输出。我们可以把前 $L-1$ 层看作表示，把最后一层看作预测器。</p>
+<p>大致的架构如下图所示：</p>
+<div align="center">
+<img alt="MLP" src="/2023/07/23/Deep_Learning/%EF%BC%88%E4%B8%89%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%84%9F%E7%9F%A5%E6%9C%BA/MLP.png
+" width="600" height="500">
+<p style="font-size:14px;">图6-4</p></div>
+
+
+<p>如果仅仅是这样，增加了几个全连接的隐藏层，仍然不能实现非线性的变化，所以在隐藏层中我们增加了一个关键的要素： <strong>激活函数</strong> 。</p>
+<h2 id="7-激活函数"><a href="#7-激活函数" class="headerlink" title="7. 激活函数"></a>7. 激活函数</h2><p><strong>激活函数</strong> (Activation Function) 是一种添加到人工神经网络中的函数，旨在帮助神经网络学习数据中复杂关系。因为神经网络中每一层的输入输出都是一个线性求和的过程，下一层的输出只是承接了上一层输入函数的线性变换，所以如果没有激活函数，那么无论你构造的神经网络多么复杂，最后的输出都是输入的线性组合，纯粹的线性组合并不能够解决更为复杂的问题。而引入非线性的激活函数之后，会给神经元引入非线性元素，使得神经网络可以逼近其他的任何非线性函数，这样可以使得神经网络应用到更多模型中。<br>常见的激活函数: <strong>Sigmoid激活函数，tanh(双曲正切)激活函数，ReLU激活函数</strong> 。</p>
+<h3 id="7-1-Sigmoid激活函数"><a href="#7-1-Sigmoid激活函数" class="headerlink" title="7.1 Sigmoid激活函数"></a>7.1 Sigmoid激活函数</h3><p>Sigmoid函数 也叫 Logistic函数，用于隐层神经元输出，取值范围为 $(0,1)$ ，它可以将一个实数映射到 $(0,1)$ 的区间，在特征相差比较复杂或是相差不是特别大时效果比较好。</p>
+<p>函数的表达式如下：</p>
+<script type="math/tex; mode=display">
+    \tag{6-1}
+    f (z) = \frac{1}{1 + e^{-z}}</script><p>图像类似一个S形曲线：</p>
+<div align="center">
+<img alt="Sigmoid" src="/2023/07/23/Deep_Learning/%EF%BC%88%E4%B8%89%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%84%9F%E7%9F%A5%E6%9C%BA/Sigmoid.jpg" width="500" height="200">
+<p style="font-size:14px;">图6-5</p></div>
+
+
+<p>Sigmoid函数的导数为：</p>
+<script type="math/tex; mode=display">
+    \tag{6-2}
+    Sigmoid'(x) = \frac{e^{-x}}{(1+e^{-x})^2} = Sigmoid(x)  (1-Sigmoid(x))</script><h3 id="7-2-Tanh激活函数"><a href="#7-2-Tanh激活函数" class="headerlink" title="7.2 Tanh激活函数"></a>7.2 Tanh激活函数</h3><p>tanh 与 sigmoid 相比，它的输出均值为0，这使得它的收敛速度要比sigmoid快，减少了迭代更新的次数。</p>
+<p>函数的表达式如下：</p>
+<script type="math/tex; mode=display">
+    \tag{6-3}
+    tanh(x) = \frac{1-e^{-2x}}{1+e^{-2x}}</script><p>图像如下：</p>
+<div align="center">
+<img alt="tanh" src="/2023/07/23/Deep_Learning/%EF%BC%88%E4%B8%89%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%84%9F%E7%9F%A5%E6%9C%BA/tanh.jpg" width="500" height="200">
+<p style="font-size:14px;">图6-6</p></div>
+
+
+<p>tanh函数的导数为：</p>
+<script type="math/tex; mode=display">
+    \tag{6-4}
+    tanh'(x) = 1-tanh^2(x)</script><h3 id="7-3-ReLU激活函数（Rectified-Linear-Units）"><a href="#7-3-ReLU激活函数（Rectified-Linear-Units）" class="headerlink" title="7.3 ReLU激活函数（Rectified Linear Units）"></a>7.3 ReLU激活函数（Rectified Linear Units）</h3><p>ReLU 的表达式非常简单，这使得它的计算开销相较于其他激活函数来说非常小，计算速度很快。</p>
+<p>函数的表达式如下：</p>
+<script type="math/tex; mode=display">
+    \tag{6-5}
+    ReLU(x) = max(0,x)</script><p>图像如下：</p>
+<div align="center">
+<img alt="ReLU" src="/2023/07/23/Deep_Learning/%EF%BC%88%E4%B8%89%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%84%9F%E7%9F%A5%E6%9C%BA/ReLU.jpg" width="500" height="200">
+<p style="font-size:14px;">图6-7</p></div>
+
+
+<p>有了激活函数以后，我们就可以用 <strong>前向传播</strong> 的方法开始训练一个非线性的网络模型了。</p>
+<h2 id="8-前向传播"><a href="#8-前向传播" class="headerlink" title="8. 前向传播"></a>8. 前向传播</h2><p><strong>前向传播</strong>（Forward Propagation）是从输入层开始，经过隐藏层，计算每个隐藏层的结果并且传递到下一层直到输出层的过程。</p>
+<div align="center">
+<img width="500" height="400" alt="向前传播" src="/2023/07/23/Deep_Learning/%EF%BC%88%E4%B8%89%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%84%9F%E7%9F%A5%E6%9C%BA/向前传播.png">
+<p style="font-size:14px;">图8-1</p></div>
+
+
+<p>例如 图6-1 ，我们将隐藏层分为 $z$ 层和 $h$ 层，观察隐藏层进行了什么步骤。</p>
+<ol>
+<li>将通过函数关系计算 $z$ 层的值:</li>
+</ol>
+<script type="math/tex; mode=display">
+    \tag{8-1}
+    z_j = \mathbf{w_j} \cdot \mathbf{x} + \mathbf{b_j},j = 1,2,...,n</script><p>$n$ 表示 $z$ 层神经元个数。</p>
+<ol>
+<li>通过激活函数来计算隐藏层 $h$ 的值:</li>
+</ol>
+<script type="math/tex; mode=display">
+    \tag{8-2}
+    \mathbf{h} = \phi(\mathbf{z})</script><ol>
+<li><p>将此隐藏层看作下一层的输入层，重复1，2操作，直到输出层。</p>
+</li>
+<li><p>然后根据计算所得的输出值和样本值进行比对，计算出损失项：</p>
+</li>
+</ol>
+<script type="math/tex; mode=display">
+    \tag{8-3}
+    L = l(\hat{y},y)</script><ol>
+<li>在篇（二）中讲到为了减少过拟合带来的问题，我们引入正则项，所以我们引入超参数 $\lambda$ ，正则化损失为：</li>
+</ol>
+<script type="math/tex; mode=display">
+    \tag{8-4}
+    J = L + s = l(\hat{y},y) + \frac{\lambda}{2} \sum_{i=1}^n \sum_{j=1}^m (w_j^{(i)})^2</script><p>我们将 $J$ 称为目标函数（objective function）。</p>
+<p>可以用一张图来描述这个过程：</p>
+<div align="center">
+<img width="500" height="400" alt="向前传播" src="/2023/07/23/Deep_Learning/%EF%BC%88%E4%B8%89%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%84%9F%E7%9F%A5%E6%9C%BA/图解.png">
+<p style="font-size:14px;">图8-2</p></div>
+
+
+<p>我们显然会发现一个问题，如何去更新我们的权重和偏置呢？虽然我们得到了目标函数并致力于让其最小化，但是由于全连接网络的原因，修改一个参数会导致整个网络的结果大相径庭，并且每次修改都需要重新完成一次前向传播的过程，计算开销非常大。</p>
+<p>下篇将会介绍反向传播的方法来帮助我们解决这个问题。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Linermao</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/07/23/Deep_Learning/%EF%BC%88%E4%B8%89%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%84%9F%E7%9F%A5%E6%9C%BA/">http://example.com/2023/07/23/Deep_Learning/%EF%BC%88%E4%B8%89%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%84%9F%E7%9F%A5%E6%9C%BA/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Linermao's kiosk</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/images/Avatar.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/07/26/Deep_Learning/%EF%BC%88%E5%9B%9B%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/" title="（四）深度学习之反向传播"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">（四）深度学习之反向传播</div></div></a></div><div class="next-post pull-right"><a href="/2023/07/19/Deep_Learning/%EF%BC%88%E4%BA%8C%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/" title="（二）深度学习之线性回归"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">（二）深度学习之线性回归</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/images/Avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Linermao</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">39</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Linermao"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Linermao" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:862813266@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is Linermao's Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%84%9F%E7%9F%A5%E6%9C%BA"><span class="toc-text">（三）深度学习之感知机</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84"><span class="toc-text">1. 网络结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%84%9F%E7%9F%A5%E6%9C%BA"><span class="toc-text">2. 感知机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Softmax-%E5%87%BD%E6%95%B0"><span class="toc-text">3. Softmax 函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E7%86%B5%EF%BC%8C%E7%9B%B8%E5%AF%B9%E7%86%B5%EF%BC%8C%E4%BA%A4%E5%8F%89%E7%86%B5"><span class="toc-text">4. 熵，相对熵，交叉熵</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E8%87%AA%E4%BF%A1%E6%81%AF"><span class="toc-text">4.1 自信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E7%86%B5"><span class="toc-text">4.2 熵</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-KL%E6%95%A3%E5%BA%A6-%E7%9B%B8%E5%AF%B9%E7%86%B5"><span class="toc-text">4.3 KL散度(相对熵)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-%E4%BA%A4%E5%8F%89%E7%86%B5"><span class="toc-text">4.4 交叉熵</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Softmax-%E5%87%BD%E6%95%B0%E5%92%8C%E4%BA%A4%E5%8F%89%E7%86%B5%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E7%9A%84%E8%81%94%E5%90%88%E4%BD%BF%E7%94%A8"><span class="toc-text">5. Softmax 函数和交叉熵损失函数的联合使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA%EF%BC%88MLP%EF%BC%89"><span class="toc-text">6. 多层感知机（MLP）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0"><span class="toc-text">7. 激活函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-Sigmoid%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0"><span class="toc-text">7.1 Sigmoid激活函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-Tanh%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0"><span class="toc-text">7.2 Tanh激活函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-ReLU%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%EF%BC%88Rectified-Linear-Units%EF%BC%89"><span class="toc-text">7.3 ReLU激活函数（Rectified Linear Units）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E5%89%8D%E5%90%91%E4%BC%A0%E6%92%AD"><span class="toc-text">8. 前向传播</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/05/07/NewMac/NewMac/" title="New Mac Configuration"><img src="/img/top-img/NewMac/NewMac.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="New Mac Configuration"/></a><div class="content"><a class="title" href="/2024/05/07/NewMac/NewMac/" title="New Mac Configuration">New Mac Configuration</a><time datetime="2024-05-07T08:23:10.000Z" title="发表于 2024-05-07 16:23:10">2024-05-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/04/01/Machine_Learning/Regression/" title="ML_Regression">ML_Regression</a><time datetime="2024-04-01T08:23:10.000Z" title="发表于 2024-04-01 16:23:10">2024-04-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/04/01/Machine_Learning/Preface/" title="ML_Preface">ML_Preface</a><time datetime="2024-04-01T08:23:10.000Z" title="发表于 2024-04-01 16:23:10">2024-04-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/03/08/sql_server/sql_server_deployments/" title="sql_server的安装部署"><img src="/img/top-img/sql_server/sql_server_deployments.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="sql_server的安装部署"/></a><div class="content"><a class="title" href="/2024/03/08/sql_server/sql_server_deployments/" title="sql_server的安装部署">sql_server的安装部署</a><time datetime="2024-03-08T08:23:10.000Z" title="发表于 2024-03-08 16:23:10">2024-03-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/03/07/Tricks/Docker/" title="Docker"><img src="/img/top-img/Tricks/Docker.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Docker"/></a><div class="content"><a class="title" href="/2024/03/07/Tricks/Docker/" title="Docker">Docker</a><time datetime="2024-03-07T08:23:10.000Z" title="发表于 2024-03-07 16:23:10">2024-03-07</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Linermao</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a><br>
+<a href="https://beian.miit.gov.cn/" target="_blank">浙ICP备2023022422号-1</a>
+<br>
+<img src = '/img/gongan.png'>
+<a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33030302001279" target="_blank">浙公网安备 33030302001279号</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

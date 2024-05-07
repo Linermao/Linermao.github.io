@@ -1,0 +1,449 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>（六）深度学习之卷积神经网络 | Linermao's kiosk</title><meta name="author" content="Linermao,86281366@qq.com"><meta name="copyright" content="Linermao"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="（六）深度学习之卷积神经网络前言我们接下来使用的卷积的概念不需要深入学习，只需要有大致的印象即可。 推荐观看视频：   【官方双语】卷积的两种可视化|概率论中的X+Y既美妙又复杂 【官方双语】那么……什么是卷积？  1. 卷积在数学中，给定两个函数 $f,g:R^d \rightarrow R$ ，我们定义 卷积（Convolution） 为：      \tag{1-1}     f(s)*g(">
+<meta property="og:type" content="article">
+<meta property="og:title" content="（六）深度学习之卷积神经网络">
+<meta property="og:url" content="http://example.com/2023/07/31/Deep_Learning/%EF%BC%88%E5%85%AD%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/index.html">
+<meta property="og:site_name" content="Linermao&#39;s kiosk">
+<meta property="og:description" content="（六）深度学习之卷积神经网络前言我们接下来使用的卷积的概念不需要深入学习，只需要有大致的印象即可。 推荐观看视频：   【官方双语】卷积的两种可视化|概率论中的X+Y既美妙又复杂 【官方双语】那么……什么是卷积？  1. 卷积在数学中，给定两个函数 $f,g:R^d \rightarrow R$ ，我们定义 卷积（Convolution） 为：      \tag{1-1}     f(s)*g(">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/Avatar.jpg">
+<meta property="article:published_time" content="2023-07-31T08:23:10.000Z">
+<meta property="article:modified_time" content="2024-05-04T11:34:05.501Z">
+<meta property="article:author" content="Linermao">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/Avatar.jpg"><link rel="shortcut icon" href="/images/favicon.jpg"><link rel="canonical" href="http://example.com/2023/07/31/Deep_Learning/%EF%BC%88%E5%85%AD%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?d0547acfa82ccac854b804414ae584ec";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":100,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":230},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '（六）深度学习之卷积神经网络',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: undefined,
+  isToc: true,
+  postUpdate: '2024-05-04 19:34:05'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (true) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/images/Avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">39</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/images/index.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Linermao's kiosk"><span class="site-name">Linermao's kiosk</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">（六）深度学习之卷积神经网络</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-07-31T08:23:10.000Z" title="发表于 2023-07-31 16:23:10">2023-07-31</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-05-04T11:34:05.501Z" title="更新于 2024-05-04 19:34:05">2024-05-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="（六）深度学习之卷积神经网络"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="（六）深度学习之卷积神经网络"><a href="#（六）深度学习之卷积神经网络" class="headerlink" title="（六）深度学习之卷积神经网络"></a>（六）深度学习之卷积神经网络</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>我们接下来使用的卷积的概念不需要深入学习，只需要有大致的印象即可。</p>
+<p>推荐观看视频： </p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Yk4y1K7Az/?spm_id_from=333.337.search-card.all.click&amp;vd_source=17cc46687776ae15dea0c24670a6cf32">【官方双语】卷积的两种可视化|概率论中的X+Y既美妙又复杂</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Vd4y1e7pj/?spm_id_from=333.788.recommend_more_video.-1&amp;vd_source=17cc46687776ae15dea0c24670a6cf32">【官方双语】那么……什么是卷积？</a></li>
+</ul>
+<h2 id="1-卷积"><a href="#1-卷积" class="headerlink" title="1. 卷积"></a>1. 卷积</h2><p>在数学中，给定两个函数 $f,g:R^d \rightarrow R$ ，我们定义 <strong>卷积（Convolution）</strong> 为：</p>
+<script type="math/tex; mode=display">
+    \tag{1-1}
+    f(s)*g(s) = \int_{-\infty}^{\infty} f(x)g(s-x)dx</script><p>在计算机中通常使用离散形式：</p>
+<script type="math/tex; mode=display">
+    \tag{1-2}
+    f(s)*g(s) = \sum_{-\infty}^{\infty} f(x)g(s-x)dx</script><p>（等待水平提升后再深入）</p>
+<h2 id="2-图像卷积"><a href="#2-图像卷积" class="headerlink" title="2. 图像卷积"></a>2. 图像卷积</h2><p>卷积神经网络的设计主要是是用于研究图像数据，接下来我们研究如何将图片的信息提取出来。</p>
+<h3 id="2-1-二维卷积"><a href="#2-1-二维卷积" class="headerlink" title="2.1 二维卷积"></a>2.1 二维卷积</h3><p>我们现在有两个矩阵，姑且先称为大矩阵 $A$ 和小矩阵 $B$ 。我们定义 $A*B$ 的运算法则为：从 $A$ 的左上角开始，选取与 $B$ 维数相同的矩阵 $C$ 内的数与 $B$ 对应位置的数进行点乘求和运算。</p>
+<div align="center">
+<img width="700" height="300" src="/2023/07/31/Deep_Learning/%EF%BC%88%E5%85%AD%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/卷积核.drawio.png">
+<p style="font-size:14px;">图2-1</p></div>
+
+
+<p>$C$ 矩阵也可以叫做 <strong>窗口矩阵</strong>。</p>
+<p>在这里，我们称矩阵 $B$ 为 <strong>卷积核（Convolution Kernel）</strong>。一般而言，卷积核都是奇数长宽，这样才会拥有中心核。</p>
+<p>实际上，我们这里的运算不能称作卷积，而是互相关运算（Cross-Correlation），因为卷积运算还需要我们水平和垂直翻转卷积核。但是由于卷积核是从数据中学习到的，因此无论这些层执行严格的卷积运算还是互相关运算，卷积层的输出都不会受到影响，所以我们可以将这样的互相关运算称作卷积运算，虽然严格意义上他们并不等同。</p>
+<h3 id="2-2-填充与步幅"><a href="#2-2-填充与步幅" class="headerlink" title="2.2 填充与步幅"></a>2.2 填充与步幅</h3><p>我们在 2.1 中可以发现，卷积的输出形状取决于输入形状和卷积核的形状，也就是说，输出形状为：</p>
+<script type="math/tex; mode=display">
+    \tag{2-1}
+    [n_h - k_h + 1]\times[n_l - k_l + 1]</script><p>其中，$n_h,n_l,k_h,k_l$ 分别为矩阵的行数和列数。</p>
+<p>在应用多层卷积时，我们常常丢失边缘像素。解决这个问题的简单方法即为 <strong>填充（padding）</strong>，在输入图像的边界填充元素（通常填充元素是 $0$）。</p>
+<div align="center">
+<img height="300" src="/2023/07/31/Deep_Learning/%EF%BC%88%E5%85%AD%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/步幅.drawio.png">
+<p style="font-size:14px;">图2-2</p></div>
+
+
+<p>我们定义添加的行数为 $p_h$ ，列数为 $p_l$ ，并且让添加的行列数尽量平均分配在两侧。通常，我们让 $p_h = k_h - 1$ ， $p_l = k_l - 1$ 。</p>
+<p>所以形状修改为：</p>
+<script type="math/tex; mode=display">
+    \tag{2-2}
+    [n_h - k_h + p_h + 1]\times[n_l - k_l + p_l + 1]</script><p>我们将每次滑动元素的数量称为 <strong>步幅（stride）</strong> ，在第一个式子里我们假定了步幅为 $1$ ,也就是说窗口每次滑动一行或一列。我们假设步幅为 $s_h,s_l$ ，更新公式：</p>
+<script type="math/tex; mode=display">
+    \tag{2-3}
+    [(n_h - k_h + p_h + s_h)/s_h]\times[(n_l - k_l + p_l + s_l)/s_l]</script><h3 id="2-3-三维卷积"><a href="#2-3-三维卷积" class="headerlink" title="2.3 三维卷积"></a>2.3 三维卷积</h3><p>输入数据是图像时，图像通常是高、长、<strong>通道（channel）</strong> 方向上的3维形状，例如彩色图像具有标准的RGB通道来代表红、绿和蓝。所以我们使用三维卷积的方法进行处理：</p>
+<p>三维位卷积的方法与二维类似，先按照二维卷积的方法计算出所有通道的值，最后相加。</p>
+<div align="center">
+<img height="300" src="/2023/07/31/Deep_Learning/%EF%BC%88%E5%85%AD%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/三维卷积.drawio.png">
+<p style="font-size:14px;">图2-3</p></div>
+
+
+<p>这叫做多通道输入（Multi-Channel Input）。</p>
+<p>我们现在还只有一个输出通道，我们也可以设置多个卷积核来得到多个通道的输出结果，这叫做多通道输出（Multi-Channel Output）。</p>
+<div align="center">
+<img height="300" src="/2023/07/31/Deep_Learning/%EF%BC%88%E5%85%AD%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/三维卷积2.drawio.png">
+<p style="font-size:14px;">图2-4</p></div>
+
+
+<h2 id="3-卷积神经网络"><a href="#3-卷积神经网络" class="headerlink" title="3. 卷积神经网络"></a>3. 卷积神经网络</h2><p><strong>卷积神经网络（Convolutional Neural Network）</strong> 就是依靠三维卷积运算进行的神经网络，可以很有效的减少训练参数，加快训练速度。</p>
+<p>卷积神经网络可以很好的提取高维数据组的信息，但是训练的开销很大，一般需要使用 GPU 运算，并且得到的卷积层信息物理含义不明确，也就是得到了一个 “黑箱模型” 。</p>
+<p>卷积神经网络的基础架构如图所示：</p>
+<div align="center">
+<img height="300" src="/2023/07/31/Deep_Learning/%EF%BC%88%E5%85%AD%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/卷积神经网络.png">
+<p style="font-size:14px;">图3-1</p></div>
+<p align="center" style="font-size:14px;">图片来自《动手学》</p>
+
+
+<p>可以简化为：</p>
+<div align="center">
+<img height="300" src="/2023/07/31/Deep_Learning/%EF%BC%88%E5%85%AD%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/卷积神经网络.drawio.png">
+<p style="font-size:14px;">图3-2</p></div>
+
+
+<p>相较于人工神经网络，卷积神经网络多了 <strong>卷积层</strong> 和 <strong>池化层</strong> 。</p>
+<h3 id="3-1-卷积层"><a href="#3-1-卷积层" class="headerlink" title="3.1 卷积层"></a>3.1 卷积层</h3><p><strong>卷积层（Convolution Layer）</strong> 是构建卷积神经网络的核心层，它产生了网络中大部分的计算量。</p>
+<p>卷积层的输入数据称为 <strong>输入特征图（input feature map）</strong> ，输出数据称为 <strong>输出特征图（output feature map）</strong> 。</p>
+<p>最基本的卷积层就在做下图的事情，中间的运算遵守三维卷积运算：</p>
+<div align="center">
+<img height="200" src="/2023/07/31/Deep_Learning/%EF%BC%88%E5%85%AD%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/卷积层.drawio.png">
+<p style="font-size:14px;">图3-3</p></div>
+
+
+<p>当然，输入输出也可以是更多维数的。</p>
+<h3 id="3-2-卷积层计算量"><a href="#3-2-卷积层计算量" class="headerlink" title="3.2 卷积层计算量"></a>3.2 卷积层计算量</h3><p>假设有一个三维数据输入，大小为：</p>
+<script type="math/tex; mode=display">
+    channel_1 \times h \times l</script><p>通过一个核函数，结构为：</p>
+<script type="math/tex; mode=display">
+    channel_2 \times channel_1 \times k_h \times k_l</script><p>那么会输出大小为 </p>
+<script type="math/tex; mode=display">
+    channel_2 \times r_h \times r_l</script><p>其中：</p>
+<script type="math/tex; mode=display">
+    r_h \times r_l = [(n_h - k_h + p_h + s_h)/s_h] \times [(n_l - k_l + p_l + s_l)/s_l]</script><p>每一次卷积计算会涉及到 $k_h \times k_l$ 次运算，所以一个卷积层的计算量为：</p>
+<script type="math/tex; mode=display">
+    \tag{3-1}
+    channel_1 \times channel_2 \times r_h \times r_l \times k_h \times k_l</script><h3 id="3-3-池化层（汇聚层）"><a href="#3-3-池化层（汇聚层）" class="headerlink" title="3.3 池化层（汇聚层）"></a>3.3 池化层（汇聚层）</h3><p><strong>池化层（Pooling Layer）</strong> 可以用来减少参数。通过对输入的降维，有效减少后续层需要的参数。</p>
+<p>当输入中像素在邻域发生微小位移时，池化层的结果不变，这可以增强网络的鲁棒性，有一定抗扰动的作用。</p>
+<p>常见的池化层方法有 <strong>最大池化（Max Pooling）</strong>，<strong>平均池化（Average Pooling）</strong>。</p>
+<h4 id="3-3-1-最大池化"><a href="#3-3-1-最大池化" class="headerlink" title="3.3.1 最大池化"></a>3.3.1 最大池化</h4><p><strong>最大池化(Max Pooling)</strong> 是将输入的图像划分为若干个矩形区域，对每个子区域输出最大值。输出矩阵的维数计算方法同二维卷积运算。</p>
+<div align="center">
+<img height="300" src="/2023/07/31/Deep_Learning/%EF%BC%88%E5%85%AD%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/最大池化.drawio.png">
+<p style="font-size:14px;">图3-4</p></div>
+
+
+<h4 id="3-3-2-平均池化"><a href="#3-3-2-平均池化" class="headerlink" title="3.3.2 平均池化"></a>3.3.2 平均池化</h4><p><strong>平均池化(Average Pooling)</strong> 是将输入的图像划分为若干个矩形区域，对每个子区域输出所有元素的平均值。</p>
+<div align="center">
+<img height="300" src="/2023/07/31/Deep_Learning/%EF%BC%88%E5%85%AD%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/平均池化.drawio.png">
+<p style="font-size:14px;">图3-5</p></div>
+
+
+<h3 id="3-4-感受野"><a href="#3-4-感受野" class="headerlink" title="3.4 感受野"></a>3.4 感受野</h3><p><strong>感受野（Receptive Field）</strong>，指的是神经网络中神经元 “可见的” 输入区域，在卷积神经网络中，特征图上某个元素的计算受输入图像上某个区域的影响，这个区域即该元素的感受野。</p>
+<div align="center">
+<img height="300" src="/2023/07/31/Deep_Learning/%EF%BC%88%E5%85%AD%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/感受野.png">
+<p style="font-size:14px;">图3-6</p></div>
+<p align="center" style="font-size:14px;">图片来源网络</p>
+
+
+<p>一般来说感受野越大越好，如图像分类中最后卷积层的感受野要大于输入图像，网络深度越深感受野越大性能越好 密集预测要求输出像素的感受野足够的大，确保做出决策时没有忽略重要信息，一般也是越深越好。</p>
+<p>感受野计算时一般不考虑池化层的影响，计算公式：</p>
+<script type="math/tex; mode=display">
+    RF_{l+1} = RF_l + (KernelSize_{l+1}-1) \times \prod_{i=1}^l stride_i</script><p>$RF$ 表示感受野大小， $l$ 表示层数，$KernelSize$ 表示卷积核大小，$stride$ 为步幅大小。</p>
+<h3 id="3-5-1x1卷积核"><a href="#3-5-1x1卷积核" class="headerlink" title="3.5 1x1卷积核"></a>3.5 1x1卷积核</h3><p><strong>1x1卷积核</strong> 也称 <strong>网中网（Network in Network）</strong> ，指长宽均为 $1$ 的卷积核，因此对于输入特征图主要作用在其通道上，实现 <strong>通道信息交流</strong> 。</p>
+<p>1x1卷积核还有一个重要的作用便是它可以表示卷积层的全连接关系。</p>
+<div align="center">
+<img height="300" src="/2023/07/31/Deep_Learning/%EF%BC%88%E5%85%AD%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/1x1卷积核.drawio.png">
+<p style="font-size:14px;">图3-7</p></div>
+
+
+<p>不难看出：</p>
+<script type="math/tex; mode=display">
+    \mathbf{Y_{0}} = K_{00} \cdot \mathbf{X_{0}} + K_{01} \cdot \mathbf{X_{1}}</script><script type="math/tex; mode=display">
+    \mathbf{Y_{1}} = K_{10} \cdot \mathbf{X_{0}} + K_{11} \cdot \mathbf{X_{1}}</script><p>我们用全连接层的方式表达这种函数关系：</p>
+<div align="center">
+<img height="300" src="/2023/07/31/Deep_Learning/%EF%BC%88%E5%85%AD%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/1x1卷积核2.drawio.png">
+<p style="font-size:14px;">图3-8</p></div>
+
+
+<p>可以发现，结构与全连接层非常像，图中所缺失的连线我们就设定其权重为 $0$ 。我们还可以观察到，同一颜色的连线对应的权重值是一致的。</p>
+<p>所以 1x1卷积核可以用来将卷积层转化为全连接层计算。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Linermao</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/07/31/Deep_Learning/%EF%BC%88%E5%85%AD%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">http://example.com/2023/07/31/Deep_Learning/%EF%BC%88%E5%85%AD%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Linermao's kiosk</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/images/Avatar.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/08/03/Deep_Learning/%EF%BC%88%E4%B8%83%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%AE%AD%E7%BB%83%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" title="（七）深度学习之训练卷积神经网络（等待回头完善...）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">（七）深度学习之训练卷积神经网络（等待回头完善...）</div></div></a></div><div class="next-post pull-right"><a href="/2023/07/28/Deep_Learning/%EF%BC%88%E4%BA%94%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%A8%A1%E5%9E%8B%E5%88%9D%E5%A7%8B%E5%8C%96/" title="（五）深度学习之模型初始化"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">（五）深度学习之模型初始化</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/images/Avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Linermao</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">39</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Linermao"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Linermao" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:862813266@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is Linermao's Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%EF%BC%88%E5%85%AD%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="toc-text">（六）深度学习之卷积神经网络</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%8D%B7%E7%A7%AF"><span class="toc-text">1. 卷积</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%9B%BE%E5%83%8F%E5%8D%B7%E7%A7%AF"><span class="toc-text">2. 图像卷积</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E4%BA%8C%E7%BB%B4%E5%8D%B7%E7%A7%AF"><span class="toc-text">2.1 二维卷积</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E5%A1%AB%E5%85%85%E4%B8%8E%E6%AD%A5%E5%B9%85"><span class="toc-text">2.2 填充与步幅</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E4%B8%89%E7%BB%B4%E5%8D%B7%E7%A7%AF"><span class="toc-text">2.3 三维卷积</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="toc-text">3. 卷积神经网络</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E5%8D%B7%E7%A7%AF%E5%B1%82"><span class="toc-text">3.1 卷积层</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E5%8D%B7%E7%A7%AF%E5%B1%82%E8%AE%A1%E7%AE%97%E9%87%8F"><span class="toc-text">3.2 卷积层计算量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E6%B1%A0%E5%8C%96%E5%B1%82%EF%BC%88%E6%B1%87%E8%81%9A%E5%B1%82%EF%BC%89"><span class="toc-text">3.3 池化层（汇聚层）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-1-%E6%9C%80%E5%A4%A7%E6%B1%A0%E5%8C%96"><span class="toc-text">3.3.1 最大池化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-2-%E5%B9%B3%E5%9D%87%E6%B1%A0%E5%8C%96"><span class="toc-text">3.3.2 平均池化</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-%E6%84%9F%E5%8F%97%E9%87%8E"><span class="toc-text">3.4 感受野</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-1x1%E5%8D%B7%E7%A7%AF%E6%A0%B8"><span class="toc-text">3.5 1x1卷积核</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/05/07/NewMac/NewMac/" title="New Mac Configuration"><img src="/img/top-img/NewMac/NewMac.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="New Mac Configuration"/></a><div class="content"><a class="title" href="/2024/05/07/NewMac/NewMac/" title="New Mac Configuration">New Mac Configuration</a><time datetime="2024-05-07T08:23:10.000Z" title="发表于 2024-05-07 16:23:10">2024-05-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/04/01/Machine_Learning/Regression/" title="ML_Regression">ML_Regression</a><time datetime="2024-04-01T08:23:10.000Z" title="发表于 2024-04-01 16:23:10">2024-04-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/04/01/Machine_Learning/Preface/" title="ML_Preface">ML_Preface</a><time datetime="2024-04-01T08:23:10.000Z" title="发表于 2024-04-01 16:23:10">2024-04-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/03/08/sql_server/sql_server_deployments/" title="sql_server的安装部署"><img src="/img/top-img/sql_server/sql_server_deployments.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="sql_server的安装部署"/></a><div class="content"><a class="title" href="/2024/03/08/sql_server/sql_server_deployments/" title="sql_server的安装部署">sql_server的安装部署</a><time datetime="2024-03-08T08:23:10.000Z" title="发表于 2024-03-08 16:23:10">2024-03-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/03/07/Tricks/Docker/" title="Docker"><img src="/img/top-img/Tricks/Docker.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Docker"/></a><div class="content"><a class="title" href="/2024/03/07/Tricks/Docker/" title="Docker">Docker</a><time datetime="2024-03-07T08:23:10.000Z" title="发表于 2024-03-07 16:23:10">2024-03-07</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Linermao</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a><br>
+<a href="https://beian.miit.gov.cn/" target="_blank">浙ICP备2023022422号-1</a>
+<br>
+<img src = '/img/gongan.png'>
+<a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33030302001279" target="_blank">浙公网安备 33030302001279号</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
